@@ -1,0 +1,25 @@
+{
+  "name": "GSS",
+  "version": "0.0.1",
+  "author": "BrenBerry",
+  "description": "",
+  "homepage": "",
+  "repository": "https://github.com/BrenBerry/gss",
+  "bugs": "https://github.com/BrenBerry/gss/issues",
+  "scripts": {
+    "start": "node server"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "dependencies": {
+    "express": "latest",
+    "jade": "latest",
+    "stylus": "latest",
+    "mongoose": "latest",
+    "connect-mongo": "latest",
+    "connect-assets": "latest",
+    "winston": "~0.7.2"
+  }
+}
