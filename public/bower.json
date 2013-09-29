@@ -1,50 +1,38 @@
 {
-  "name": "Combats",
-  "repo": "ButuzGOL/Combats",
+  "name": "GSS",
+  "repo": "BrenBerry/gss",
   "version": "0.0.1",
   "ignore": [
     "**/.*",
     "node_modules",
-    "components"
+    "bower_components"
   ],
   "dependencies": {
     "backbone": "~1.0.0",
     "requirejs": "2.1.x",
-    "almond": "0.2.x",
+    "requirejs-text": "~2.0.10",
     "handlebars": "1.0.x",
-    "marked": "~0.2.8",
-    
     "chaplin": "~0.11.0",
     "console-polyfill": "~0.1.0",
     "lodash": "~2.1.0",
     "moment": "~2.2.x",
     "jquery": "~2.0.x"
   },
-  "overrides": {
-    "backbone": {
-      "dependencies": {
-        "lodash": "*",
-        "jquery": "*"
-      },
-      "main": "backbone.js"
-    },
-    "moment": { "main": "moment.js" },
-    "requirejs": { "main": "null" },
-    "almond": { "main": "null" },
-    "marked": { "main": "lib/marked.js" }
-  },
   "exportsOverride": {
     "jquery": {
       "scripts": "jquery.js"
-    },
-    "almond": {
-      "scripts": "almond.js"
     },
     "backbone": {
       "scripts": "backbone.js"
     },
     "requirejs": {
       "scripts": "require.js"
+    },
+    "requirejs": {
+      "scripts": "require.js"
+    },
+    "requirejs-text": {
+      "scripts": "text.js"
     },
     "lodash": {
       "scripts": "dist/lodash.js"
@@ -59,10 +47,7 @@
       "scripts": "index.js"
     },
     "handlebars": {
-      "scripts": "handlebars.runtime.js"
-    },
-    "marked": {
-      "scripts": "lib/marked.js"
+      "scripts": "handlebars.js"
     }
   }
 }
