@@ -44,6 +44,20 @@ module.exports = function(grunt) {
           cwd: 'src/app/assets/images',
           expand: true,
           src: ['**/*']
+        }, {
+          dest: 'temp/images',
+          cwd: 'src/components/images',
+          expand: true,
+          flatten: true,
+          filter: 'isFile',
+          src: ['**/*']
+        }, {
+          dest: 'temp/fonts',
+          cwd: 'src/components/fonts',
+          expand: true,
+          flatten: true,
+          filter: 'isFile',
+          src: ['**/*']
         }],
       }
     },
@@ -56,6 +70,16 @@ module.exports = function(grunt) {
           targetDir: './src/components',
           cleanup: true,
           install: true
+        }
+      }
+    },
+
+    // Stylesheet Compressor
+    // ---------------------
+    cssmin: {
+      combine: {
+        files: {
+          'temp/styles/main.css': ['src/components/styles/**/*.css', 'temp/styles/main.css']
         }
       }
     },
@@ -135,7 +159,7 @@ module.exports = function(grunt) {
       },
       stylus: {
         files: 'src/app/views/styles/**/*.styl',
-        tasks: 'stylus:compile'
+        tasks: ['stylus:compile', 'cssmin:combine']
       },
     },
   });
@@ -176,6 +200,7 @@ module.exports = function(grunt) {
     'clean:temp',
     'copy:static',
     'stylus:compile',
+    'cssmin:combine',
     'connect:temp',
     'watch'
   ]);

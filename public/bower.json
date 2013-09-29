@@ -16,7 +16,8 @@
     "console-polyfill": "~0.1.0",
     "lodash": "~2.1.0",
     "moment": "~2.2.x",
-    "jquery": "~2.0.x"
+    "jquery": "~2.0.x",
+    "semantic-ui": "*"
   },
   "exportsOverride": {
     "jquery": {
@@ -24,9 +25,6 @@
     },
     "backbone": {
       "scripts": "backbone.js"
-    },
-    "requirejs": {
-      "scripts": "require.js"
     },
     "requirejs": {
       "scripts": "require.js"
@@ -48,6 +46,12 @@
     },
     "handlebars": {
       "scripts": "handlebars.js"
+    },
+    "semantic-ui": {
+      "scripts": "build/packaged/javascript/semantic.js",
+      "styles": "build/packaged/css/semantic.css",
+      "images": "build/packaged/images/**/*",
+      "fonts": "build/packaged/fonts/**/*"
     }
   }
 }

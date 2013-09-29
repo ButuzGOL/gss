@@ -16,6 +16,7 @@
     "connect-url-rewrite": "0.1.x",
     "grunt-contrib-stylus": "0.8.x",
     "connect-livereload": "~0.3.0",
-    "grunt-contrib-jshint": "~0.6.4"
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-cssmin": "~0.6.2"
   }
 }
