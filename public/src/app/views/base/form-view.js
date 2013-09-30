@@ -1,4 +1,4 @@
-define(['views/base/view'], function(View) {
+define(['jquery', 'views/base/view'], function($, View) {
   'use strict';
 
   var FormView = View.extend({

@@ -2,7 +2,7 @@ var express = require('express'),
     mongoStore = require('connect-mongo')(express),
     log = require('../lib/log')(module);
 
-module.exports = function(app, config) {
+module.exports = function(app, config, passport) {
   app.set('showStackError', true);
   
   app.use(express.compress({
@@ -31,6 +31,9 @@ module.exports = function(app, config) {
         collection: 'sessions'
       })
     }));
+
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     app.use(express['static'](__dirname + '/../public'));
 

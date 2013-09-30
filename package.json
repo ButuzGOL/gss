@@ -21,6 +21,11 @@
     "connect-mongo": "latest",
     "connect-assets": "latest",
     "winston": "~0.7.2",
-    "bcrypt": "~0.7.7"
+    "bcrypt": "~0.7.7",
+    "passport": "~0.1.17",
+    "passport-local": "~0.1.6",
+    "passport-http-bearer": "~1.0.1",
+    "lodash": "~2.2.0",
+    "uid": "0.0.2"
   }
 }
