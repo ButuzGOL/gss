@@ -9,7 +9,8 @@ define([
     id: 'site-container',
     regions: {
       header: '#header-container',
-      main: '#main-container'
+      main: '#main-container',
+      footer: '#footer-container',
     },
     template: template
   });

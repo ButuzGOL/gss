@@ -20,6 +20,7 @@
     "mongoose": "latest",
     "connect-mongo": "latest",
     "connect-assets": "latest",
-    "winston": "~0.7.2"
+    "winston": "~0.7.2",
+    "bcrypt": "~0.7.7"
   }
 }

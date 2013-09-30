@@ -17,7 +17,8 @@
     "lodash": "~2.1.0",
     "moment": "~2.2.x",
     "jquery": "~2.0.x",
-    "semantic-ui": "*"
+    "semantic-ui": "*",
+    "normalize-css": "~2.1.3"
   },
   "exportsOverride": {
     "jquery": {
@@ -52,6 +53,9 @@
       "styles": "build/packaged/css/semantic.css",
       "images": "build/packaged/images/**/*",
       "fonts": "build/packaged/fonts/**/*"
+    },
+    "normalize-css": {
+      "styles": "normalize.css"
     }
   }
 }
