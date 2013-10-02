@@ -1,13 +1,13 @@
 define([
   'jquery',
   'underscore',
-  'chaplin/lib/event_broker',
+  'chaplin',
   'lib/utils'
-], function($, _, EventBroker, utils) {
+], function($, _, Chaplin, utils) {
   'use strict';
 
   var ServiceProvider = function() {
-    _(this).extend($.Deferred());
+    _.extend(this, $.Deferred());
 
     utils.deferMethods({
       deferred: this,
@@ -16,7 +16,7 @@ define([
     });
   };
 
-  _.extend(ServiceProvider.prototype, EventBroker);
+  _.extend(ServiceProvider.prototype, Chaplin.EventBroker);
 
   _.extend(ServiceProvider.prototype, {
     loading: false,

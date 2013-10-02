@@ -147,7 +147,7 @@ module.exports = function(grunt) {
     watch: {
       options: {
         spawn: false,
-        livereload: 1337
+        livereload: true
       },
       js: {
         files: 'src/app/**/*.js',

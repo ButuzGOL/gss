@@ -8,7 +8,9 @@ define([
   'use strict';
 
   var GSS = function() {
-    ServiceProvider.prototype.initialize.call(this, arguments);
+    _.extend(this, ServiceProvider.prototype);
+    
+    ServiceProvider.prototype.constructor.call(this, arguments);
 
     this.accessToken = localStorage.getItem('accessToken');
     var authCallback = _.bind(this.loginHandler, this, this.loginHandler);
@@ -17,9 +19,7 @@ define([
     this.subscribeEvent('auth:callback:ostio', authCallback);
   };
 
-  _.extend(GSS.prototype, ServiceProvider);
-
-  _.extend(ServiceProvider.prototype, {
+  _.extend(GSS.prototype, {
     baseUrl: config.api.root
   });
 
@@ -69,8 +69,8 @@ define([
       this.setToken(response.accessToken);
     
       // Publish successful login
-      this.publishEvent('loginSuccessful', { 
-        provider: this, 
+      this.publishEvent('loginSuccessful', {
+        provider: this,
         loginContext: loginContext
       });
 
@@ -85,7 +85,7 @@ define([
   };
 
   GSS.prototype.getUserData = function() {
-    return this.ajax('get', '/v1/users/me');
+    return this.ajax('get', '/users/me');
   };
   
   GSS.prototype.processUserData = function(response) {
@@ -111,5 +111,5 @@ define([
     }
   };
 
-  return ServiceProvider;
+  return GSS;
 });

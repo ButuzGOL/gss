@@ -17,9 +17,6 @@ define([
     // Was the login status already determined?
     loginStatusDetermined: false,
 
-    // This controller governs the LoginView
-    loginView: null,
-
     // Current service provider
     serviceProviderName: null,
 
@@ -33,8 +30,6 @@ define([
 
       // Handler events which trigger an action
 
-      // Show the login dialog
-      this.subscribeEvent('!showLogin', this.showLoginView);
       // Try to login with a service provider
       this.subscribeEvent('!login', this.triggerLogin);
       // Initiate logout
@@ -64,20 +59,6 @@ define([
       });
     },
 
-    // Handler for the global !showLoginView event
-    showLoginView: function() {
-      if (this.loginView) {
-        return;
-      }
-
-      this.loadServiceProviders();
-
-      this.loginView = new LoginView({
-        serviceProviders: this.serviceProviders
-      });
-
-    },
-
     // Handler for the global !login event
     // Delegate the login to the selected service provider
     triggerLogin: function(serviceProviderName) {
@@ -100,9 +81,6 @@ define([
     serviceProviderSession: function(session) {
       // Save the session provider used for login
       this.serviceProviderName = session.provider.name;
-      
-      // Hide the login view
-      this.disposeLoginView();
       
       // Transform session into user attributes and create a user
       session.id = session.userId;
@@ -131,23 +109,11 @@ define([
       // Discard the login info
       this.serviceProviderName = null;
 
-      // Show the login view again
-      this.showLoginView();
       this.publishEvent('loginStatus', false);
     },
 
     userData: function(data) {
       Chaplin.mediator.user.set(data);
-    },
-
-    disposeLoginView: function() {
-      if (!this.loginView) {
-        return;
-      }
-
-      this.loginView.dispose();
-
-      this.loginView = null;
     },
 
     disposeUser: function() {
