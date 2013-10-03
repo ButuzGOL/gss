@@ -13,8 +13,11 @@ define([
       this.compose('header', HeaderView);
       this.compose('footer', FooterView);
       this.compose('sessions', function() {
-        var SessionsController = require('controllers/sessions-controller');
-        this.controller = new SessionsController();
+        var _this = this;
+        
+        require(['controllers/sessions-controller'], function(SessionsController) {
+          _this.controller = new SessionsController();
+        });
       });
     }
   });

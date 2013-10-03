@@ -19,6 +19,7 @@ define([
       var _this = this;
       this.model.signIn().done(function(response) {
         _this.dismiss();
+        _this.publishEvent('auth:setToken', response.accessToken);
       });
     }
   });

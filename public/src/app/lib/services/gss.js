@@ -16,7 +16,7 @@ define([
     var authCallback = _.bind(this.loginHandler, this, this.loginHandler);
     
     this.subscribeEvent('auth:setToken', this.setToken);
-    this.subscribeEvent('auth:callback:ostio', authCallback);
+    this.subscribeEvent('auth:callback:gss', authCallback);
   };
 
   _.extend(GSS.prototype, {
@@ -24,7 +24,7 @@ define([
   });
 
   GSS.prototype.setToken = function(token) {
-    console.log('Ostio#setToken', token);
+    console.log('GSS#setToken', token);
     if (token) {
       localStorage.setItem('accessToken', token);
     } else {
@@ -50,7 +50,7 @@ define([
       url += '?access_token=' + this.accessToken;
     }
 
-    $.ajax({
+    return $.ajax({
       url: url,
       data: data,
       type: type,
@@ -93,12 +93,11 @@ define([
   };
 
   GSS.prototype.getLoginStatus = function(callback) {
-    this.getUserData().always(callback || this.loginStatusHandler);
+    this.getUserData().always(callback || _.bind(this.loginStatusHandler, this));
   };
 
   GSS.prototype.loginStatusHandler = function(response, status) {
     var parsed;
-
     if (!response || status === 'error') {
       this.publishEvent('logout');
     } else {

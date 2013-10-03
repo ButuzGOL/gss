@@ -15,6 +15,8 @@ define([
       PageView.prototype.render.apply(this, arguments);
       this.createSessionsNewForm();
     },
+    listen: {
+    },
     createSessionsNewForm: function() {
       var _this = this,
           sessionsNewForm;

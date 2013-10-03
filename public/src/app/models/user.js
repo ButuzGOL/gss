@@ -1,15 +1,11 @@
 define([
-  'jquery',
   'models/base/model'
-], function($, Model) {
+], function(Model) {
   'use strict';
 
   var User = Model.extend({
     signIn: function() {
-      return $.ajax({
-        url: this.apiRoot + '/sessions/signIn',
-        data: this.serialize()
-      });
+      return this.ajax('GET', '/signin', this.serialize());
     }
   });
 

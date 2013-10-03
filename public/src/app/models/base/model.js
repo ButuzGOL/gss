@@ -1,7 +1,8 @@
 define([
+  'jquery',
   'chaplin',
   'config'
-], function(Chaplin, config) {
+], function($, Chaplin, config) {
   'use strict';
 
   var Model = Chaplin.Model.extend({
@@ -17,8 +18,18 @@ define([
       } else {
         throw new Error('Model must redefine urlPath');
       }
+    },
+    ajax: function(type, url, data) {
+      url = this.apiRoot + url;
+      
+      return $.ajax({
+        url: url,
+        data: data,
+        type: type,
+        dataType: 'json'
+      });
     }
   });
-
+  
   return Model;
 });
