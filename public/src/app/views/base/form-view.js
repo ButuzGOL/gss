@@ -9,7 +9,7 @@ define(['jquery', 'views/base/view'], function($, View) {
       'submit': 'submit'
     },
     listen: {
-      'loginStatus mediator': 'render'
+      'signinStatus mediator': 'render'
     },
     tagName: 'form',
 

@@ -12,7 +12,7 @@ define([
     template: template,
     regions: { 'sessions-new-form': '#sessions-new-form-container' },
     listen: {
-      'loginStatus mediator': 'render'
+      'signinStatus mediator': 'render'
     },
     render: function() {
       PageView.prototype.render.apply(this, arguments);

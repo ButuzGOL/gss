@@ -11,7 +11,7 @@ define([
 
     utils.deferMethods({
       deferred: this,
-      methods: ['triggerLogin', 'getLoginStatus'],
+      methods: ['triggerSignin', 'getSigninStatus'],
       onDeferral: this.load
     });
   };

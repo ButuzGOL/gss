@@ -1,6 +1,6 @@
-{{#ifLoggedIn}}
+{{#ifSignin}}
   {{#withUser}}
-    Hello {{email}}, <a href="{{url "auth#signout"}}">Sign out</a>
+    Hello {{email}}, <a href="{{url "sessions#signout"}}">Sign out</a>
   {{/withUser}}
 {{else}}
   <div class="ui grid">
@@ -11,4 +11,4 @@
       <section id="sessions-new-form-container"></section>
     </div>
   </div>
-{{/ifLoggedIn}}
+{{/ifSignin}}

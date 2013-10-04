@@ -17,10 +17,10 @@ define([
     },
     signIn: function(event) {
       var _this = this;
-      this.model.signIn().done(function(response) {
+      this.model.signin().done(function(response) {
         _this.dismiss();
         _this.publishEvent('auth:setToken', response.accessToken);
-        _this.publishEvent('!login', 'formProvider');
+        _this.publishEvent('!signin', 'formProvider');
       });
     }
   });

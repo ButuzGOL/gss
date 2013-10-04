@@ -4,7 +4,7 @@ define([
   'use strict';
 
   var User = Model.extend({
-    signIn: function() {
+    signin: function() {
       return this.ajax('POST', '/signin', this.serialize());
     }
   });

@@ -3,8 +3,8 @@ define([
   'config',
   'routes',
   'views/layout',
-  'controllers/sessions-controller'
-], function(Chaplin, config, routes, Layout, SessionsController) {
+  'controllers/auth-controller'
+], function(Chaplin, config, routes, Layout, AuthController) {
   'use strict';
   
   // The application object
@@ -19,12 +19,12 @@ define([
           callback = function() {
             Chaplin.Application.prototype.initialize.apply(_this, args);
 
-            _this.unsubscribeEvent('loginStatus', callback);
+            _this.unsubscribeEvent('signinStatus', callback);
           };
 
-      this.subscribeEvent('loginStatus', callback);
+      this.subscribeEvent('signinStatus', callback);
 
-      new SessionsController();
+      new AuthController();
     },
     initLayout: function (options) {
       this.layout = new Layout(options);

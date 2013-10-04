@@ -15,8 +15,8 @@ define([
     return Chaplin.helpers.reverse(routeName, params);
   });
 
-  // Choose block by user login status
-  Handlebars.registerHelper('ifLoggedIn', function(options) {
+  // Choose block by user signin status
+  Handlebars.registerHelper('ifSignin', function(options) {
     var method = (Chaplin.mediator.user) ? options.fn : options.inverse;
     return method(this);
   });

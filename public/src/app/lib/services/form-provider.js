@@ -54,26 +54,26 @@ define([
     });
   };
 
-  FormProvider.prototype.triggerLogin = function(loginContext) {
-    this.getLoginStatus();
+  FormProvider.prototype.triggerSignin = function(signinContext) {
+    this.getSigninStatus();
   };
 
-  FormProvider.prototype.loginHandler = function(loginContext, response) {
+  FormProvider.prototype.signinHandler = function(signinContext, response) {
     if (response) {
       this.setToken(response.accessToken);
     
-      // Publish successful login
-      this.publishEvent('loginSuccessful', {
+      // Publish successful signin
+      this.publishEvent('signinSuccessful', {
         provider: this,
-        loginContext: loginContext
+        signinContext: signinContext
       });
 
       // Publish the session
       this.getUserData().done(this.processUserData);
     } else {
-      this.publishEvent('loginFail', {
+      this.publishEvent('signinFail', {
         provider: this,
-        loginContext: loginContext
+        signinContext: signinContext
       });
     }
   };
@@ -86,21 +86,21 @@ define([
     this.publishEvent('userData', response);
   };
 
-  FormProvider.prototype.getLoginStatus = function(callback) {
+  FormProvider.prototype.getSigninStatus = function(callback) {
     if (!this.accessToken) {
-      this.publishEvent('loginStatus', false);
+      this.publishEvent('signinStatus', false);
       return;
     }
 
-    callback = callback || _.bind(this.loginStatusHandler, this);
+    callback = callback || _.bind(this.signinStatusHandler, this);
     this.getUserData().always(callback);
   };
 
-  FormProvider.prototype.loginStatusHandler = function(response, status) {
+  FormProvider.prototype.signinStatusHandler = function(response, status) {
     var parsed;
 
     if (!response || status === 'error') {
-      this.publishEvent('logout');
+      this.publishEvent('signout');
     } else {
       parsed = UserModel.prototype.parse.call(null, response);
       this.publishEvent('serviceProviderSession', _.extend(parsed, {
