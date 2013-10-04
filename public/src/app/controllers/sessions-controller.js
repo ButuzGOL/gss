@@ -2,9 +2,9 @@ define([
   'underscore',
   'chaplin',
   'controllers/base/controller',
-  'lib/services/gss',
+  'lib/services/form-provider',
   'models/user'
-], function(_, Chaplin, Controller, GSS, UserModel) {
+], function(_, Chaplin, Controller, FormProvider, UserModel) {
   'use strict';
 
   var SessionsController = Controller.extend({
@@ -12,7 +12,7 @@ define([
     // This just hardcoded here to avoid async loading of service providers.
     // In the end you might want to do this.
     serviceProviders: {
-      gss: new GSS()
+      formProvider: new FormProvider()
     },
     // Was the login status already determined?
     loginStatusDetermined: false,
@@ -22,7 +22,8 @@ define([
 
     initialize: function() {
       // Login flow events
-      this.subscribeEvent('serviceProviderSession', this.serviceProviderSession);
+      this.subscribeEvent('serviceProviderSession',
+        this.serviceProviderSession);
 
       // Handle login
       this.subscribeEvent('logout', this.logout);

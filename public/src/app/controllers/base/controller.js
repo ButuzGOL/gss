@@ -12,13 +12,6 @@ define([
       this.compose('site', SiteView);
       this.compose('header', HeaderView);
       this.compose('footer', FooterView);
-      this.compose('sessions', function() {
-        var _this = this;
-        
-        require(['controllers/sessions-controller'], function(SessionsController) {
-          _this.controller = new SessionsController();
-        });
-      });
     }
   });
 

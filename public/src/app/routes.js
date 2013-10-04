@@ -5,5 +5,6 @@ define(function() {
   // `match` is match method of the Router
   return function(match) {
     match('', 'pages#home');
+    match('signout', 'auth#signout');
   };
 });

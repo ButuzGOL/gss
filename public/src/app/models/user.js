@@ -5,7 +5,7 @@ define([
 
   var User = Model.extend({
     signIn: function() {
-      return this.ajax('GET', '/signin', this.serialize());
+      return this.ajax('POST', '/signin', this.serialize());
     }
   });
 

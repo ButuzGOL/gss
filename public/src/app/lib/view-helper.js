@@ -14,4 +14,17 @@ define([
         options = params.pop();
     return Chaplin.helpers.reverse(routeName, params);
   });
+
+  // Choose block by user login status
+  Handlebars.registerHelper('ifLoggedIn', function(options) {
+    var method = (Chaplin.mediator.user) ? options.fn : options.inverse;
+    return method(this);
+  });
+
+  // Evaluate block with context being current user
+  Handlebars.registerHelper('withUser', function(options) {
+    var context = Chaplin.mediator.user.getAttributes();
+    return Handlebars.helpers.with.call(this, context, options);
+  });
+
 });

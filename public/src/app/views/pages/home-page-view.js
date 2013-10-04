@@ -11,11 +11,12 @@ define([
     autoRender: true,
     template: template,
     regions: { 'sessions-new-form': '#sessions-new-form-container' },
+    listen: {
+      'loginStatus mediator': 'render'
+    },
     render: function() {
       PageView.prototype.render.apply(this, arguments);
       this.createSessionsNewForm();
-    },
-    listen: {
     },
     createSessionsNewForm: function() {
       var _this = this,
