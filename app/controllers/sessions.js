@@ -1,5 +1,6 @@
 var User = require('../models/user'),
-    passport = require ('passport');
+    passport = require ('passport'),
+    _ = require('lodash');
 
 exports.create = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
@@ -16,11 +17,11 @@ exports.create = function(req, res, next) {
         return next(err);
       }
 
-      res.send(_.pick(user, 'authenticationToken'));
+      res.send(_.pick(user, 'accessToken'));
     });
   })(req, res, next);
-}
+};
 
 exports.destroy = function(req, res) {
   req.logout();
-}
+};

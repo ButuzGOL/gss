@@ -13,7 +13,7 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  authenticationToken: { type: String },
+  accessToken: { type: String },
   created: {
     type: Date,
     default: Date.now
@@ -25,7 +25,7 @@ UserSchema.pre('save', function(next) {
   var user = this,
       SALT_WORK_FACTOR = 10;
 
-  user.authenticationToken = uid(10);
+  user.accessToken = uid(10);
 
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
     if (err) {

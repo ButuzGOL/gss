@@ -41,10 +41,9 @@ module.exports = function(passport) {
     });
   }));
 
-  passport.use(new BearerStrategy({}, function(authenticationToken, done) {
-    debugger;
+  passport.use(new BearerStrategy({}, function(accessToken, done) {
     process.nextTick(function() {
-      User.findOne({ authenticationToken: authenticationToken },
+      User.findOne({ accessToken: accessToken },
         function(err, user) {
         if (err) {
           return done(err);

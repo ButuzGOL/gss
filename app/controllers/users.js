@@ -10,8 +10,8 @@ exports.create = function(req, res) {
       
     res.send(_.pick(user, '_id'));
   });
-}
+};
 
 exports.me = function(req, res) {
-  res.json({ email: req.user.email });
-}
+  res.json(_.pick(req.user, '_id', 'email'));
+};
