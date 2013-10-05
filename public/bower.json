@@ -11,14 +11,14 @@
     "backbone": "~1.0.0",
     "requirejs": "2.1.x",
     "requirejs-text": "~2.0.10",
-    "handlebars": "1.0.x",
     "chaplin": "~0.11.0",
     "console-polyfill": "~0.1.0",
     "lodash": "~2.1.0",
     "moment": "~2.2.x",
     "jquery": "~2.0.x",
     "semantic-ui": "*",
-    "normalize-css": "~2.1.3"
+    "normalize-css": "~2.1.3",
+    "jade": "~0.35.0"
   },
   "exportsOverride": {
     "jquery": {
@@ -39,14 +39,14 @@
     "chaplin": {
       "scripts": "chaplin.js"
     },
+    "jade": {
+      "scripts": "jade.js"
+    },
     "moment": {
       "scripts": "moment.js"
     },
     "console-polyfill": {
       "scripts": "index.js"
-    },
-    "handlebars": {
-      "scripts": "handlebars.js"
     },
     "semantic-ui": {
       "scripts": "build/packaged/javascript/semantic.js",

@@ -1,4 +1,7 @@
-define(['jquery', 'views/base/view'], function($, View) {
+define([
+  'jquery',
+  'views/base/view'
+], function($, View) {
   'use strict';
 
   var FormView = View.extend({
@@ -12,7 +15,14 @@ define(['jquery', 'views/base/view'], function($, View) {
       'signinStatus mediator': 'render'
     },
     tagName: 'form',
-
+    errorMessages: null,
+    
+    getTemplateData: function() {
+      var object = View.prototype.getTemplateData.apply(this, arguments);
+      object.errorMessages = this.errorMessages;
+      return object;
+    },
+    
     publishSave: function(response) {
       if (this.saveEvent) {
         this.publishEvent(this.saveEvent, response);

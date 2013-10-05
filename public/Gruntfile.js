@@ -147,14 +147,14 @@ module.exports = function(grunt) {
     watch: {
       options: {
         spawn: false,
-        livereload: 12345
+        livereload: true
       },
       js: {
         files: 'src/app/**/*.js',
         tasks: ['copy:static', 'jshint']
       },
-      handlebars: {
-        files: 'src/app/views/templates/**/*.hbs',
+      jade: {
+        files: 'src/app/views/templates/**/*.jade',
         tasks: ['copy:static']
       },
       stylus: {

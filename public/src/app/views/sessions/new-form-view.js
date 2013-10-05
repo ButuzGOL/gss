@@ -1,6 +1,6 @@
 define([
   'views/base/form-view',
-  'text!views/templates/sessions/new-form.hbs'
+  'text!views/templates/sessions/new-form.jade'
 ], function(FormView, template) {
   'use strict';
 
@@ -18,9 +18,14 @@ define([
     signIn: function(event) {
       var _this = this;
       this.model.signin().done(function(response) {
-        _this.dismiss();
-        _this.publishEvent('auth:setToken', response.accessToken);
-        _this.publishEvent('!signin', 'formProvider');
+        if (response.accessToken) {
+          _this.dismiss();
+          _this.publishEvent('auth:setToken', response.accessToken);
+          _this.publishEvent('!signin', 'formProvider');
+        } else if (response.message) {
+          _this.errorMessages = response.message;
+          _this.render();
+        }
       });
     }
   });

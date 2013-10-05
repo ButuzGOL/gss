@@ -2,7 +2,7 @@ define([
   'views/base/page-view',
   'views/sessions/new-form-view',
   'models/user',
-  'text!views/templates/pages/home-page.hbs'
+  'text!views/templates/pages/home-page.jade'
 ], function(PageView, SessionsNewFormView, UserModel, template) {
   'use strict';
 

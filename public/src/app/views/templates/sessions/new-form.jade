@@ -1,0 +1,15 @@
+.ui.form.segment
+  .ui.error.message
+  .field
+    .ui.left.labeled.icon.input
+      input(type='email', name='email', placeholder='Email', required='required')
+      i.user.icon
+      .ui.corner.label
+        i.icon.asterisk
+  .field
+    .ui.left.labeled.icon.input
+      input(name='password', type='password', required='required')
+      i.lock.icon
+      .ui.corner.label
+        i.icon.asterisk
+  input.ui.blue.submit.button(type='submit', data-action='sign-in', value='Sign in')

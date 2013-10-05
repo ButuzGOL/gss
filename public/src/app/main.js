@@ -10,7 +10,7 @@ require.config({
     jquery: '../components/scripts/jquery/jquery',
     underscore: '../components/scripts/lodash/lodash',
     backbone: '../components/scripts/backbone/backbone',
-    handlebars: '../components/scripts/handlebars/handlebars',
+    jade: '../components/scripts/jade/jade',
     text: '../components/scripts/requirejs-text/text',
     chaplin: '../components/scripts/chaplin/chaplin'
   },
@@ -24,9 +24,9 @@ require.config({
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
     },
-    handlebars: {
-      exports: 'Handlebars'
-    }
+    // jade: {
+    //   exports: 'Jade'
+    // }
   }
 });
 
