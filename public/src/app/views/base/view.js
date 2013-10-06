@@ -5,7 +5,8 @@ define([
   'chaplin',
   'lib/utils',
   'helpers/application-helper',
-  'helpers/sessions-helper'
+  'helpers/sessions-helper',
+  'text!views/templates/shared/form-error-messages.jade'
 ], function(require, _, Jade, Chaplin, utils) {
   'use strict';
 
@@ -30,18 +31,16 @@ define([
 
     getTemplateData: function() {
       var object = Chaplin.View.prototype.getTemplateData.
-        apply(this, arguments),
-          globalTemplateData = {};
-
+        apply(this, arguments);
+      
       if (Chaplin.mediator.user) {
-        globalTemplateData.currentUser = utils.serialize(Chaplin.mediator.user);
+        object.currentUser = utils.serialize(Chaplin.mediator.user);
       }
 
-      return _.extend(
+      return _.defaults(object,
         require('helpers/application-helper'),
-        require('helpers/sessions-helper'),
-        globalTemplateData,
-        object);
+        require('helpers/sessions-helper')
+      );
     }
   });
 

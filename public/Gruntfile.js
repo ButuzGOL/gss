@@ -74,10 +74,10 @@ module.exports = function(grunt) {
       }
     },
 
-    // Stylesheet Compressor
-    // ---------------------
-    cssmin: {
-      combine: {
+    // Stylesheet Concat
+    // -----------------
+    concat: {
+      css: {
         files: {
           'temp/styles/main.css': ['src/components/styles/**/*.css', 'temp/styles/main.css']
         }
@@ -159,7 +159,7 @@ module.exports = function(grunt) {
       },
       stylus: {
         files: 'src/app/views/styles/**/*.styl',
-        tasks: ['stylus:compile', 'cssmin:combine']
+        tasks: ['stylus:compile', 'concat:css']
       },
     },
   });
@@ -200,7 +200,7 @@ module.exports = function(grunt) {
     'clean:temp',
     'copy:static',
     'stylus:compile',
-    'cssmin:combine',
+    'concat:css',
     'connect:temp',
     'watch'
   ]);

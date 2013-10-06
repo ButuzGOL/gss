@@ -18,7 +18,8 @@
     "jquery": "~2.0.x",
     "semantic-ui": "*",
     "normalize-css": "~2.1.3",
-    "jade": "~0.35.0"
+    "jade": "~0.35.0",
+    "nprogress": "git@github.com:rstacruz/nprogress.git#596cc5ede695dbf6b7c5e9f35ad56b1b47e40d2c"
   },
   "exportsOverride": {
     "jquery": {
@@ -47,6 +48,10 @@
     },
     "console-polyfill": {
       "scripts": "index.js"
+    },
+    "nprogress": {
+      "scripts": "nprogress.js",
+      "styles": "nprogress.css"
     },
     "semantic-ui": {
       "scripts": "build/packaged/javascript/semantic.js",

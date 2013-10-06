@@ -1,15 +1,16 @@
 .ui.form.segment
-  .ui.error.message
+  != render('shared/form-error-messages', { errorMessages: errorMessages })
   .field
     .ui.left.labeled.icon.input
-      input(type='email', name='email', placeholder='Email', required='required')
+      input(type='email', name='email', placeholder='Email', value=email required='required')
       i.user.icon
       .ui.corner.label
         i.icon.asterisk
   .field
     .ui.left.labeled.icon.input
-      input(name='password', type='password', required='required')
+      input(name='password', type='password', value=password, required='required')
       i.lock.icon
       .ui.corner.label
         i.icon.asterisk
   input.ui.blue.submit.button(type='submit', data-action='sign-in', value='Sign in')
+  .ui.small.inline.loader

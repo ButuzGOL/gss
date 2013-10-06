@@ -12,7 +12,9 @@ require.config({
     backbone: '../components/scripts/backbone/backbone',
     jade: '../components/scripts/jade/jade',
     text: '../components/scripts/requirejs-text/text',
-    chaplin: '../components/scripts/chaplin/chaplin'
+    chaplin: '../components/scripts/chaplin/chaplin',
+
+    nprogress: '../components/scripts/nprogress/nprogress'
   },
   // Underscore and Backbone are not AMD-capable per default,
   // so we need to use the AMD wrapping of RequireJS
@@ -24,9 +26,9 @@ require.config({
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
     },
-    // jade: {
-    //   exports: 'Jade'
-    // }
+    nprogress: {
+      deps: ['jquery']
+    }
   }
 });
 
@@ -37,3 +39,9 @@ require(['application', 'routes'], function(Application, routes) {
     controllerSuffix: '-controller'
   });
 });
+
+window.log = function() {
+  try {
+    return console.log.apply(console, arguments);
+  } catch (_error) {}
+};

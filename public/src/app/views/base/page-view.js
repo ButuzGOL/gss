@@ -1,4 +1,6 @@
-define(['views/base/view'], function(View) {
+define([
+  'views/base/view'
+], function(View) {
   'use strict';
 
   var PageView = View.extend({

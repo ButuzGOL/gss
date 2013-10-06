@@ -15,12 +15,21 @@ define([
       'signinStatus mediator': 'render'
     },
     tagName: 'form',
-    errorMessages: null,
+    errorMessages: [],
+    loaderSelector: '.loader',
     
     getTemplateData: function() {
       var object = View.prototype.getTemplateData.apply(this, arguments);
+      
       object.errorMessages = this.errorMessages;
+
       return object;
+    },
+
+    render: function() {
+      View.prototype.render.apply(this, arguments);
+
+      this.errorMessages = [];
     },
     
     publishSave: function(response) {
@@ -50,6 +59,7 @@ define([
     submit: function(event) {
       event.preventDefault();
       if (event.currentTarget.checkValidity()) {
+        this.disableActions();
         this.save(event);
       }
     },
@@ -67,6 +77,11 @@ define([
         setObject[$(event.currentTarget).attr('name')] = $(event.currentTarget).val();
         this.model.set(setObject);
       }
+    },
+
+    disableActions: function() {
+      $('input, button, textarea, select', this.$el).prop('disabled', true);
+      $(this.loader, this.$el).show();
     }
   });
 

@@ -13,9 +13,9 @@ define([
       'keydown [name=password]': 'changedAttribute'
     },
     save: function(event) {
-      this.signIn(event);
+      this.signin(event);
     },
-    signIn: function(event) {
+    signin: function(event) {
       var _this = this;
       this.model.signin().done(function(response) {
         if (response.accessToken) {
@@ -23,9 +23,11 @@ define([
           _this.publishEvent('auth:setToken', response.accessToken);
           _this.publishEvent('!signin', 'formProvider');
         } else if (response.message) {
-          _this.errorMessages = response.message;
+          _this.errorMessages.push(response.message);
           _this.render();
         }
+      }).fail(function(error) {
+        _this.render();
       });
     }
   });

@@ -2,9 +2,10 @@ define([
   'chaplin',
   'config',
   'routes',
+  'nprogress',
   'views/layout',
   'controllers/auth-controller'
-], function(Chaplin, config, routes, Layout, AuthController) {
+], function(Chaplin, config, routes, NProgress, Layout, AuthController) {
   'use strict';
   
   // The application object
@@ -24,6 +25,7 @@ define([
 
       this.subscribeEvent('signinStatus', callback);
 
+      NProgress.start();
       new AuthController();
     },
     initLayout: function (options) {

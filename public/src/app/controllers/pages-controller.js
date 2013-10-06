@@ -1,6 +1,6 @@
 define([
   'controllers/base/controller',
-  'views/pages/home-page-view'
+  'views/pages/home-page-view',
 ], function(Controller, PagesHomePageView) {
   'use strict';
 
