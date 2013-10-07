@@ -8,6 +8,7 @@ define([
     container: 'body',
     id: 'site-container',
     regions: {
+      messages: '#messages-container',
       header: '#header-container',
       main: '#main-container',
       footer: '#footer-container',

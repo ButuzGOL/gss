@@ -1,9 +1,10 @@
 define([
   'chaplin',
   'views/site-view',
+  'views/messages-view',
   'views/header-view',
   'views/footer-view'
-], function(Chaplin, SiteView, HeaderView, FooterView) {
+], function(Chaplin, SiteView, MessagesView, HeaderView, FooterView) {
   'use strict';
 
   var Controller = Chaplin.Controller.extend({
@@ -11,6 +12,7 @@ define([
       this.publishEvent('controller:actionStart');
 
       this.compose('site', SiteView);
+      this.compose('messages', MessagesView);
       this.compose('header', HeaderView);
       this.compose('footer', FooterView);
     },
