@@ -11,26 +11,52 @@ define([
     region: 'messages',
     id: 'messages',
     template: template,
-    initialize: function() {
-      $(document).ajaxError(function(event, jqxhr, settings, exception) {
-        log('ajax-error', event, jqxhr, settings);
-        log('---');
-      });
+    // Format
+    // type: error|warning|success,
+    // message: '',
+    // description: ''
+    messages: [],
+    listen: {
+      'errorHandler:catch mediator': 'addErrorMessage',
+      'errorHandler:throw mediator': 'render'
+    },
+    events: {
+      'click .close': 'removeMessage'
+    },
+    render: function() {
+      View.prototype.render.apply(this, arguments);
+      this.messages = [];
+    },
+    getTemplateData: function() {
+      var object = View.prototype.getTemplateData.apply(this, arguments);
 
-      $(document).ajaxComplete(function(event, xhr, settings) {
-        log('ajax-complete', event, xhr, settings);
-        log('ajax-count', $.active);
-        log('---');
-      });
+      object.messages = this.messages;
+      
+      return object;
+    },
+    addSuccessMessage: function(message) {
+      this.addMessage('success', message);
+    },
+    addErrorMessage: function(message) {
+      this.addMessage('error', message);
+    },
+    addInfoMessage: function(message) {
+      this.addMessage('info', message);
+    },
+    addWarningMessage: function(message) {
+      this.addMessage('warning', message);
+    },
+    addMessage: function(type, message) {
+      if (type) {
+        message.type = type;
+      }
+
+      this.messages.push(message);
+    },
+    removeMessage: function(event) {
+      $(event.target).parent().remove();
     }
   });
 
   return MessagesView;
 });
-
-
-// listen to ajax->error
-//   add error message
-// listen to ajax->active 
-//   render messages views
-// 

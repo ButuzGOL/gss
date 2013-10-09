@@ -38,6 +38,7 @@ define([
       }
 
       return _.defaults(object,
+        _,
         require('helpers/application-helper'),
         require('helpers/sessions-helper')
       );

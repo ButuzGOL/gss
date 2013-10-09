@@ -1,11 +1,16 @@
 define([
+  'jquery',
+  'underscore',
   'chaplin',
-  'config',
+  'settings',
+  'lib/utils',
   'routes',
   'nprogress',
   'views/layout',
-  'controllers/auth-controller'
-], function(Chaplin, config, routes, NProgress, Layout, AuthController) {
+  'controllers/auth-controller',
+  'lib/error-handler'
+], function($, _, Chaplin, settings, utils, routes, NProgress, Layout, AuthController,
+  ErrorHandler) {
   'use strict';
   
   // The application object
@@ -13,28 +18,50 @@ define([
   var Application = Chaplin.Application.extend({
     // Set your application name here so the document title is set to
     // “Controller title – Site title” (see Layout#adjustTitle)
-    title: config.title,
-    initialize: function() {
+    title: settings.title,
+    start: function() {
       var _this = this,
-          args = arguments,
-          callback = function() {
-            Chaplin.Application.prototype.initialize.apply(_this, args);
-
+          callback = _.after(3, function() {
             _this.unsubscribeEvent('signinStatus', callback);
-          };
 
-      this.subscribeEvent('signinStatus', callback);
+            Chaplin.Application.prototype.start.apply(_this);
 
+            Chaplin.mediator.globalVars.errorHandler.isLock = false;
+            Chaplin.mediator.globalVars.errorHandler.publishCurrentErrors();
+          });
+      
       NProgress.start();
+
+      this.initErrorHandler();
+      this.initAuth(callback);
+      this.initSettings(callback);
+      this.initLocales(callback);
+    },
+    initErrorHandler: function() {
+      Chaplin.mediator.globalVars.errorHandler = new ErrorHandler();
+      Chaplin.mediator.globalVars.errorHandler.isLock = true;
+    },
+    initAuth: function(callback) {
+      this.subscribeEvent('signinStatus', callback);
       new AuthController();
     },
-    initLayout: function (options) {
-      this.layout = new Layout(options);
+    initSettings: function(callback) {
+      $.get(settings.api.root + '/settings').done(function(response) {
+        _.extend(settings, utils.dotToNestedObject(response));
+      }).always(callback);
+    },
+    initLocales: function(callback) {
+      $.get(settings.api.root + '/locales').done(function(response) {
+      }).always(callback);
+    },
+    initLayout: function(options) {
+      this.layout = new Layout(_.defaults(options, { title: this.title }));
     },
     initMediator: function() {
       if (!Chaplin.mediator.user) {
         Chaplin.mediator.user = null;
       }
+      Chaplin.mediator.globalVars = {};
 
       Chaplin.Application.prototype.initMediator.call(this, arguments);
     }

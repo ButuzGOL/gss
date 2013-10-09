@@ -14,7 +14,9 @@ require.config({
     text: '../components/scripts/requirejs-text/text',
     chaplin: '../components/scripts/chaplin/chaplin',
 
-    nprogress: '../components/scripts/nprogress/nprogress'
+    nprogress: '../components/scripts/nprogress/nprogress',
+
+    semantic: '../components/scripts/semantic-ui/semantic',
   },
   // Underscore and Backbone are not AMD-capable per default,
   // so we need to use the AMD wrapping of RequireJS

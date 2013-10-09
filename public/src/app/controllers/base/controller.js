@@ -10,7 +10,7 @@ define([
   var Controller = Chaplin.Controller.extend({
     beforeAction: function(params, route) {
       this.publishEvent('controller:actionStart');
-
+      
       this.compose('site', SiteView);
       this.compose('messages', MessagesView);
       this.compose('header', HeaderView);

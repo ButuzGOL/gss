@@ -1,0 +1,11 @@
+if messages.length
+  .ui.grid
+    .middle.ten.wide.column
+      for item in messages
+        .ui.message(class=item.type)
+            i.close.icon
+            if item.message
+              .header
+                = item.message
+            if item.description
+              p= item.description

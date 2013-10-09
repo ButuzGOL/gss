@@ -1,10 +1,10 @@
 define([
   'jquery',
   'underscore',
-  'config',
+  'settings',
   'lib/services/provider',
   'models/user'
-], function($, _, config, ServiceProvider, UserModel) {
+], function($, _, settings, ServiceProvider, UserModel) {
   'use strict';
 
   var FormProvider = function() {
@@ -18,7 +18,7 @@ define([
   };
 
   _.extend(FormProvider.prototype, {
-    baseUrl: config.api.root
+    baseUrl: settings.api.root
   });
 
   FormProvider.prototype.setToken = function(token) {

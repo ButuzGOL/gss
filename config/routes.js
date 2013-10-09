@@ -1,6 +1,7 @@
 var sessions = require('../app/controllers/sessions'),
     users = require('../app/controllers/users'),
-    settings = require('../app/controllers/settings');
+    settings = require('../app/controllers/settings'),
+    locales = require('../app/controllers/locales');
 
 module.exports = function(app, passport) {
   app.post('/signin', sessions.create);
@@ -14,4 +15,5 @@ module.exports = function(app, passport) {
   );
 
   app.get('/settings', settings.index);
+  app.get('/locales', locales.index);
 };

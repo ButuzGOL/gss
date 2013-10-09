@@ -13,6 +13,23 @@ define([
   // Add additional application-specific properties and methods
 
   _.extend(utils, {
+    dotToNestedObject: function(object) {
+      var oo = {}, t,
+          parts, part,
+          key, k;
+
+      for (k in object) {
+        t = oo;
+        parts = k.split('.');
+        key = parts.pop();
+        while (parts.length) {
+          part = parts.shift();
+          t = t[part] = t[part] || {};
+        }
+        t[key] = object[k];
+      }
+      return oo;
+    },
     /*
       Wrap methods so they can be called before a deferred is resolved.
       The actual methods are called once the deferred is resolved.
