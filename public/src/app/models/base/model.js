@@ -1,12 +1,12 @@
 define([
   'jquery',
   'chaplin',
-  'settings'
-], function($, Chaplin, settings) {
+  'config/application'
+], function($, Chaplin, applicationConfig) {
   'use strict';
 
   var Model = Chaplin.Model.extend({
-    apiRoot: settings.api.root,
+    apiRoot: applicationConfig.api.root,
     urlPath: function() {
       return '';
     },

@@ -12,11 +12,14 @@ require.config({
     backbone: '../components/scripts/backbone/backbone',
     jade: '../components/scripts/jade/jade',
     text: '../components/scripts/requirejs-text/text',
+    json: '../components/scripts/requirejs-plugins/json',
     chaplin: '../components/scripts/chaplin/chaplin',
 
     nprogress: '../components/scripts/nprogress/nprogress',
 
     semantic: '../components/scripts/semantic-ui/semantic',
+
+    i18n: '../components/scripts/i18next/i18next.amd-1.7.1'
   },
   // Underscore and Backbone are not AMD-capable per default,
   // so we need to use the AMD wrapping of RequireJS

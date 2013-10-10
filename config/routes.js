@@ -1,6 +1,6 @@
 var sessions = require('../app/controllers/sessions'),
     users = require('../app/controllers/users'),
-    settings = require('../app/controllers/settings'),
+    config = require('../app/controllers/config'),
     locales = require('../app/controllers/locales');
 
 module.exports = function(app, passport) {
@@ -14,6 +14,6 @@ module.exports = function(app, passport) {
     users.me
   );
 
-  app.get('/settings', settings.index);
-  app.get('/locales', locales.index);
+  app.get('/config', config.index);
+  app.get('/locales/:lang', locales.index);
 };

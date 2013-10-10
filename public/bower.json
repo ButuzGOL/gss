@@ -19,7 +19,9 @@
     "semantic-ui": "*",
     "normalize-css": "~2.1.3",
     "jade": "~0.35.0",
-    "nprogress": "git@github.com:rstacruz/nprogress.git#596cc5ede695dbf6b7c5e9f35ad56b1b47e40d2c"
+    "nprogress": "git@github.com:rstacruz/nprogress.git#596cc5ede695dbf6b7c5e9f35ad56b1b47e40d2c",
+    "i18next": "~1.7.1",
+    "requirejs-plugins": "~1.0.2"
   },
   "exportsOverride": {
     "jquery": {
@@ -61,6 +63,12 @@
     },
     "normalize-css": {
       "styles": "normalize.css"
+    },
+    "i18next": {
+      "scripts": "release/i18next.amd-1.7.1.js"
+    },
+    "requirejs-plugins": {
+      "scripts": "src/json.js"
     }
   }
 }

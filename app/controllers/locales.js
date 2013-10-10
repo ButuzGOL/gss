@@ -1,5 +1,4 @@
 exports.index = function(req, res, next) {
-  res.json({
-    'hello': 'hala'
-  });
+  var locale = require('../../config/locales/' + req.params.lang);
+  res.json(locale);
 };

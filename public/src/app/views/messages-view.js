@@ -1,8 +1,9 @@
 define([
   'jquery',
+  'underscore',
   'views/base/view',
   'text!views/templates/messages.jade'
-], function($, View, template) {
+], function($, _, View, template) {
   'use strict';
 
   var MessagesView = View.extend({
@@ -17,8 +18,7 @@ define([
     // description: ''
     messages: [],
     listen: {
-      'errorHandler:catch mediator': 'addErrorMessage',
-      'errorHandler:throw mediator': 'render'
+      'errorHandler:throw mediator': 'addErrorMessagesAndRender'
     },
     events: {
       'click .close': 'removeMessage'
@@ -33,6 +33,15 @@ define([
       object.messages = this.messages;
       
       return object;
+    },
+    addErrorMessagesAndRender: function(messages) {
+      var _this = this;
+      
+      _.forEach(messages, function(message) {
+        _this.addErrorMessage(message);
+      });
+
+      this.render();
     },
     addSuccessMessage: function(message) {
       this.addMessage('success', message);

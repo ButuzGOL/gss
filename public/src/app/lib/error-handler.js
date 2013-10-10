@@ -14,7 +14,7 @@ define([
   _.extend(ErrorHandler.prototype, {
     errorsBasket: [],
     currentErrors: [],
-    isLock: false
+    isLocked: false
   });
 
   ErrorHandler.prototype.subscribeForAjaxEvents = function() {
@@ -31,8 +31,8 @@ define([
   };
 
   ErrorHandler.prototype.publishCurrentErrors = function() {
-    if ($.active === 1 && this.currentErrors.length && !this.isLock) {
-      this.publishEvent('errorHandler:throw');
+    if ($.active === 1 && this.currentErrors.length && !this.isLocked) {
+      this.publishEvent('errorHandler:throw', this.currentErrors);
       this.errorsBasket.push(this.currentErrors);
       this.currentErrors = [];
     }
