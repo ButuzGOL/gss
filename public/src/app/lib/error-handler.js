@@ -21,7 +21,18 @@ define([
     var _this = this;
     
     $(document).ajaxError(function(event, jqxhr, settings, exception) {
-      _this.currentErrors.push(jqxhr.responseJSON);
+      var error;
+      if (jqxhr.responseJSON) {
+        error = jqxhr.responseJSON;
+      } else {
+        error = {
+          code: jqxhr.status,
+          message: jqxhr.responseText,
+          description: ''
+        };
+      }
+
+      _this.currentErrors.push(error);
       _this.publishEvent('errorHandler:catch', _.last(_this.currentErrors));
     });
 

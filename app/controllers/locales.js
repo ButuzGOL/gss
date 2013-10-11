@@ -6,11 +6,7 @@ exports.index = function(req, res, next) {
     locale = require('../../config/locales/' + req.params.lang);
   } catch(e) {
     log.error('Locale ' + req.params.lang + ' not found');
-    return res.send(404, {
-      code: 404,
-      message: 'Locale not found',
-      description: ''
-    });
+    return res.send(404);
   }
 
   res.json(locale);

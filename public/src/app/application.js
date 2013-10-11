@@ -54,7 +54,7 @@ define([
       new AuthController();
     },
     initConfig: function(callback) {
-      $.get(applicationConfig.api.root + '/config').done(function(response) {
+      return $.get(applicationConfig.api.root + '/config').done(function(response) {
         _.extend(backendConfig, response);
       }).always(callback);
     },
