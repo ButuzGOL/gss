@@ -1,5 +1,5 @@
 if isSignedIn()
-  Hello #{currentUser.email}, 
+  | #{i18n.t('hello')} #{currentUser.email}, 
   a(href=url('sessions#signout')) Sign out
 else
   .ui.grid

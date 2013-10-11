@@ -1,13 +1,14 @@
 define([
   'require',
   'underscore',
+  'i18n',
   'jade',
   'chaplin',
   'lib/utils',
   'helpers/application-helper',
   'helpers/sessions-helper',
   'text!views/templates/shared/form-error-messages.jade'
-], function(require, _, Jade, Chaplin, utils) {
+], function(require, _, i18n, Jade, Chaplin, utils) {
   'use strict';
 
   var View = Chaplin.View.extend({
@@ -38,7 +39,8 @@ define([
       }
 
       return _.defaults(object,
-        _,
+        { _: _ },
+        { i18n: i18n },
         require('helpers/application-helper'),
         require('helpers/sessions-helper')
       );

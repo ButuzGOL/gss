@@ -7,6 +7,6 @@ define(function() {
     api: {
       root: 'http://localhost:3000'
     },
-    locale: 'ru'
+    locale: 'en'
   };
 });

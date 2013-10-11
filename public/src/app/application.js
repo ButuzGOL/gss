@@ -36,7 +36,7 @@ define([
       this.initErrorHandler();
       this.initAuth(callback);
       this.initConfig(callback);
-      this.initLocales(callback);
+      this.initLocale(callback);
     },
     initErrorHandler: function() {
       Chaplin.mediator.globalVars.errorHandler = new ErrorHandler();
@@ -51,44 +51,51 @@ define([
         _.extend(backendConfig, response);
       }).always(callback);
     },
-    initLocales: function(callback) {
-      var localeCallback1 = function(locale, data, hasError) {
-            var callback = function(data) {
-              var resStore = {},
-                  ns = 'translation';
+    initLocale: function(callback) {
+      var localeCallback,
+          prepareCallback;
+      
+      prepareCallback = function(data) {
+        var processCallback = function(data, locale) {
+          if (!locale) {
+            locale = applicationConfig.locale;
+          }
+
+          var resStore = {},
+              ns = 'translation';
+      
+          resStore[locale] = {};
+          resStore[locale][ns] = data;
           
-              resStore[locale] = {};
-              resStore[locale][ns] = data;
-              
-              i18n.init({ resStore: resStore });
+          i18n.init({ lng: locale, resStore: resStore });
 
-              log(i18n.t('hello'), i18n.t('men'));
-            };
+          callback();
+        };
 
-            if (hasError) {
-              require(['json!config/locales/en.json'], callback);
-            } else {
-              callback(data);
-            }
-          },
-
-
-          localeCallback = function(data, hasError) {
+        if (!data) {
+          require(['json!config/locales/en.json'], function(data) {
+            processCallback(data, 'en');
+          });
+        } else {
+          processCallback(data);
+        }
+      };
+      
+      localeCallback = function(data) {
         $.get(
           applicationConfig.api.root + '/locales/' + applicationConfig.locale).
           done(function(response) {
   
-          localeCallback1(applicationConfig.locale, _.extend(data, response));
+          prepareCallback((data) ? _.extend(data, response) : response);
 
         }).fail(function() {
-          localeCallback1('en', data, hasError);
-        }).always(callback);
+          prepareCallback(data);
+        });
       };
 
       require(['json!config/locales/' + applicationConfig.locale + '.json'],
-        localeCallback,
-        function(error) {
-          localeCallback({}, true);
+        localeCallback, function(error) {
+          localeCallback(null);
         }
       );
     },

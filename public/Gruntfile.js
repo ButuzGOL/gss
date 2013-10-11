@@ -112,7 +112,8 @@ module.exports = function(grunt) {
         'browser': true,
         'predef': [
           'define',
-          'require'
+          'require',
+          'log'
         ],
       },
       src: [
