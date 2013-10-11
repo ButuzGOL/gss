@@ -26,21 +26,28 @@ define([
             _this.unsubscribeEvent('signinStatus', callback);
 
             Chaplin.Application.prototype.start.apply(_this);
-
-            Chaplin.mediator.globalVars.errorHandler.isLocked = false;
-            Chaplin.mediator.globalVars.errorHandler.publishCurrentErrors();
           });
       
       NProgress.start();
 
       this.initErrorHandler();
-      this.initAuth(callback);
       this.initConfig(callback);
+      this.initAuth(callback);
       this.initLocale(callback);
     },
     initErrorHandler: function() {
-      Chaplin.mediator.globalVars.errorHandler = new ErrorHandler();
-      Chaplin.mediator.globalVars.errorHandler.isLocked = true;
+      Chaplin.mediator.errorHandler = new ErrorHandler();
+      Chaplin.mediator.errorHandler.isLocked = true;
+
+      var _this = this,
+          callback = function() {
+        _this.unsubscribeEvent('messagesView:ready', callback);
+
+        Chaplin.mediator.errorHandler.isLocked = false;
+        Chaplin.mediator.errorHandler.publishCurrentErrors();
+      };
+
+      this.subscribeEvent('messagesView:ready', callback);
     },
     initAuth: function(callback) {
       this.subscribeEvent('signinStatus', callback);
@@ -106,8 +113,9 @@ define([
       if (!Chaplin.mediator.user) {
         Chaplin.mediator.user = null;
       }
-      Chaplin.mediator.globalVars = {};
 
+      Chaplin.mediator.errorHandler = null;
+      
       Chaplin.Application.prototype.initMediator.call(this, arguments);
     }
   });

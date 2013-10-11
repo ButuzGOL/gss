@@ -31,7 +31,7 @@ define([
   };
 
   ErrorHandler.prototype.publishCurrentErrors = function() {
-    if ($.active === 1 && this.currentErrors.length && !this.isLocked) {
+    if ($.active <= 1 && this.currentErrors.length && !this.isLocked) {
       this.publishEvent('errorHandler:throw', this.currentErrors);
       this.errorsBasket.push(this.currentErrors);
       this.currentErrors = [];

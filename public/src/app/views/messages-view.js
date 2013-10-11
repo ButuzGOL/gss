@@ -7,6 +7,11 @@ define([
   'use strict';
 
   var MessagesView = View.extend({
+    constructor: function() {
+      View.prototype.constructor.apply(this, arguments);
+      
+      this.publishEvent('messagesView:ready');
+    },
     autoRender: true,
     className: 'messages',
     region: 'messages',
@@ -40,7 +45,7 @@ define([
       _.forEach(messages, function(message) {
         _this.addErrorMessage(message);
       });
-
+      
       this.render();
     },
     addSuccessMessage: function(message) {
