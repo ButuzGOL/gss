@@ -9,6 +9,10 @@ define([
 
   var Controller = Chaplin.Controller.extend({
     beforeAction: function(params, route) {
+      if (Chaplin.mediator.applicationError && route.name !== 'errors#500') {
+        return this.redirectTo('errors#500');
+      }
+
       this.publishEvent('controller:actionStart');
       
       this.compose('site', SiteView);

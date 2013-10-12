@@ -22,18 +22,23 @@ define([
     title: applicationConfig.title,
     start: function() {
       var _this = this,
-          callback = _.after(3, function() {
+          callback = function() {
             _this.unsubscribeEvent('signinStatus', callback);
 
             Chaplin.Application.prototype.start.apply(_this);
-          });
+          },
+          callbackWithDelay = _.after(2, callback);
       
       NProgress.start();
 
       this.initErrorHandler();
-      this.initConfig(callback);
-      this.initAuth(callback);
-      this.initLocale(callback);
+      this.initConfig().done(function() {
+        _this.initAuth(callbackWithDelay);
+        _this.initLocale(callbackWithDelay);
+      }).fail(function() {
+        Chaplin.mediator.applicationError = true;
+        callback();
+      });
     },
     initErrorHandler: function() {
       Chaplin.mediator.errorHandler = new ErrorHandler();
@@ -115,6 +120,7 @@ define([
       }
 
       Chaplin.mediator.errorHandler = null;
+      Chaplin.mediator.applicationError = false;
       
       Chaplin.Application.prototype.initMediator.call(this, arguments);
     }

@@ -1,12 +1,12 @@
-var frontendSettings = require('../../config/frontend');
+var frontendConfig = require('../../config/frontend');
 
 exports.index = function(req, res, next) {
   
-  // res.json(frontendSettings);
+  res.json(frontendConfig);
 
-  res.json(403, {
-    code: 1,
-    message: 'Hala',
-    description: 'Ole'
-  });
+  // res.json(403, {
+  //   code: 1,
+  //   message: 'Hala',
+  //   description: 'Ole'
+  // });
 };
