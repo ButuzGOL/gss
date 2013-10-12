@@ -1,5 +1,4 @@
-var User = require('../models/user'),
-    passport = require ('passport'),
+var passport = require ('passport'),
     _ = require('lodash');
 
 exports.create = function(req, res, next) {

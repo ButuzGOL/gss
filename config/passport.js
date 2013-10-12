@@ -1,4 +1,4 @@
-var User = require('../app/models/user'),
+var UserModel = require('../app/models/user'),
     LocalStrategy = require('passport-local').Strategy,
     BearerStrategy = require('passport-http-bearer').Strategy,
     log = require('../lib/log')(module);
@@ -9,14 +9,14 @@ module.exports = function(passport) {
   });
 
   passport.deserializeUser(function(id, done) {
-    User.find(id, function(err, user) {
+    UserModel.find(id, function(err, user) {
       done(null, user);
     });
   });
 
-  passport.use(new LocalStrategy({ usernameField: 'email' 
-    }, function(email, password, done) {
-    User.findOne({ email: email }, function(err, user) {
+  passport.use(new LocalStrategy({ usernameField: 'email' },
+    function(email, password, done) {
+    UserModel.findOne({ email: email }, function(err, user) {
       if (err) {
         return done(err);
       }
@@ -43,7 +43,7 @@ module.exports = function(passport) {
 
   passport.use(new BearerStrategy({}, function(accessToken, done) {
     process.nextTick(function() {
-      User.findOne({ accessToken: accessToken },
+      UserModel.findOne({ accessToken: accessToken },
         function(err, user) {
         if (err) {
           return done(err);

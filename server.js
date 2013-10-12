@@ -1,24 +1,12 @@
 var express = require('express'),
     http = require('http'),
-    mongoose = require('mongoose'),
     log = require('./lib/log')(module),
     passport = require('passport');
 
 var env = process.env.NODE_ENV || 'development',
-    config = require('./config/environment')[env],
-    db;
-    
-// Bootstrap database
-log.info('Connecting to database at ' + config.db);
-mongoose.connect(config.db);
-db = mongoose.connection;
+    config = require('./config/environment')[env];
 
-db.on('error', function (err) {
-  log.error('connection error:', err.message);
-});
-db.once('open', function callback () {
-  log.info("Connected to DB!");
-});
+require('./config/mongoose')(config);
 
 require('./config/passport')(passport);
 

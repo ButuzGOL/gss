@@ -27,5 +27,8 @@
     "passport-http-bearer": "~1.0.1",
     "lodash": "~2.2.0",
     "uid": "0.0.2"
+  },
+  "devDependencies": {
+    "Faker": "~0.5.11"
   }
 }

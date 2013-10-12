@@ -1,8 +1,8 @@
-var User = require('../models/user'),
+var UserModel = require('../models/user'),
     _ = require('lodash');
 
 exports.create = function(req, res) {
-  var user = new User(req.body);
+  var user = new UserModel(req.body);
   user.save(function(err) {
     if (err) {
       return res.send(err);

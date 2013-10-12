@@ -23,7 +23,7 @@ define([
     start: function() {
       var _this = this,
           callback = function() {
-            _this.unsubscribeEvent('signinStatus', callback);
+            _this.unsubscribeEvent('signinStatus', callbackWithDelay);
 
             Chaplin.Application.prototype.start.apply(_this);
           },
