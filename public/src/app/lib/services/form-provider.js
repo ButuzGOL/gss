@@ -4,13 +4,13 @@ define([
   'config/application',
   'lib/services/provider',
   'models/user'
-], function($, _, applicationConfig, ServiceProvider, UserModel) {
+], function($, _, applicationConfig, Provider, User) {
   'use strict';
 
   var FormProvider = function() {
-    _.extend(this, ServiceProvider.prototype);
+    _.extend(this, Provider.prototype);
     
-    ServiceProvider.prototype.constructor.call(this, arguments);
+    Provider.prototype.constructor.call(this, arguments);
 
     this.accessToken = localStorage.getItem('accessToken');
     
@@ -102,8 +102,8 @@ define([
     if (!response || status === 'error') {
       this.publishEvent('signout');
     } else {
-      parsed = UserModel.prototype.parse.call(null, response);
-      this.publishEvent('serviceProviderSession', _.extend(parsed, {
+      parsed = User.prototype.parse.call(null, response);
+      this.publishEvent('ProviderSession', _.extend(parsed, {
         provider: this,
         userId: response._id,
         accessToken: this.accessToken

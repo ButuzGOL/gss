@@ -3,7 +3,7 @@ define([
   'views/sessions/new-form-view',
   'models/user',
   'text!views/templates/pages/home-page.jade'
-], function(PageView, SessionsNewFormView, UserModel, template) {
+], function(PageView, SessionsNewFormView, User, template) {
   'use strict';
 
   var PagesHomePageView = PageView.extend({
@@ -25,7 +25,7 @@ define([
       if (this.user) {
         this.user.dispose();
       }
-      this.user = new UserModel();
+      this.user = new User();
 
       sessionsNewForm = new SessionsNewFormView({
         model: this.user,

@@ -4,7 +4,7 @@ define([
   'controllers/base/controller',
   'lib/services/form-provider',
   'models/user'
-], function(_, Chaplin, Controller, FormProvider, UserModel) {
+], function(_, Chaplin, Controller, FormProvider, User) {
   'use strict';
 
   var AuthController = Controller.extend({
@@ -49,7 +49,7 @@ define([
 
     // Instantiate the user with the given data
     createUser: function(userData) {
-      Chaplin.mediator.user = new UserModel(userData);
+      Chaplin.mediator.user = new User(userData);
     },
 
     // Try to get an existing session from one of the signin providers

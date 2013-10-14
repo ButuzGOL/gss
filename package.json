@@ -29,6 +29,8 @@
     "uid": "0.0.2"
   },
   "devDependencies": {
-    "Faker": "~0.5.11"
+    "Faker": "~0.5.11",
+    "should": "~2.0.1",
+    "supertest": "~0.8.0"
   }
 }

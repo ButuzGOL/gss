@@ -7,7 +7,9 @@ module.exports = function(app, passport) {
   app.post('/signin', sessions.create);
   app.delete('/signout', sessions.destroy);
 
-  app.post('/users', users.create);
+  app.post('/users',
+    passport.authenticate('bearer', { session: false }),
+    users.create);
 
   app.get('/users/me',
     passport.authenticate('bearer', { session: false }),

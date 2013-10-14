@@ -1,4 +1,4 @@
-var UserModel = require('../app/models/user'),
+var User = require('../app/models/user'),
     LocalStrategy = require('passport-local').Strategy,
     BearerStrategy = require('passport-http-bearer').Strategy,
     log = require('../lib/log')(module);
@@ -9,53 +9,60 @@ module.exports = function(passport) {
   });
 
   passport.deserializeUser(function(id, done) {
-    UserModel.find(id, function(err, user) {
+    User.find(id, function(err, user) {
       done(null, user);
     });
   });
 
   passport.use(new LocalStrategy({ usernameField: 'email' },
     function(email, password, done) {
-    UserModel.findOne({ email: email }, function(err, user) {
-      if (err) {
-        return done(err);
-      }
+      User.findOne({ email: email }, function(err, user) {
+        var message;
 
-      if (!user) {
-        log.info('Auth: Unknown user');
-        return done(null, false, { message: 'Unknown user' });
-      }
-
-      user.comparePassword(password, function(err, isMatch) {
         if (err) {
           return done(err);
         }
 
-        if (isMatch) {
-          return done(null, user);
-        } else {
-          log.info('Auth: Invalid password');
-          return done(null, false, { message: 'Invalid password' });
+        if (!user) {
+          message = 'Unknown user';
+          log.info('Auth: ' + message);
+          return done(null, false, { message: message });
         }
+
+        user.comparePassword(password, function(err, isMatch) {
+          if (err) {
+            return done(err);
+          }
+
+          if (isMatch) {
+            return done(null, user);
+          } else {
+            message = 'Invalid password';
+            log.info('Auth: ' + message);
+            return done(null, false, { message: message });
+          }
+        });
       });
-    });
   }));
 
   passport.use(new BearerStrategy({}, function(accessToken, done) {
     process.nextTick(function() {
-      UserModel.findOne({ accessToken: accessToken },
+      User.findOne({ accessToken: accessToken },
         function(err, user) {
-        if (err) {
-          return done(err);
-        }
+          var message;
 
-        if (user) {
-          return done(null, user);
-        } else {
-          log.info('Auth: Invalid authentication token');
-          return done(null, false,
-            { message: 'Invalid authentication token' });
-        }
+          if (err) {
+            return done(err);
+          }
+
+          if (user) {
+            return done(null, user);
+          } else {
+            message = 'Invalid authentication token';
+            log.info('Auth: ' + message);
+            return done(null, false,
+              { message: message });
+          }
       });
     });
   }));
