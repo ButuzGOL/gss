@@ -5,7 +5,9 @@ var sessions = require('../app/controllers/sessions'),
 
 module.exports = function(app, passport) {
   app.post('/signin', sessions.create);
-  app.delete('/signout', sessions.destroy);
+  app.delete('/signout',
+    passport.authenticate('bearer', { session: false }),
+    sessions.destroy);
 
   app.post('/users',
     passport.authenticate('bearer', { session: false }),

@@ -1,28 +1,40 @@
-process.env.NODE_ENV = 'test';
-
 var request = require('supertest'),
     should = require('should'),
-    app = require('../../server'),
 
+    app = require('../server'),
+
+    helper = require('../helper'),
+    factories = require('../factories'),
+    
     User = require('../../app/models/user');
 
-describe('Users', function () {
+describe('Users', function() {
   var fakeUser = {
         email: 'foobar@example.com',
         password: 'foobar'
       },
-      accessToken;
+      accessToken,
+      signin = function(done) {
+        helper.signin(request(app), fakeUser)
+          .expect(200, function(err, res) {
+            if (err) return done(err);
+            
+            accessToken = res.body.accessToken;
 
-  before(function (done) {
+            done();
+          });
+      };
+
+  before(function(done) {
     User.remove(function() {
-      user = new User(fakeUser);
+      user = factories.createUser(fakeUser);
       user.save(done);
     });
   });
 
-  describe('POST /users', function () {
-    context('when not logged in', function () {
-      it('should throw Unauthorized', function(done) {
+  describe('POST /users', function() {
+    context('when not logged in', function() {
+      it('should throw unauthorized', function(done) {
         request(app)
           .post('/users')
           .field('email', 'foobar1@example.com')
@@ -32,23 +44,13 @@ describe('Users', function () {
           .end(done);
       });
     });
-    context('when logged in', function () {
-      before(function (done) {
-        request(app)
-          .post('/signin')
-          .field('email', fakeUser.email)
-          .field('password', fakeUser.password)
-          .expect(200, function(err, res) {
-            if (err) return done(err);
-            
-            accessToken = res.body.accessToken;
-
-            done();
-          });
+    context('when logged in', function() {
+      before(function(done) {
+        signin(done);
       });
       it('should save user', function(done) {
         request(app)
-          .post('/users?access_token=' + accessToken)
+          .post(helper.addAccessTokenToUrl('/users', accessToken))
           .field('email', 'foobar1@example.com')
           .field('password', fakeUser.password)
           .expect(200, function(err, res) {
@@ -61,13 +63,45 @@ describe('Users', function () {
           });
       });
       it('should not save user', function(done) {
+        request(app)
+          .post(helper.addAccessTokenToUrl('/users', accessToken))
+          .expect(200, function(err, res) {
+            if (err) return done(err);
+
+            res.body.should.have.property('errors');
+            res.body.errors.should.have.properties('email', 'password');
+
+            done();
+          });
       });
     });
   });
-  describe('GET /users/me', function () {
-    context('when not logged in', function () {
+  describe('GET /users/me', function() {
+    context('when not logged in', function() {
+      it('should throw unauthorized', function(done) {
+        request(app)
+          .get('/users/me')
+          .expect(401)
+          .expect(/Unauthorized/)
+          .end(done);
+      });
     });
-    context('when logged in', function () {
+    context('when logged in', function() {
+      before(function(done) {
+        signin(done);
+      });
+      it('should response current user info', function(done) {
+        request(app)
+          .get(helper.addAccessTokenToUrl('/users/me', accessToken))
+          .expect(200, function(err, res) {
+            if (err) return done(err);
+            
+            res.body.should.have.property('_id');
+            res.body['_id'].should.be.ok;
+
+            done();
+          });
+      });
     });
   });
 });

@@ -1,19 +1,17 @@
-var config = require('../../config/environment')['test'];
-require('../../config/mongoose')(config);
-
 var should = require('should'),
+
+    app = require('../server'),
+    
+    factories = require('../factories'),
+
     User = require('../../app/models/user');
 
-describe('User', function () {
-  var user,
-      fakeUser = {
-      email: 'foobar@example.com',
-      password: 'foobar'
-    };
+describe('User', function() {
+  var user;
 
   beforeEach(function(done) {
     User.remove(done);
-    user = new User(fakeUser);
+    user = factories.createUser();
   });
 
   describe('#save()', function() {
@@ -56,7 +54,7 @@ describe('User', function () {
       });
 
       it('should be unique email', function(done) {
-        var anotherUser = new User(fakeUser);
+        var anotherUser = factories.createUser();
 
         user.save(function(err, user) {
           anotherUser.save(function(err, anotherUser) {

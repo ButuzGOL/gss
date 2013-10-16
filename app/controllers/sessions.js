@@ -21,6 +21,7 @@ exports.create = function(req, res, next) {
   })(req, res, next);
 };
 
-exports.destroy = function(req, res) {
+exports.destroy = function(req, res, next) {
   req.logout();
+  res.send(200);
 };
