@@ -98,7 +98,7 @@ define([
           applicationConfig.api.root + '/locales/' + applicationConfig.locale).
           done(function(response) {
   
-          prepareCallback((data) ? _.extend(data, response) : response);
+          prepareCallback(data ? _.extend(data, response) : response);
 
         }).fail(function() {
           prepareCallback(data);

@@ -23,6 +23,11 @@
     "i18next": "~1.7.1",
     "requirejs-plugins": "~1.0.2"
   },
+  "devDependencies": {
+    "mocha": "~1.13.0",
+    "expect": "~0.2.0",
+    "sinon": "~1.7.3"
+  },
   "exportsOverride": {
     "jquery": {
       "scripts": "jquery.js"
@@ -69,6 +74,16 @@
     },
     "requirejs-plugins": {
       "scripts": "src/json.js"
+    },
+    "mocha": {
+      "scripts": "mocha.js",
+      "styles": "mocha.css"
+    },
+    "expect": {
+      "scripts": "expect.js"
+    },
+    "sinon": {
+      "scripts": "lib/**/*.js"
     }
   }
 }

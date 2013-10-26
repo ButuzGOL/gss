@@ -1,7 +1,7 @@
 // Configure the AMD module loader
 require.config({
   // The path where your JavaScripts are located
-  baseUrl: './app/',
+  baseUrl: '../app',
   // For easier development, disable browser caching
   // Of course, this should be removed in a production environment
   // urlArgs: 'bust=' +  (new Date()).getTime(),
@@ -19,7 +19,9 @@ require.config({
 
     semantic: '../components/scripts/semantic-ui/semantic',
 
-    i18n: '../components/scripts/i18next/i18next.amd-1.7.1'
+    i18n: '../components/scripts/i18next/i18next.amd-1.7.1',
+    // expect: '../components/scripts/expect/expect',
+    // sinon:  '../vendor/sinon',
   },
   // Underscore and Backbone are not AMD-capable per default,
   // so we need to use the AMD wrapping of RequireJS
@@ -33,24 +35,21 @@ require.config({
     },
     nprogress: {
       deps: ['jquery']
-    }
+    },
+    // expect: {
+    //   exports: 'expect'
+    // },
+    // sinon: {
+    //   exports: 'sinon'
+    // }
   }
 });
 
-require(['../models/user'], function() {
+require([
+  // '../test/models/base/model',
+  // '../test/models/base/collection',
+  // '../test/models/user',
+  '../test/controllers/base/controller'
+], function() {
   mocha.run();
 });
-
-// Bootstrap the application
-require(['application', 'routes'], function(Application, routes) {
-  new Application({
-    routes: routes,
-    controllerSuffix: '-controller'
-  });
-});
-
-window.log = function() {
-  try {
-    return console.log.apply(console, arguments);
-  } catch (_error) {}
-};

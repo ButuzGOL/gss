@@ -66,4 +66,14 @@ describe('User', function() {
       });
     });
   });
+
+  describe('#comparePassword()', function() {
+    it('should be equal', function(done) {
+      done();
+    });
+
+    it('should not be equal', function(done) {
+      done();
+    });
+  })
 });

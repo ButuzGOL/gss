@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1", http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width", name="viewport" />
+    
+    <title>Gone in Sixty Seconds Test Runner</title>
+
+    <link rel="stylesheet" href="/components/styles/mocha/mocha.css">
+    <script src="/components/scripts/mocha/mocha.js"></script>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <div id="test"></div>
+
+    <script>mocha.setup('bdd')</script>
+
+    <script src="/components/scripts/requirejs/require.js"
+      data-main="/test/main"></script>
+      <script src="/components/scripts/expect/expect.js"></script>
+      <script src="/vendor/sinon.js"></script>
+      <script src="/vendor/sinon-expect.js"></script>
+  </body>
+</html>

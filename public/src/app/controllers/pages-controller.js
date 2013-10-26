@@ -6,6 +6,7 @@ define([
 
   var PagesController = Controller.extend({
     home: function(params) {
+      console.log('home');
       this.view = new PagesHomePageView();
     }
   });

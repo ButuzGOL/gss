@@ -151,7 +151,7 @@ module.exports = function(grunt) {
         livereload: true
       },
       js: {
-        files: 'src/app/**/*.js',
+        files: ['src/app/**/*.js', 'src/test/**/*.js'],
         tasks: ['copy:static', 'jshint']
       },
       jade: {

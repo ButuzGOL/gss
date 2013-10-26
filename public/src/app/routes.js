@@ -5,6 +5,7 @@ define(function() {
   // `match` is match method of the Router
   return function(match) {
     match('', 'pages#home');
+    
     match('signout', 'sessions#signout');
 
     match('404', 'errors#404');

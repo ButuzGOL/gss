@@ -6,12 +6,12 @@ var faker = require('Faker'),
     env = 'development',
     config = require('./config/environment')[env],
     
-    UserModel = require('./app/models/user');
+    User = require('./app/models/user');
 
 require('./config/mongoose')(config);
 
-UserModel.remove({}, function(err) {
-  var user = new UserModel({
+User.remove({}, function(err) {
+  var user = new User({
     email: 'email@email.com',
     password: 'password'
   });
@@ -25,7 +25,7 @@ UserModel.remove({}, function(err) {
   });
 
   _.forEach(_.range(10), function() {
-    var user = new UserModel({
+    var user = new User({
       email: faker.Internet.email(),
       password: faker.Lorem.words(1)[0]
     });

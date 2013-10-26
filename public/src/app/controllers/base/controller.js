@@ -9,6 +9,7 @@ define([
 
   var Controller = Chaplin.Controller.extend({
     beforeAction: function(params, route) {
+      console.log('in beforeAction');
       if (Chaplin.mediator.applicationError && route.name !== 'errors#500') {
         return this.redirectTo('errors#500');
       }
