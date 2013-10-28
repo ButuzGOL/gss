@@ -1,23 +1,18 @@
 define([
-  // 'expect',
-  // 'sinon',
+  'expect',
+  'jquery',
   
   'chaplin',
-  'controllers/base/controller',
-  'controllers/pages-controller',
-  'controllers/errors-controller',
-  'routes'
-], function(/*expect, sinon,*/ Chaplin,
-  Controller, PagesController, ErrorsController, routes) {
+  'routes',
+  'controllers/base/controller'
+], function(expect, $, Chaplin, routes, Controller) {
   'use strict';
   
   describe('Controller', function() {
     var router,
         dispatcher,
         layout,
-        composer,
-        dispatchCallback,
-        actionStartCallback;
+        composer;
 
     beforeEach(function() {
       router = new Chaplin.Router();
@@ -30,53 +25,85 @@ define([
     });
     afterEach(function() {
       dispatcher.dispose();
-      dispatcher = null;
       router.dispose();
       composer.dispose();
       layout.dispose();
-      Chaplin.mediator.applicationError = false;
-      Chaplin.mediator.unsubscribe('dispatcher:dispatch', dispatchCallback);
     });
 
     describe('#beforeAction()', function() {
-      it('should publish event controller:actionStart', function() {
-        // Chaplin.mediator.subscribe('controller:actionStart', function() {
-        //   console.log('3');
-        //   done();
-        // });
-        // console.log('1')
-        // router.route({ url: '/' });
-        // console.log('2')
-        var spy = sinon.spy();
-        Chaplin.mediator.subscribe('controller:actionStart', spy);
-        console.log('1');
+      it('should publish event controller:actionStart', function(done) {
+        var callback = function() {
+          Chaplin.mediator.unsubscribe('controller:actionStart', callback);
+          done();
+        };
+
+        Chaplin.mediator.subscribe('controller:actionStart', callback);
         router.route({ url: '/' });
-        console.log('2');
-        console.log(expect(spy).was);
-        expect(spy).was.calledOnce();
-        console.log('3');
       });
-      // it('should redirect to 505 on application error', function(done) {
-      //   Chaplin.mediator.applicationError = true;
-      //   dispatchCallback = function(controller, params, route) {
-      //     expect(route.name).to.be('errors#500');
-      //     done();
-      //   };
-      //   Chaplin.mediator.subscribe('dispatcher:dispatch', dispatchCallback);
-      //   router.route({ url: '/' });
-      // });
-      // it('should make composition', function(done) {
-      //   dispatchCallback = function(controller, params, route) {
-      //     expect(composer.composition).to.only.have.keys('site', 'messages',
-      //       'header', 'footer');
-      //     done();
-      //   };
-      //   Chaplin.mediator.subscribe('dispatcher:dispatch', dispatchCallback);
-      //   router.route({ url: '/' });
-      // });
+      it('should redirect to 505 on application error', function(done) {
+        var callback = function(controller, params, route) {
+          expect(route.name).to.be('errors#500');
+
+          Chaplin.mediator.unsubscribe('dispatcher:dispatch', callback);
+          Chaplin.mediator.applicationError = false;
+        
+          done();
+        };
+        Chaplin.mediator.applicationError = true;
+        Chaplin.mediator.subscribe('dispatcher:dispatch', callback);
+        router.route({ url: '/' });
+      });
+      it('should make composition', function(done) {
+        var callback = function() {
+          expect(composer.compositions).to.only.have.keys('site', 'messages',
+            'header', 'footer');
+          
+          Chaplin.mediator.unsubscribe('dispatcher:dispatch', callback);
+          
+          done();
+        };
+        Chaplin.mediator.subscribe('dispatcher:dispatch', callback);
+
+        router.route({ url: '/' });
+      });
+      it('should call #afterAction() if no ajax', function(done) {
+        var afterAction = Controller.prototype.afterAction;
+        Controller.prototype.afterAction = function() {
+          Controller.prototype.afterAction = afterAction;
+          done();
+        };
+
+        router.route({ url: '/' });
+      });
+      it('should not call #afterAction() if ajax', function(done) {
+        var afterAction = Controller.prototype.afterAction,
+            wasCalledAfterAction = false;
+        Controller.prototype.afterAction = function() {
+          wasCalledAfterAction = true;
+        };
+
+        router.route({ url: '/' });
+
+        $.get('/').always(function() {
+          expect(wasCalledAfterAction).to.be(false);
+
+          Controller.prototype.afterAction = afterAction;
+          
+          done();
+        });
+      });
     });
     describe('#afterAction()', function() {
-      it('should publish event controller:actionDone', function() {
+      it('should publish event controller:actionDone', function(done) {
+        var callback = function() {
+          
+          Chaplin.mediator.unsubscribe('controller:actionDone', callback);
+          
+          done();
+        };
+        Chaplin.mediator.subscribe('controller:actionDone', callback);
+
+        router.route({ url: '/' });
       });
     });
   });

@@ -152,7 +152,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['src/app/**/*.js', 'src/test/**/*.js'],
-        tasks: ['copy:static', 'jshint']
+        tasks: ['copy:static']
       },
       jade: {
         files: 'src/app/views/templates/**/*.jade',

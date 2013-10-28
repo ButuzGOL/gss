@@ -16,10 +16,19 @@
 
     <script>mocha.setup('bdd')</script>
 
-    <script src="/components/scripts/requirejs/require.js"
-      data-main="/test/main"></script>
+      <!--
       <script src="/components/scripts/expect/expect.js"></script>
       <script src="/vendor/sinon.js"></script>
       <script src="/vendor/sinon-expect.js"></script>
+      -->
+
+    <script src="/components/scripts/requirejs/require.js"
+      data-main="/test/main"></script>
+
+      <!--
+      <script>
+      window.expect = SinonExpect.enhance(expect, sinon, 'was');
+      </script>
+      -->
   </body>
 </html>

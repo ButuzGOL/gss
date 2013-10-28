@@ -8,14 +8,8 @@ define([
 
   var Layout = Chaplin.Layout.extend({
     listen: {
-      'dispatcher:dispatch mediator': 'actionReady',
       'controller:actionStart mediator': 'showLoader',
       'controller:actionDone mediator': 'hideLoader'
-    },
-    actionReady: function() {
-      if (!$.active) {
-        this.hideLoader();
-      }
     },
     showLoader: function() {
       NProgress.start();

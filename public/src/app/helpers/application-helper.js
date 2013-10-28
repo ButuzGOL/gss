@@ -8,9 +8,8 @@ define([
   
   return {
     url: function(routeName) {
-      var params = [].slice.call(arguments, 1),
-          options = params.pop();
-
+      var params = [].slice.call(arguments, 1);
+      
       return Chaplin.helpers.reverse(routeName, params);
     },
     render: function(path, data) {

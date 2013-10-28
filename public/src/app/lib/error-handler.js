@@ -22,6 +22,7 @@ define([
     
     $(document).ajaxError(function(event, jqxhr, settings, exception) {
       var error;
+      
       if (jqxhr.responseJSON) {
         error = jqxhr.responseJSON;
       } else {

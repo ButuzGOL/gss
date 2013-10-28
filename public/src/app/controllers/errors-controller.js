@@ -12,7 +12,6 @@ define([
       this.view = new Errors404PageView();
     },
     403: function(params) {
-      conosole.log('403')
       this.view = new Errors403PageView();
     },
     500: function(params) {

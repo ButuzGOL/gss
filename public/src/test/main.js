@@ -20,7 +20,7 @@ require.config({
     semantic: '../components/scripts/semantic-ui/semantic',
 
     i18n: '../components/scripts/i18next/i18next.amd-1.7.1',
-    // expect: '../components/scripts/expect/expect',
+    expect: '../components/scripts/expect/expect',
     // sinon:  '../vendor/sinon',
   },
   // Underscore and Backbone are not AMD-capable per default,
@@ -36,9 +36,9 @@ require.config({
     nprogress: {
       deps: ['jquery']
     },
-    // expect: {
-    //   exports: 'expect'
-    // },
+    expect: {
+      exports: 'expect'
+    },
     // sinon: {
     //   exports: 'sinon'
     // }
@@ -49,7 +49,18 @@ require([
   // '../test/models/base/model',
   // '../test/models/base/collection',
   // '../test/models/user',
-  '../test/controllers/base/controller'
+  
+  // '../test/controllers/base/controller',
+  // '../test/controllers/pages',
+  // '../test/controllers/errors',
+  // '../test/controllers/sessions',
+
+  // '../test/helpers/application',
+  // '../test/helpers/sessions',
+
+  '../test/lib/error-handler',
+  // '../test/lib/support',
+  // '../test/lib/utils'
 ], function() {
   mocha.run();
 });
