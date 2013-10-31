@@ -10,7 +10,9 @@ define([
     id: 'pages-home-page-view',
     autoRender: true,
     template: template,
-    regions: { 'sessions-new-form': '#sessions-new-form-container' },
+    regions: {
+      'sessions-new-form': '#sessions-new-form-container'
+    },
     listen: {
       'signinStatus mediator': 'render'
     },

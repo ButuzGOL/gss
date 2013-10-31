@@ -74,7 +74,8 @@ define([
       if (event.metaKey && event.keyCode === 13) {
         this.$el.trigger('submit');
       } else {
-        setObject[$(event.currentTarget).attr('name')] = $(event.currentTarget).val();
+        setObject[$(event.currentTarget).attr('name')] =
+          $(event.currentTarget).val();
         this.model.set(setObject);
       }
     },

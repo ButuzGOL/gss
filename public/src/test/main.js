@@ -58,9 +58,11 @@ require([
   // '../test/helpers/application',
   // '../test/helpers/sessions',
 
-  '../test/lib/error-handler',
-  // '../test/lib/support',
-  // '../test/lib/utils'
+  // '../test/lib/error-handler',
+  // '../test/lib/utils',
+
+  // '../test/views/layout',
+  '../test/views/base/view'
 ], function() {
   mocha.run();
 });

@@ -7,7 +7,7 @@ define([
   var Errors403PageView = PageView.extend({
     id: 'errors-403-page-view',
     autoRender: true,
-    template: template,
+    template: template
   });
 
   return Errors403PageView;

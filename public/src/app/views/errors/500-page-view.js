@@ -7,7 +7,7 @@ define([
   var Errors500PageView = PageView.extend({
     id: 'errors-500-page-view',
     autoRender: true,
-    template: template,
+    template: template
   });
 
   return Errors500PageView;

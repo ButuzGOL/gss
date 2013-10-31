@@ -16,12 +16,14 @@ define([
     });
 
     afterEach(function() {
+      $(document).off('ajaxError');
+      $(document).off('ajaxComplete');
       errorHandler = null;
     });
     describe('#subscribeForAjaxEvents()', function() {
       it('should collect error', function(done) {
         $.get(applicationConfig.api.root + '/lang/test');
-        $(document).ajaxError(function(event, jqxhr, settings, exception) {
+        $(document).ajaxError(function() {
           expect(errorHandler.currentErrors).to.have.length(1);
           expect(errorHandler.currentErrors[0]).to.eql({
             code: 404,
@@ -29,8 +31,6 @@ define([
             message: 'Cannot GET /lang/test'
           });
           
-          $(document).off('ajaxError');
-
           done();
         });
       });
@@ -63,11 +63,16 @@ define([
         function(done) {
           var callback = function(errors) {
             expect(errors).to.have.length(2);
-            expect(errors[1]).to.eql({
+            expect(errors).to.eql([{
               code: 404,
               description: '',
               message: 'Cannot GET /lang/test'
-            });
+            }, {
+              code: 404,
+              description: '',
+              message: 'Cannot GET /lang/test'
+            }]);
+
             Chaplin.mediator.unsubscribe('errorHandler:throw', callback);
 
             done();
@@ -79,13 +84,47 @@ define([
           $.get(applicationConfig.api.root + '/lang/test');
         }
       );
-      it('should not publish if no errors', function() {
+      it('should not publish if no errors', function(done) {
+        var wasCalled = false,
+          callback = function(errors) {
+            wasCalled = true;
+          };
+
+        Chaplin.mediator.subscribe('errorHandler:throw', callback);
+
+        $(document).ajaxComplete(function() {
+          expect(wasCalled).to.be(false);
+
+          Chaplin.mediator.unsubscribe('errorHandler:throw', callback);
+          
+          done();
+        });
+
+        $.get('/');
       });
-      it('should not publish if locked', function() {
+      it('should not publish if locked', function(done) {
+        
+        var wasCalled = false,
+          callback = function(errors) {
+            wasCalled = true;
+          };
+
+        Chaplin.mediator.subscribe('errorHandler:throw', callback);
+
+        $(document).ajaxComplete(function() {
+          expect(wasCalled).to.be(false);
+
+          Chaplin.mediator.unsubscribe('errorHandler:throw', callback);
+          
+          done();
+        });
+
+        errorHandler.isLocked = true;
+
+        $.get(applicationConfig.api.root + '/lang/test');
       });
       it('should collect current errors to errors basket', function(done) {
-        $(document).ajaxError(function(event, jqxhr, settings, exception) {
-          debugger
+        $(document).ajaxComplete(function() {
           expect(errorHandler.errorsBasket[0]).to.have.length(1);
           expect(errorHandler.errorsBasket[0][0]).to.eql({
             code: 404,
@@ -93,14 +132,19 @@ define([
             message: 'Cannot GET /lang/test'
           });
           
-          $(document).off('ajaxError');
-
           done();
         });
-        debugger
+        
         $.get(applicationConfig.api.root + '/lang/test');
       });
-      it('should clean current errors', function() {
+      it('should clean current errors', function(done) {
+        $(document).ajaxComplete(function() {
+          expect(errorHandler.currentErrors).to.be.empty();
+          
+          done();
+        });
+        
+        $.get(applicationConfig.api.root + '/lang/test');
       });
     });
   });

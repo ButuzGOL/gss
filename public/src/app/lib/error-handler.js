@@ -7,15 +7,18 @@ define([
 
   var ErrorHandler = function() {
     this.subscribeForAjaxEvents();
-  };
 
-  _.extend(ErrorHandler.prototype, Chaplin.EventBroker);
+    this.errorsBasket = [];
+    this.currentErrors = [];
+  };
 
   _.extend(ErrorHandler.prototype, {
     errorsBasket: [],
     currentErrors: [],
     isLocked: false
   });
+
+  _.extend(ErrorHandler.prototype, Chaplin.EventBroker);
 
   ErrorHandler.prototype.subscribeForAjaxEvents = function() {
     var _this = this;
@@ -32,7 +35,7 @@ define([
           description: ''
         };
       }
-
+      
       _this.currentErrors.push(error);
       _this.publishEvent('errorHandler:catch', _.last(_this.currentErrors));
     });
