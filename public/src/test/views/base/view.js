@@ -1,8 +1,13 @@
 define([
   'expect',
-  
+
+  'underscore',
+  'i18n',
+  'chaplin',
+
+  'models/user',
   'views/base/view'
-], function(expect, View) {
+], function(expect, _, i18n, Chaplin, User, View) {
   'use strict';
   
   describe('View', function() {
@@ -28,11 +33,26 @@ define([
 
     describe('#getTemplateData()', function() {
       it('should add user object if signed in', function() {
+        Chaplin.mediator.user = new User();
+        
+        expect(view.getTemplateData()).to.have.key('currentUser');
+        
+        Chaplin.mediator.user = null;
       });
       it('should collect template data', function() {
+        var object = Chaplin.View.prototype.getTemplateData();
+
+        expect(view.getTemplateData()).to.eql(_.defaults(object,
+          { _: _ },
+          { i18n: i18n },
+          require('helpers/application-helper'),
+          require('helpers/sessions-helper')
+        ));
       });
     });
     it('should include partial templates', function() {
+      expect(require('text!views/templates/shared/form-error-messages.jade')).
+        to.be.a('string');
     });
   });
 });

@@ -1,11 +1,13 @@
 define([
-  'expect'
-], function(expect) {
+  'expect',
+  'views/base/page-view'
+], function(expect, PageView) {
   'use strict';
   
   describe('PageView', function() {
     describe('#region', function() {
-      it('should be in main region', function() {
+      it('should region set to main', function() {
+        expect(PageView.prototype.region).to.be('main');
       });
     });
   });

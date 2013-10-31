@@ -48,13 +48,13 @@ define([
       this.dispose();
     },
 
-    save: function(event) {
-      var _this = this;
-      this.model.save().done(function(response) {
-        _this.publishSave(response);
-        _this.dismiss();
-      });
-    },
+    // save: function() {
+    //   var _this = this;
+    //   this.model.save().done(function(response) {
+    //     _this.publishSave(response);
+    //     _this.dismiss();
+    //   });
+    // },
 
     submit: function(event) {
       event.preventDefault();

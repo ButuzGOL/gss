@@ -62,7 +62,12 @@ require([
   // '../test/lib/utils',
 
   // '../test/views/layout',
-  '../test/views/base/view'
+  // '../test/views/base/view',
+  // '../test/views/base/collection',
+  // '../test/views/base/page',
+  '../test/views/base/form'
 ], function() {
-  mocha.run();
+  'use strict';
+  
+  window.mocha.run();
 });
