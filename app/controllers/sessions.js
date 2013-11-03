@@ -8,10 +8,7 @@ exports.create = function(req, res, next) {
     }
 
     if (!user) {
-      return _.delay(function() {
-        res.json({ message: info.message });
-      }, 1000);
-      // return res.json({ message: info.message });
+      return res.json({ message: info.message });
     }
 
     req.logIn(user, function(err) {
