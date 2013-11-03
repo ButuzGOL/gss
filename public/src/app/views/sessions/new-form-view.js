@@ -6,12 +6,6 @@ define([
 
   var SessionsNewFormView = FormView.extend({
     template: template,
-    events: {
-      'keyup [name=email]': 'changedAttribute',
-      'keydown [name=email]': 'changedAttribute',
-      'keyup [name=password]': 'changedAttribute',
-      'keydown [name=password]': 'changedAttribute'
-    },
     save: function(event) {
       this.signin(event);
     },

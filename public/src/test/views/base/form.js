@@ -1,12 +1,12 @@
 define([
   'expect',
   'jquery',
-  'underscore',
-
+  
   'chaplin',
 
-  'views/base/form-view'
-], function(expect, $, _, Chaplin, FormView) {
+  'views/base/form-view',
+  'models/user'
+], function(expect, $, Chaplin, FormView, User) {
   'use strict';
   
   describe('FormView', function() {
@@ -18,6 +18,11 @@ define([
       }
     });
 
+    describe('#tagName', function() {
+      it('should be form', function() {
+        expect(FormView.prototype.tagName).to.be('form');
+      });
+    });
     describe('#getTemplateData()', function() {
       it('should collect template data', function() {
         formView = new FormView();
@@ -75,7 +80,23 @@ define([
         formView.render();
         $('[data-action=submit]', formView.$el).trigger('click');
       });
-      it('should call #submit() on form submit', function() {
+      it('should call #submit() on form submit', function(done) {
+        var submit = FormView.prototype.submit;
+
+        FormView.prototype.submit = function(event) {
+          event.preventDefault();
+
+          FormView.prototype.submit = submit;
+
+          done();
+        };
+
+        formView = new FormView();
+
+        formView.template =
+          '<input type="button" data-action="submit" />';
+        formView.render();
+        formView.$el.trigger('submit');
       });
     });
     describe('#render()', function() {
@@ -132,7 +153,7 @@ define([
     //   });
     // });
     describe('#submit()', function() {
-      it('should check validity', function(done) {
+      it('should check validity', function() {
         var wasCalled = false,
             save = FormView.prototype.save;
 
@@ -144,15 +165,27 @@ define([
 
         formView = new FormView();
         formView.template =
-          '<form><input type="text" required="required" /></form>';
+          '<input type="text" required="required" />';
         formView.render();
         formView.$el.trigger('submit');
 
-        _.delay(function() {
-          expect(wasCalled).to.be(false);
+        expect(wasCalled).to.be(false);
+      });
+      it('should call #showLoader()', function(done) {
+        var showLoader = FormView.prototype.showLoader;
+
+        FormView.prototype.showLoader = function() {
+          FormView.prototype.showLoader = showLoader;
 
           done();
-        }, 100);
+        };
+
+        formView = new FormView();
+        formView.template =
+          '<input type="text" value="test" required="required" />';
+        formView.render();
+
+        formView.$el.trigger('submit');
       });
       it('should call #disableActions()', function(done) {
         var disableActions = FormView.prototype.disableActions;
@@ -165,8 +198,7 @@ define([
 
         formView = new FormView();
         formView.template =
-          '<form><input type="text" value="test" required="required" />' +
-          '</form>';
+          '<input type="text" value="test" required="required" />';
         formView.render();
 
         formView.$el.trigger('submit');
@@ -182,24 +214,100 @@ define([
 
         formView = new FormView();
         formView.template =
-          '<form><input type="text" value="test" required="required" />' +
-          '</form>';
+          '<input type="text" value="test" required="required" />';
         formView.render();
 
         formView.$el.trigger('submit');
       });
     });
-    // describe('#changedAttribute()', function() {
-    //   it('should check validity', function() {
-    //   });
-    //   it('should submit if meta key and key 13 pressed', function() {
-    //   });
-    //   it('should set attribute to model', function() {
-    //   });
-    // });
-    // describe('#disableActions()', function() {
-    //   it('should disable actions', function() {
-    //   });
-    // });
+    describe('#changedAttribute()', function() {
+      it('should check validity', function() {
+        var wasCalled = false,
+            user = new User();
+        
+        user.on('change:test', function() {
+          wasCalled = true;
+        });
+
+        formView = new FormView({ model: user });
+
+        formView.template =
+          '<input type="text" name="test" required="required" />';
+        formView.render();
+
+        $('[name=test]', formView.$el).trigger('keyup');
+
+        expect(wasCalled).to.be(false);
+          
+        user.dispose();
+      });
+      it('should submit if meta key and key 13 pressed', function(done) {
+        var submit = FormView.prototype.submit,
+            event;
+
+        FormView.prototype.submit = function(event) {
+          event.preventDefault();
+
+          FormView.prototype.submit = submit;
+
+          done();
+        };
+
+        formView = new FormView();
+
+        formView.template =
+          '<input type="text" name="test" />';
+        formView.render();
+        
+        event = $.Event('keydown');
+        event.metaKey = true;
+        event.keyCode = 13;
+
+        $('[name=test]', formView.$el).trigger(event);
+      });
+      it('should set attribute to model', function(done) {
+        var user = new User();
+        user.on('change:test', function() {
+          user.dispose();
+          done();
+        });
+
+        formView = new FormView({ model: user });
+
+        formView.template =
+          '<input type="text" value="test" name="test" />';
+        formView.render();
+        
+        $('[name=test]', formView.$el).trigger('keyup');
+      });
+    });
+    describe('#disableActions()', function() {
+      it('should disable actions', function() {
+        formView = new FormView();
+        formView.template =
+          '<input type="text" />' +
+          '<button></button>' +
+          '<select></select>' +
+          '<textarea></textarea>';
+        formView.render();
+
+        formView.disableActions();
+        
+        expect($('input, button, textarea, select', formView.$el).
+          prop('disabled')).to.be(true);
+      });
+    });
+    describe('#showLoader()', function() {
+      it('should show loader', function() {
+        formView = new FormView();
+        formView.template = '<div class="ui small inline loader"></div>';
+        formView.render();
+
+        formView.showLoader();
+
+        expect($(formView.loaderSelector, formView.$el).hasClass('active')).
+          to.be(true);
+      });
+    });
   });
 });

@@ -37,10 +37,6 @@ require.config({
   }
 });
 
-require(['../models/user'], function() {
-  mocha.run();
-});
-
 // Bootstrap the application
 require(['application', 'routes'], function(Application, routes) {
   new Application({

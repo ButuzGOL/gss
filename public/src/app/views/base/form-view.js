@@ -9,7 +9,9 @@ define([
     events: {
       'click [data-action=cancel]': 'dismiss',
       'click [data-action=submit]': 'submit',
-      'submit': 'submit'
+      'submit': 'submit',
+      'keyup input': 'changedAttribute',
+      'keydown input': 'changedAttribute'
     },
     listen: {
       'signinStatus mediator': 'render'
@@ -59,6 +61,7 @@ define([
     submit: function(event) {
       event.preventDefault();
       if (event.currentTarget.checkValidity()) {
+        this.showLoader();
         this.disableActions();
         this.save(event);
       }
@@ -66,7 +69,7 @@ define([
 
     changedAttribute: function(event) {
       var setObject = {};
-
+      
       if (!event.currentTarget.validity.valid) {
         return;
       }
@@ -82,7 +85,9 @@ define([
 
     disableActions: function() {
       $('input, button, textarea, select', this.$el).prop('disabled', true);
-      $(this.loader, this.$el).show();
+    },
+    showLoader: function() {
+      $(this.loaderSelector, this.$el).addClass('active');
     }
   });
 
