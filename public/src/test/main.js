@@ -65,7 +65,10 @@ require([
   // '../test/views/base/view',
   // '../test/views/base/collection',
   // '../test/views/base/page',
-  '../test/views/base/form'
+  // '../test/views/base/form',
+  '../test/views/errors/403-page',
+  '../test/views/errors/404-page',
+  '../test/views/errors/500-page'
 ], function() {
   'use strict';
   
