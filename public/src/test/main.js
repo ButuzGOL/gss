@@ -66,9 +66,16 @@ require([
   // '../test/views/base/collection',
   // '../test/views/base/page',
   // '../test/views/base/form',
-  '../test/views/errors/403-page',
-  '../test/views/errors/404-page',
-  '../test/views/errors/500-page'
+  '../test/views/site',
+  '../test/views/header',
+  '../test/views/footer',
+  // '../test/views/messages',
+
+  // '../test/views/errors/403-page',
+  // '../test/views/errors/404-page',
+  // '../test/views/errors/500-page',
+  // '../test/views/pages/home-page',
+  // '../test/views/sessions/new-form'
 ], function() {
   'use strict';
   
