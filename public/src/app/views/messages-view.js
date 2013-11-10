@@ -60,9 +60,16 @@ define([
     addWarningMessage: function(message) {
       this.addMessage('warning', message);
     },
-    addMessage: function(type, message) {
-      if (type) {
+    addMessage: function() {
+      var type,
+          message;
+
+      if (arguments.length === 2) {
+        type = arguments[0];
+        message = arguments[1];
         message.type = type;
+      } else {
+        message = arguments[0];
       }
 
       this.messages.push(message);

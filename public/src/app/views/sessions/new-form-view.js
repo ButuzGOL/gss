@@ -9,8 +9,9 @@ define([
     save: function(event) {
       this.signin(event);
     },
-    signin: function(event) {
+    signin: function() {
       var _this = this;
+
       this.model.signin().done(function(response) {
         if (response.accessToken) {
           _this.dismiss();
@@ -20,7 +21,7 @@ define([
           _this.errorMessages.push(response.message);
           _this.render();
         }
-      }).fail(function(error) {
+      }).fail(function() {
         _this.render();
       });
     }

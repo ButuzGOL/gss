@@ -8,13 +8,13 @@ define([
   'use strict';
 
   var ErrorsController = Controller.extend({
-    404: function(params) {
+    404: function() {
       this.view = new Errors404PageView();
     },
-    403: function(params) {
+    403: function() {
       this.view = new Errors403PageView();
     },
-    500: function(params) {
+    500: function() {
       this.view = new Errors500PageView();
     }
   });

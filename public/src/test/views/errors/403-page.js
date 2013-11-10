@@ -8,15 +8,15 @@ define([
     describe('#template', function() {
       it('should render template', function() {
         Errors403PageView.prototype.autoRender = false;
-        
         var errors403pageView = new Errors403PageView();
-        
+        Errors403PageView.prototype.autoRender = true;
+
         expect(errors403pageView.template).
           to.be(require('text!views/templates/errors/403-page.jade'));
         
         errors403pageView.dispose();
 
-        Errors403PageView.prototype.autoRender = true;
+        
       });
     });
     describe('#autoRender', function() {

@@ -8,15 +8,13 @@ define([
     describe('#template', function() {
       it('should render template', function() {
         Errors500PageView.prototype.autoRender = false;
-        
         var errors500pageView = new Errors500PageView();
+        Errors500PageView.prototype.autoRender = true;
         
         expect(errors500pageView.template).
           to.be(require('text!views/templates/errors/500-page.jade'));
         
         errors500pageView.dispose();
-
-        Errors500PageView.prototype.autoRender = true;
       });
     });
     describe('#autoRender', function() {

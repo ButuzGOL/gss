@@ -30,18 +30,9 @@ define([
       });
     });
     describe('#listen', function() {
-      it('should call #render() on signinStatus', function(done) {
-        var render = FormView.prototype.render;
-        
-        FormView.prototype.render = function() {
-          FormView.prototype.render = render;
-
-          done();
-        };
-        
-        formView = new FormView();
-        
-        Chaplin.mediator.publish('signinStatus');
+      it('should have keys and values', function() {
+        expect(FormView.prototype.listen).to.have.
+          property('signinStatus mediator', 'render');
       });
     });
     describe('#autoRender', function() {
@@ -50,53 +41,17 @@ define([
       });
     });
     describe('#events', function() {
-      it('should call #dismiss() on click [data-action=cancel]', function(done) {
-        var dismiss = FormView.prototype.dismiss;
-
-        FormView.prototype.dismiss = function() {
-          FormView.prototype.dismiss = dismiss;
-
-          done();
-        };
-
-        formView = new FormView();
-
-        formView.template = '<input type="button" data-action="cancel" />';
-        formView.render();
-        $('[data-action=cancel]', formView.$el).trigger('click');
-      });
-      it('should call #submit() on click [data-action=submit]', function(done) {
-        var submit = FormView.prototype.submit;
-
-        FormView.prototype.submit = function() {
-          FormView.prototype.submit = submit;
-
-          done();
-        };
-
-        formView = new FormView();
-
-        formView.template = '<input type="button" data-action="submit" />';
-        formView.render();
-        $('[data-action=submit]', formView.$el).trigger('click');
-      });
-      it('should call #submit() on form submit', function(done) {
-        var submit = FormView.prototype.submit;
-
-        FormView.prototype.submit = function(event) {
-          event.preventDefault();
-
-          FormView.prototype.submit = submit;
-
-          done();
-        };
-
-        formView = new FormView();
-
-        formView.template =
-          '<input type="button" data-action="submit" />';
-        formView.render();
-        formView.$el.trigger('submit');
+      it('should have keys and values', function() {
+        expect(FormView.prototype.events).to.have.
+          property('click [data-action=cancel]', 'dismiss');
+        expect(FormView.prototype.events).to.have.
+          property('click [data-action=submit]', 'submit');
+        expect(FormView.prototype.events).to.have.
+          property('submit', 'submit');
+        expect(FormView.prototype.events).to.have.
+          property('keyup input', 'changedAttribute');
+        expect(FormView.prototype.events).to.have.
+          property('keydown input', 'changedAttribute');
       });
     });
     describe('#render()', function() {
@@ -144,14 +99,6 @@ define([
         formView.dismiss();
       });
     });
-    // describe('#save()', function() {
-    //   it('should save model', function() {
-    //   });
-    //   it('should call #publishSave() after done', function() {
-    //   });
-    //   it('should call #dismiss() after done', function() {
-    //   });
-    // });
     describe('#submit()', function() {
       it('should check validity', function() {
         var wasCalled = false,

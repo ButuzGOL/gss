@@ -19,6 +19,14 @@ define([
       layout.dispose();
     });
 
+    describe('#listen', function() {
+      it('should have keys and values', function() {
+        expect(Layout.prototype.listen).to.have.
+          property('controller:actionStart mediator', 'showLoader');
+        expect(Layout.prototype.listen).to.have.
+          property('controller:actionDone mediator', 'hideLoader');
+      });
+    });
     describe('#showLoader()', function() {
       it('should be called on controller:actionStart', function(done) {
         var showLoader = Layout.prototype.showLoader,

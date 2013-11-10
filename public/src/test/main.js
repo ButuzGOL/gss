@@ -20,8 +20,7 @@ require.config({
     semantic: '../components/scripts/semantic-ui/semantic',
 
     i18n: '../components/scripts/i18next/i18next.amd-1.7.1',
-    expect: '../components/scripts/expect/expect',
-    // sinon:  '../vendor/sinon',
+    expect: '../components/scripts/expect/expect'
   },
   // Underscore and Backbone are not AMD-capable per default,
   // so we need to use the AMD wrapping of RequireJS
@@ -38,14 +37,13 @@ require.config({
     },
     expect: {
       exports: 'expect'
-    },
-    // sinon: {
-    //   exports: 'sinon'
-    // }
+    }
   }
 });
 
 require([
+  //! '../test/application',
+
   // '../test/models/base/model',
   // '../test/models/base/collection',
   // '../test/models/user',
@@ -54,21 +52,24 @@ require([
   // '../test/controllers/pages',
   // '../test/controllers/errors',
   // '../test/controllers/sessions',
+  //! '../test/controllers/auth',
 
   // '../test/helpers/application',
   // '../test/helpers/sessions',
 
   // '../test/lib/error-handler',
-  // '../test/lib/utils',
+  //! '../test/lib/utils',
+  //! '../test/lib/services/provider',
+  //! '../test/lib/services/form-provider',
 
   // '../test/views/layout',
   // '../test/views/base/view',
   // '../test/views/base/collection',
   // '../test/views/base/page',
   // '../test/views/base/form',
-  '../test/views/site',
-  '../test/views/header',
-  '../test/views/footer',
+  // '../test/views/site',
+  // '../test/views/header',
+  // '../test/views/footer',
   // '../test/views/messages',
 
   // '../test/views/errors/403-page',
