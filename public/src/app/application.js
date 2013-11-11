@@ -9,9 +9,10 @@ define([
   'routes',
   'nprogress',
   'views/layout',
-  'lib/error-handler'
+  'lib/error-handler',
+  'lib/utils'
 ], function($, _, Chaplin, mediator, applicationConfig, backendConfig,
-  i18n, routes, NProgress, Layout, ErrorHandler) {
+  i18n, routes, NProgress, Layout, ErrorHandler, utils) {
   'use strict';
   
   // The application object
@@ -22,12 +23,16 @@ define([
     title: applicationConfig.title,
     start: function() {
       var _this = this,
-          callback = function() {
-            _this.unsubscribeEvent('signinStatus', callbackWithDelay);
+          callback,
+          callbackWithDelay;
+      
+      callback = function() {
+        _this.unsubscribeEvent('signinStatus', callbackWithDelay);
 
-            Chaplin.Application.prototype.start.apply(_this);
-          },
-          callbackWithDelay = _.after(2, callback);
+        Chaplin.Application.prototype.start.apply(_this);
+      };
+      
+      callbackWithDelay = _.after(2, callback);
       
       NProgress.start();
 
@@ -41,11 +46,13 @@ define([
       });
     },
     initErrorHandler: function() {
+      var _this = this,
+          callback;
+      
       mediator.errorHandler = new ErrorHandler();
       mediator.errorHandler.isLocked = true;
 
-      var _this = this,
-          callback = function() {
+      callback = function() {
         _this.unsubscribeEvent('messagesView:ready', callback);
 
         mediator.errorHandler.isLocked = false;
@@ -65,9 +72,11 @@ define([
       }
     },
     initConfig: function(callback) {
-      return $.get(applicationConfig.api.root + '/config').done(function(response) {
-        _.extend(backendConfig, response);
-      }).always(callback);
+      return utils.ajax(applicationConfig.api.root + '/config').done(
+        function(response) {
+          _.extend(backendConfig, response);
+        }
+      ).always(callback);
     },
     initLocale: function(callback) {
       var localeCallback,
@@ -75,17 +84,20 @@ define([
       
       prepareCallback = function(data) {
         var processCallback = function(data, locale) {
+          var resStore = {},
+              ns = 'translation';
+
           if (!locale) {
             locale = applicationConfig.locale;
           }
 
-          var resStore = {},
-              ns = 'translation';
-      
           resStore[locale] = {};
           resStore[locale][ns] = data;
           
-          i18n.init({ lng: locale, resStore: resStore });
+          i18n.init({
+            lng: locale,
+            resStore: resStore
+          });
 
           callback();
         };
@@ -100,7 +112,7 @@ define([
       };
       
       localeCallback = function(data) {
-        $.get(
+        utils.ajax(
           applicationConfig.api.root + '/locales/' + applicationConfig.locale).
           done(function(response) {
   
@@ -121,8 +133,6 @@ define([
       this.layout = new Layout(_.defaults(options, { title: this.title }));
     },
     initMediator: function() {
-      mediator.user = null;
-
       mediator.errorHandler = null;
       mediator.applicationError = false;
       

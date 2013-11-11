@@ -1,14 +1,15 @@
 define([
-  'models/base/model'
-], function(Model) {
+  'models/base/model',
+  'lib/utils'
+], function(Model, utils) {
   'use strict';
 
   var User = Model.extend({
     signin: function() {
-      return this.ajax('POST', '/signin', this.serialize());
+      return utils.ajax('/signin', 'POST', this.serialize());
     },
     fetchCurrent: function() {
-      return this.ajax('GET', '/users/me', {
+      return utils.ajax('/users/me', 'GET', {
         'access_token': this.get('accessToken')
       });
     }

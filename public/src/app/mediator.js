@@ -1,11 +1,12 @@
 define([
   'underscore',
   'chaplin',
+  'lib/utils',
   'models/user'
-], function(_, Chaplin, User) {
+], function(_, Chaplin, utils, User) {
   'use strict';
 
-  var mediator = Chaplin.mediator;
+  var mediator = utils.beget(Chaplin.mediator);
 
   _.extend(mediator, {
     createUser: function() {

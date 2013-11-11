@@ -4,5 +4,7 @@ define([
   'use strict';
   
   describe('Support', function() {
+    it('should begets from Chaplin support', function() {
+    });
   });
 });

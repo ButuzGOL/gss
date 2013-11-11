@@ -43,21 +43,20 @@ require.config({
 
 require([
   // '../test/lib/error-handler',
-  //! '../test/lib/utils',
-  //! '../test/lib/services/provider',
-  //! '../test/lib/services/form-provider',
-
+  '../test/lib/utils',
+  '../test/lib/support',
+  
   // '../test/helpers/application',
   // '../test/helpers/sessions',
 
   //! '../test/application',
+  //! '../test/mediator',
 
   // '../test/controllers/base/controller',
   // '../test/controllers/pages',
   // '../test/controllers/errors',
   // '../test/controllers/sessions',
-  //! '../test/controllers/auth',
-
+  
   // '../test/models/base/model',
   // '../test/models/base/collection',
   // '../test/models/user',
