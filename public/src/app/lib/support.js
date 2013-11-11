@@ -7,7 +7,7 @@ define([
 
   var support = utils.beget(Chaplin.support);
 
-  _(support).extend({
+  _.extend(support, {
   });
 
   return support;

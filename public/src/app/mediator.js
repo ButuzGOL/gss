@@ -5,9 +5,7 @@ define([
 ], function(_, Chaplin, User) {
   'use strict';
 
-  var mediator = {};
-
-  _.extend(mediator, Chaplin.mediator);
+  var mediator = Chaplin.mediator;
 
   _.extend(mediator, {
     createUser: function() {
@@ -36,6 +34,7 @@ define([
       if (!this.user) {
         return;
       }
+      
       localStorage.removeItem('accessToken');
       this.removeUser();
       this.publish('signinStatus', false);

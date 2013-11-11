@@ -6,7 +6,7 @@ define([
 
   var SessionsController = Controller.extend({
     signout: function() {
-      mediator.logout();
+      mediator.signout();
       this.redirectTo('pages#home');
     }
   });

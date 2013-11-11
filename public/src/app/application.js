@@ -55,8 +55,14 @@ define([
       this.subscribeEvent('messagesView:ready', callback);
     },
     initAuth: function(callback) {
-      this.subscribeEvent('signinStatus', callback);
-      // new AuthController();
+      var accessToken = window.localStorage.getItem('accessToken');
+      
+      if (!accessToken) {
+        callback();
+      } else {
+        this.subscribeEvent('signinStatus', callback);
+        mediator.signin(accessToken);
+      }
     },
     initConfig: function(callback) {
       return $.get(applicationConfig.api.root + '/config').done(function(response) {
@@ -115,6 +121,8 @@ define([
       this.layout = new Layout(_.defaults(options, { title: this.title }));
     },
     initMediator: function() {
+      mediator.user = null;
+
       mediator.errorHandler = null;
       mediator.applicationError = false;
       
