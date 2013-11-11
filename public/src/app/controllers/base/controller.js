@@ -1,18 +1,19 @@
 define([
   'jquery',
   'chaplin',
+  'mediator',
   'views/site-view',
   'views/messages-view',
   'views/header-view',
   'views/footer-view'
-], function($, Chaplin, SiteView, MessagesView, HeaderView, FooterView) {
+], function($, Chaplin, mediator, SiteView, MessagesView, HeaderView, FooterView) {
   'use strict';
 
   var Controller = Chaplin.Controller.extend({
     beforeAction: function(params, route) {
       var _this = this;
 
-      if (Chaplin.mediator.applicationError && route.name !== 'errors#500') {
+      if (mediator.applicationError && route.name !== 'errors#500') {
         return this.redirectTo('errors#500');
       }
 
@@ -29,7 +30,7 @@ define([
         }
       });
     },
-    afterAction: function(params, route) {
+    afterAction: function() {
       this.publishEvent('controller:actionDone');
     }
   });

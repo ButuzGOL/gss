@@ -42,25 +42,25 @@ require.config({
 });
 
 require([
+  // '../test/lib/error-handler',
+  //! '../test/lib/utils',
+  //! '../test/lib/services/provider',
+  //! '../test/lib/services/form-provider',
+
+  // '../test/helpers/application',
+  // '../test/helpers/sessions',
+
   //! '../test/application',
 
-  // '../test/models/base/model',
-  // '../test/models/base/collection',
-  // '../test/models/user',
-  
   // '../test/controllers/base/controller',
   // '../test/controllers/pages',
   // '../test/controllers/errors',
   // '../test/controllers/sessions',
   //! '../test/controllers/auth',
 
-  // '../test/helpers/application',
-  // '../test/helpers/sessions',
-
-  // '../test/lib/error-handler',
-  //! '../test/lib/utils',
-  //! '../test/lib/services/provider',
-  //! '../test/lib/services/form-provider',
+  // '../test/models/base/model',
+  // '../test/models/base/collection',
+  // '../test/models/user',
 
   // '../test/views/layout',
   // '../test/views/base/view',
@@ -71,7 +71,6 @@ require([
   // '../test/views/header',
   // '../test/views/footer',
   // '../test/views/messages',
-
   // '../test/views/errors/403-page',
   // '../test/views/errors/404-page',
   // '../test/views/errors/500-page',

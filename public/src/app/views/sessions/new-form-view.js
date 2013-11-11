@@ -1,7 +1,8 @@
 define([
+  'mediator',
   'views/base/form-view',
   'text!views/templates/sessions/new-form.jade'
-], function(FormView, template) {
+], function(mediator, FormView, template) {
   'use strict';
 
   var SessionsNewFormView = FormView.extend({
@@ -15,8 +16,7 @@ define([
       this.model.signin().done(function(response) {
         if (response.accessToken) {
           _this.dismiss();
-          _this.publishEvent('auth:setToken', response.accessToken);
-          _this.publishEvent('!signin', 'formProvider');
+          mediator.signin(response.accessToken);
         } else if (response.message) {
           _this.errorMessages.push(response.message);
           _this.render();

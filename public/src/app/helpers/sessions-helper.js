@@ -1,11 +1,11 @@
 define([
-  'chaplin'
-], function(Chaplin) {
+  'mediator'
+], function(mediator) {
   'use strict';
   
   return {
     isSignedIn: function() {
-      return Boolean(Chaplin.mediator.user);
+      return Boolean(mediator.user);
     }
   };
 

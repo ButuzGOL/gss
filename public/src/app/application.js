@@ -2,16 +2,16 @@ define([
   'jquery',
   'underscore',
   'chaplin',
+  'mediator',
   'config/application',
   'config/backend',
   'i18n',
   'routes',
   'nprogress',
   'views/layout',
-  'controllers/auth-controller',
   'lib/error-handler'
-], function($, _, Chaplin, applicationConfig, backendConfig, i18n, routes,
-  NProgress, Layout, AuthController, ErrorHandler) {
+], function($, _, Chaplin, mediator, applicationConfig, backendConfig,
+  i18n, routes, NProgress, Layout, ErrorHandler) {
   'use strict';
   
   // The application object
@@ -36,27 +36,27 @@ define([
         _this.initAuth(callbackWithDelay);
         _this.initLocale(callbackWithDelay);
       }).fail(function() {
-        Chaplin.mediator.applicationError = true;
+        mediator.applicationError = true;
         callback();
       });
     },
     initErrorHandler: function() {
-      Chaplin.mediator.errorHandler = new ErrorHandler();
-      Chaplin.mediator.errorHandler.isLocked = true;
+      mediator.errorHandler = new ErrorHandler();
+      mediator.errorHandler.isLocked = true;
 
       var _this = this,
           callback = function() {
         _this.unsubscribeEvent('messagesView:ready', callback);
 
-        Chaplin.mediator.errorHandler.isLocked = false;
-        Chaplin.mediator.errorHandler.publishCurrentErrors();
+        mediator.errorHandler.isLocked = false;
+        mediator.errorHandler.publishCurrentErrors();
       };
 
       this.subscribeEvent('messagesView:ready', callback);
     },
     initAuth: function(callback) {
       this.subscribeEvent('signinStatus', callback);
-      new AuthController();
+      // new AuthController();
     },
     initConfig: function(callback) {
       return $.get(applicationConfig.api.root + '/config').done(function(response) {
@@ -106,7 +106,7 @@ define([
       };
 
       require(['json!config/locales/' + applicationConfig.locale + '.json'],
-        localeCallback, function(error) {
+        localeCallback, function() {
           localeCallback(null);
         }
       );
@@ -115,12 +115,8 @@ define([
       this.layout = new Layout(_.defaults(options, { title: this.title }));
     },
     initMediator: function() {
-      if (!Chaplin.mediator.user) {
-        Chaplin.mediator.user = null;
-      }
-
-      Chaplin.mediator.errorHandler = null;
-      Chaplin.mediator.applicationError = false;
+      mediator.errorHandler = null;
+      mediator.applicationError = false;
       
       Chaplin.Application.prototype.initMediator.call(this, arguments);
     }

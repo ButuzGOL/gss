@@ -1,13 +1,13 @@
 define([
+  'mediator',
   'controllers/base/controller'
-], function(Controller) {
+], function(mediator, Controller) {
   'use strict';
 
   var SessionsController = Controller.extend({
-    signout: function(params) {
-      this.publishEvent('auth:setToken', null);
+    signout: function() {
+      mediator.logout();
       this.redirectTo('pages#home');
-      this.publishEvent('signout');
     }
   });
 

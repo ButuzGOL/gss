@@ -4,11 +4,12 @@ define([
   'i18n',
   'jade',
   'chaplin',
+  'mediator',
   'lib/utils',
   'helpers/application-helper',
   'helpers/sessions-helper',
   'text!views/templates/shared/form-error-messages.jade'
-], function(require, _, i18n, Jade, Chaplin, utils) {
+], function(require, _, i18n, Jade, Chaplin, mediator, utils) {
   'use strict';
 
   var View = Chaplin.View.extend({
@@ -34,8 +35,8 @@ define([
       var object = Chaplin.View.prototype.getTemplateData.
         apply(this, arguments);
       
-      if (Chaplin.mediator.user) {
-        object.currentUser = utils.serialize(Chaplin.mediator.user);
+      if (mediator.user) {
+        object.currentUser = utils.serialize(mediator.user);
       }
 
       return _.defaults(object,

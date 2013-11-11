@@ -13,9 +13,6 @@ define([
       'keyup input': 'changedAttribute',
       'keydown input': 'changedAttribute'
     },
-    listen: {
-      'signinStatus mediator': 'render'
-    },
     tagName: 'form',
     errorMessages: [],
     loaderSelector: '.loader',
