@@ -1,10 +1,13 @@
 define([
-  'expect'
-], function(expect) {
+  'expect',
+  'chaplin',
+  'lib/utils'
+], function(expect, Chaplin, utils) {
   'use strict';
   
   describe('Utils', function() {
     it('should begets from Chaplin.utils', function() {
+      expect(utils).to.have.keys(Object.keys(Chaplin.utils));
     });
     describe('#ajax()', function() {
       // var ajax,

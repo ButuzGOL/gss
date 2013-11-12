@@ -27,8 +27,6 @@ define([
           callbackWithDelay;
       
       callback = function() {
-        _this.unsubscribeEvent('signinStatus', callbackWithDelay);
-
         Chaplin.Application.prototype.start.apply(_this);
       };
       
@@ -62,17 +60,23 @@ define([
       this.subscribeEvent('messagesView:ready', callback);
     },
     initAuth: function(callback) {
-      var accessToken = window.localStorage.getItem('accessToken');
+      var _this = this,
+          modifiedCallback,
+          accessToken = window.localStorage.getItem('accessToken');
       
       if (!accessToken) {
         callback();
       } else {
-        this.subscribeEvent('signinStatus', callback);
+        modifiedCallback = function() {
+          _this.unsubscribeEvent('signinStatus', modifiedCallback);
+          callback();
+        };
+        this.subscribeEvent('signinStatus', modifiedCallback);
         mediator.signin(accessToken);
       }
     },
     initConfig: function(callback) {
-      return utils.ajax(applicationConfig.api.root + '/config').done(
+      return utils.ajax('/config').done(
         function(response) {
           _.extend(backendConfig, response);
         }
@@ -112,13 +116,11 @@ define([
       };
       
       localeCallback = function(data) {
-        utils.ajax(
-          applicationConfig.api.root + '/locales/' + applicationConfig.locale).
-          done(function(response) {
-  
-          prepareCallback(data ? _.extend(data, response) : response);
-
-        }).fail(function() {
+        utils.ajax('/locales/' + applicationConfig.locale).done(
+          function(response) {
+            prepareCallback(data ? _.extend(data, response) : response);
+          }
+        ).fail(function() {
           prepareCallback(data);
         });
       };

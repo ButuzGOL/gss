@@ -44,7 +44,7 @@ require.config({
 require([
   // '../test/lib/error-handler',
   '../test/lib/utils',
-  '../test/lib/support',
+  // '../test/lib/support',
   
   // '../test/helpers/application',
   // '../test/helpers/sessions',

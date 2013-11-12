@@ -5,7 +5,7 @@ define([
 ], function(_, utils, Chaplin) {
   'use strict';
 
-  var support = utils.beget(Chaplin.support);
+  var support = Chaplin.utils.beget(Chaplin.support);
 
   _.extend(support, {
   });
