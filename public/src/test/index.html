@@ -14,7 +14,9 @@
     <div id="mocha"></div>
     <div id="test"></div>
 
-    <script>mocha.setup('bdd')</script>
+    <script>
+      window.mocha.setup('bdd');
+    </script>
     
     <script src="/components/scripts/requirejs/require.js"
       data-main="/test/main"></script>

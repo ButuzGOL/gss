@@ -7,7 +7,7 @@ define([
   
   describe('Support', function() {
     it('should begets from Chaplin support', function() {
-      debugger
+      expect(Object.getPrototypeOf(support)).to.eql(Chaplin.support);
     });
   });
 });

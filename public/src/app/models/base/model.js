@@ -2,8 +2,9 @@ define([
   'jquery',
   'chaplin',
   'mediator',
-  'config/application'
-], function($, Chaplin, mediator, applicationConfig) {
+  'config/application',
+  'lib/utils'
+], function($, Chaplin, mediator, applicationConfig, utils) {
   'use strict';
 
   var Model = Chaplin.Model.extend({
@@ -19,6 +20,14 @@ define([
       } else {
         throw new Error('Model must redefine urlPath');
       }
+    },
+    ajax: function(url) {
+      var args = arguments,
+          fullUrl = this.apiRoot + url;
+      
+      args[0] = fullUrl;
+
+      return utils.ajax.apply(this, args);
     }
   });
   

@@ -6,7 +6,7 @@ define([
 ], function(_, Chaplin, utils, User) {
   'use strict';
 
-  var mediator = utils.beget(Chaplin.mediator);
+  var mediator = Chaplin.mediator;
 
   _.extend(mediator, {
     createUser: function() {

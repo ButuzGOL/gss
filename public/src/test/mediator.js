@@ -4,7 +4,7 @@ define([
   'use strict';
   
   describe('Mediator', function() {
-    it('should begets from Chaplin mediator', function() {
+    it('should be Chaplin mediator', function() {
     });
     describe('#createUser()', function() {
       it('should create new user', function() {

@@ -76,7 +76,7 @@ define([
       }
     },
     initConfig: function(callback) {
-      return utils.ajax('/config').done(
+      return utils.ajax(applicationConfig.api.root + '/config').done(
         function(response) {
           _.extend(backendConfig, response);
         }
@@ -116,7 +116,8 @@ define([
       };
       
       localeCallback = function(data) {
-        utils.ajax('/locales/' + applicationConfig.locale).done(
+        utils.ajax(applicationConfig.api.root + '/locales/' +
+          applicationConfig.locale).done(
           function(response) {
             prepareCallback(data ? _.extend(data, response) : response);
           }
@@ -135,6 +136,7 @@ define([
       this.layout = new Layout(_.defaults(options, { title: this.title }));
     },
     initMediator: function() {
+      mediator.user = null;
       mediator.errorHandler = null;
       mediator.applicationError = false;
       

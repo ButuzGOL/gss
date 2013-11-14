@@ -42,9 +42,9 @@ require.config({
 });
 
 require([
-  // '../test/lib/error-handler',
+  '../test/lib/error-handler',
   '../test/lib/utils',
-  // '../test/lib/support',
+  '../test/lib/support',
   
   // '../test/helpers/application',
   // '../test/helpers/sessions',
@@ -57,7 +57,7 @@ require([
   // '../test/controllers/errors',
   // '../test/controllers/sessions',
   
-  // '../test/models/base/model',
+  //! '../test/models/base/model',
   // '../test/models/base/collection',
   // '../test/models/user',
 
@@ -78,5 +78,9 @@ require([
 ], function() {
   'use strict';
   
-  window.mocha.run();
+  if (window.mochaPhantomJS) {
+    window.mochaPhantomJS.run();
+  } else {
+    window.mocha.run();
+  }
 });

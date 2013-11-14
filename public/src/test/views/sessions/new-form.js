@@ -1,11 +1,14 @@
 define([
   'expect',
   'jquery',
+  'underscore',
   'chaplin',
+  'mediator',
   'config/application',
   'views/sessions/new-form-view',
-  'models/user',
-], function(expect, $, Chaplin, applicationConfig, SessionsNewFormView, UserModel) {
+  'models/user'
+], function(expect, $, _, Chaplin, mediator, applicationConfig,
+  SessionsNewFormView, UserModel) {
   'use strict';
   
   describe('SessionsNewFormView', function() {
@@ -66,36 +69,44 @@ define([
             });
           });
           it('should dismiss', function(done) {
-            var dismiss = SessionsNewFormView.prototype.dismiss;
+            var wasCalled = false,
+                signin = mediator.signin,
+                dismiss = SessionsNewFormView.prototype.dismiss;
         
             SessionsNewFormView.prototype.dismiss = function() {
               SessionsNewFormView.prototype.dismiss = dismiss;
 
+              wasCalled = true;
+            };
+
+            mediator.signin = function() {
+              expect(wasCalled).to.be(true);
+              mediator.signin = signin;
               done();
             };
             
             sessionsNewForm = new SessionsNewFormView({ model: userModel });
             sessionsNewForm.signin();
           });
-          it('should publish events with access token and signin',
+          it('should call mediator #signin() with access token',
             function(done) {
-              var callbackSetToken,
-                  callbackSignin;
+              var signin = mediator.signin,
+                  responseAccessToken;
 
-              callbackSetToken = function(token) {
-                expect(token).to.not.be.empty();
-                Chaplin.mediator.unsubscribe('auth:setToken', callbackSetToken);
+              mediator.signin = function(accessToken) {
+                mediator.signin = signin;
+                
+                _.delay(function() {
+                  expect(accessToken).to.be(responseAccessToken);
+                  done();
+                }, 1);
               };
-              
-              callbackSignin = function(serviceProviderName) {
-                expect(serviceProviderName).to.be('formProvider');
-                Chaplin.mediator.unsubscribe('!signin', callbackSignin);
-                done();
-              };
-        
-              Chaplin.mediator.subscribe('auth:setToken', callbackSetToken);
-              Chaplin.mediator.subscribe('!signin', callbackSignin);
-              
+
+              $(document).ajaxSuccess(function(event, xhr, settings, response) {
+                responseAccessToken = response.accessToken;
+                $(document).off('ajaxSuccess');
+              });
+
               sessionsNewForm = new SessionsNewFormView({ model: userModel });
               sessionsNewForm.signin();
             }

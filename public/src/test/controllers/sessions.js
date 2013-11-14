@@ -2,8 +2,9 @@ define([
   'expect',
 
   'chaplin',
+  'mediator',
   'routes'
-], function(expect, Chaplin, routes) {
+], function(expect, Chaplin, mediator, routes) {
   'use strict';
   
   describe('SessionsController', function() {
@@ -29,18 +30,22 @@ define([
     });
 
     describe('#signout()', function() {
-      it('should publishEvent auth:setToken', function(done) {
-        var callback = function(token) {
-          expect(token).to.be(null);
+      it('should call mediator #signout()', function(done) {
+        var wasCalled = false,
+            signout = mediator.signout,
+            handler;
 
-          Chaplin.mediator.unsubscribe('auth:setToken', callback);
-
-          done();
+        mediator.signout = function() {
+          mediator.signout = signout;
+          wasCalled = true;
         };
 
-        Chaplin.mediator.subscribe('auth:setToken', callback);
-
-        Chaplin.mediator.setHandler('router:route', function() {});
+        handler = function() {
+          expect(wasCalled).to.be(true);
+          done();
+        };
+        
+        Chaplin.mediator.setHandler('router:route', handler);
         router.route({ url: '/signout' });
       });
       it('should redirect to pages#home', function(done) {
@@ -52,18 +57,6 @@ define([
         };
 
         Chaplin.mediator.setHandler('router:route', handler);
-        router.route({ url: '/signout' });
-      });
-      it('should publishEvent auth:setToken', function(done) {
-        var callback = function(token) {
-          Chaplin.mediator.unsubscribe('signout', callback);
-
-          done();
-        };
-
-        Chaplin.mediator.subscribe('signout', callback);
-
-        Chaplin.mediator.setHandler('router:route', function() {});
         router.route({ url: '/signout' });
       });
     });

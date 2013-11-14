@@ -39,5 +39,12 @@ define([
           .throwError(/Model must redefine urlPath/);
       });
     });
+
+    describe('#ajax()', function() {
+      it('should modify url', function() {
+      });
+      it('should call utils #ajax() with arguments', function() {
+      });
+    });
   });
 });

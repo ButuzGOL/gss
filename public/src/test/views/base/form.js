@@ -29,12 +29,6 @@ define([
         expect(formView.getTemplateData()).to.have.key('errorMessages');
       });
     });
-    describe('#listen', function() {
-      it('should have keys and values', function() {
-        expect(FormView.prototype.listen).to.have.
-          property('signinStatus mediator', 'render');
-      });
-    });
     describe('#autoRender', function() {
       it('should be auto render', function() {
         expect(FormView.prototype.autoRender).to.be(true);
