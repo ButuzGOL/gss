@@ -20,6 +20,10 @@ define([
         ajax.abort();
       });
 
+      afterEach(function() {
+        user.dispose();
+      });
+
       it('should return deferred object', function() {
         expect(ajax.promise).to.be.an('function');
       });

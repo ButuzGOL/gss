@@ -3,8 +3,9 @@ define([
   'underscore',
 
   'models/base/model',
-  'config/application'
-], function(expect, _, Model, applicationConfig) {
+  'config/application',
+  'lib/utils'
+], function(expect, _, Model, applicationConfig, utils) {
   'use strict';
   
   describe('Model', function() {
@@ -12,6 +13,9 @@ define([
 
     beforeEach(function() {
       model = new Model();
+    });
+    afterEach(function() {
+      model.dispose();
     });
 
     describe('#apiRoot', function() {
@@ -29,7 +33,7 @@ define([
     describe('#urlRoot()', function() {
       it('should return apiRoot + urlPath()', function() {
         model.urlPath = function() {
-          return '/request';
+          return '/test';
         };
 
         expect(model.urlRoot()).to.be(model.apiRoot + model.urlPath());
@@ -41,10 +45,26 @@ define([
     });
 
     describe('#ajax()', function() {
-      it('should modify url', function() {
-      });
-      it('should call utils #ajax() with arguments', function() {
-      });
+      it('should call utils #ajax() with modified url and arguments',
+        function(done) {
+          var ajax = utils.ajax,
+              url = '/test',
+              method = 'POST',
+              data = { test: 'test' };
+
+          utils.ajax = function() {
+            expect(arguments[0]).to.be(model.apiRoot + url);
+            expect(arguments[1]).to.be(method);
+            expect(arguments[2]).to.be(data);
+
+            utils.ajax = ajax;
+
+            done();
+          };
+
+          model.ajax(url, method, data).abort();
+        }
+      );
     });
   });
 });

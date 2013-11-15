@@ -42,22 +42,22 @@ require.config({
 });
 
 require([
-  '../test/lib/error-handler',
-  '../test/lib/utils',
-  '../test/lib/support',
+  // '../test/lib/error-handler',
+  // '../test/lib/utils',
+  // '../test/lib/support',
   
   // '../test/helpers/application',
   // '../test/helpers/sessions',
 
   //! '../test/application',
-  //! '../test/mediator',
+  '../test/mediator',
 
   // '../test/controllers/base/controller',
   // '../test/controllers/pages',
   // '../test/controllers/errors',
   // '../test/controllers/sessions',
   
-  //! '../test/models/base/model',
+  // '../test/models/base/model',
   // '../test/models/base/collection',
   // '../test/models/user',
 

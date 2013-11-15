@@ -1,10 +1,9 @@
 define([
   'jquery',
   'chaplin',
-  'mediator',
   'config/application',
   'lib/utils'
-], function($, Chaplin, mediator, applicationConfig, utils) {
+], function($, Chaplin, applicationConfig, utils) {
   'use strict';
 
   var Model = Chaplin.Model.extend({

@@ -12,6 +12,9 @@ define([
     beforeEach(function() {
       collection = new Collection();
     });
+    afterEach(function() {
+      collection.dispose();
+    });
 
     describe('#model', function() {
       it('should return base model', function() {
