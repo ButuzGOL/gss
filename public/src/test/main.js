@@ -49,8 +49,8 @@ require([
   // '../test/helpers/application',
   // '../test/helpers/sessions',
 
-  //! '../test/application',
-  '../test/mediator',
+  '../test/application',
+  // '../test/mediator',
 
   // '../test/controllers/base/controller',
   // '../test/controllers/pages',
