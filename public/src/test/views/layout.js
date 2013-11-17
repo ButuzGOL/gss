@@ -6,7 +6,7 @@ define([
   
   'views/layout',
   'nprogress'
-], function(require, expect, Chaplin, Layout) {
+], function(require, expect, Chaplin, Layout, NProgress) {
   'use strict';
   
   describe('Layout', function() {
@@ -44,7 +44,7 @@ define([
       });
       it('should be started loader', function(done) {
         var callback = function() {
-          expect(require('nprogress').isStarted()).to.be(true);
+          expect(NProgress.isStarted()).to.be(true);
 
           Chaplin.mediator.unsubscribe('controller:actionStart', callback);
 
@@ -73,7 +73,7 @@ define([
       });
       it('should be started loader', function(done) {
         var callback = function() {
-          expect(require('nprogress').isStarted()).to.be(false);
+          expect(NProgress.isStarted()).to.be(false);
           
           Chaplin.mediator.unsubscribe('controller:actionDone', callback);
 

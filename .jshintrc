@@ -26,6 +26,8 @@
     "it",
     "context",
     "beforeEach",
-    "afterEach"
+    "afterEach",
+    "before",
+    "after"
   ]
 }

@@ -75,12 +75,12 @@ define([
         mediator.signin(accessToken);
       }
     },
-    initConfig: function(callback) {
+    initConfig: function() {
       return utils.ajax(applicationConfig.api.root + '/config').done(
         function(response) {
           _.extend(backendConfig, response);
         }
-      ).always(callback);
+      );
     },
     initLocale: function(callback) {
       var localeCallback,
@@ -119,7 +119,7 @@ define([
         utils.ajax(applicationConfig.api.root + '/locales/' +
           applicationConfig.locale).done(
           function(response) {
-            prepareCallback(data ? _.extend(data, response) : response);
+            prepareCallback(data ? _.extend({}, data, response) : response);
           }
         ).fail(function() {
           prepareCallback(data);
