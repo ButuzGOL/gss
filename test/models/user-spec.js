@@ -69,11 +69,26 @@ describe('User', function() {
 
   describe('#comparePassword()', function() {
     it('should be equal', function(done) {
-      done();
+
+      user.save(function(err, user) {
+        user.comparePassword('foobar', function(err, isMatch) {
+          should.not.exist(err);
+
+          isMatch.should.be.true;
+          done();
+        });
+      });
     });
 
     it('should not be equal', function(done) {
-      done();
+      user.save(function(err, user) {
+        user.comparePassword('foobar1', function(err, isMatch) {
+          should.not.exist(err);
+
+          isMatch.should.be.false;
+          done();
+        });
+      });
     });
   })
 });
