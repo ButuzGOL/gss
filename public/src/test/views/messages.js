@@ -95,9 +95,11 @@ define([
       it('should call #addErrorMessage() messages length times', function() {
         var wasCalledTimes = 0,
             addErrorMessage = MessagesView.prototype.addErrorMessage;
+        
         MessagesView.prototype.addErrorMessage = function() {
           wasCalledTimes++;
         };
+
         messagesView = new MessagesView();
         messagesView.addErrorMessagesAndRender([
           { message: 'Test' },
@@ -110,11 +112,16 @@ define([
       });
       it('should call #render()', function(done) {
         var render = MessagesView.prototype.render;
+
         MessagesView.prototype.render = function() {
           MessagesView.prototype.render = render;
           done();
         };
+
+        MessagesView.prototype.autoRender = false;
         messagesView = new MessagesView();
+        MessagesView.prototype.autoRender = true;
+
         messagesView.addErrorMessagesAndRender();
       });
     });

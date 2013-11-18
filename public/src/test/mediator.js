@@ -56,12 +56,14 @@ define([
         var createUser = mediator.createUser;
 
         mediator.createUser = function() {
+          this.user = new User();
           mediator.createUser = createUser;
           
           done();
         };
 
         mediator.signin(accessToken);
+        mediator.removeUser();
       });
       it('should call #user.fetchCurrent()', function(done) {
           var fetchCurrent = User.prototype.fetchCurrent;
@@ -71,6 +73,8 @@ define([
             mediator.removeUser();
 
             done();
+
+            return $.Deferred();
           };
 
           mediator.signin(accessToken);

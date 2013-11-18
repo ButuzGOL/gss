@@ -6,7 +6,8 @@ define([
   'views/messages-view',
   'views/header-view',
   'views/footer-view'
-], function($, Chaplin, mediator, SiteView, MessagesView, HeaderView, FooterView) {
+], function($, Chaplin, mediator, SiteView, MessagesView, HeaderView,
+  FooterView) {
   'use strict';
 
   var Controller = Chaplin.Controller.extend({

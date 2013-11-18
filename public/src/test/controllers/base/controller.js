@@ -68,6 +68,7 @@ define([
       });
       it('should call #afterAction() if no ajax', function(done) {
         var afterAction = Controller.prototype.afterAction;
+
         Controller.prototype.afterAction = function() {
           Controller.prototype.afterAction = afterAction;
           done();
@@ -76,21 +77,17 @@ define([
         router.route({ url: '/' });
       });
       it('should not call #afterAction() if ajax', function(done) {
-        var afterAction = Controller.prototype.afterAction,
-            wasCalledAfterAction = false;
+        var afterAction = Controller.prototype.afterAction;
+
         Controller.prototype.afterAction = function() {
-          wasCalledAfterAction = true;
+          Controller.prototype.afterAction = afterAction;
+
+          expect($.active).to.be(0);
+
+          done();
         };
 
         router.route({ url: '/' });
-
-        $.get('/').always(function() {
-          expect(wasCalledAfterAction).to.be(false);
-
-          Controller.prototype.afterAction = afterAction;
-          
-          done();
-        });
       });
     });
     describe('#afterAction()', function() {

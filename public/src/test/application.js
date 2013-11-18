@@ -32,9 +32,7 @@ define([
         Application.prototype.initErrorHandler = initErrorHandler;
       });
       beforeEach(function() {
-        Chaplin.Application.prototype.start = function() {
-          Chaplin.Application.prototype.start = start;
-        };
+        Chaplin.Application.prototype.start = function() {};
       });
       it('should start loader', function() {
         Application.prototype.start();
@@ -56,9 +54,9 @@ define([
           var initConfig = Application.prototype.initConfig;
 
           Application.prototype.initConfig = function() {
-
             Application.prototype.initConfig = initConfig;
             done();
+            return $.get('/');
           };
 
           Application.prototype.start();
@@ -109,8 +107,10 @@ define([
 
             Application.prototype.start();
           });
-          it('should call callback', function(done) {
+          it('should call parent', function(done) {
             Chaplin.Application.prototype.start = function() {
+              Chaplin.Application.prototype.start = function() {};
+
               done();
             };
 

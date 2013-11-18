@@ -52,6 +52,8 @@ define([
           UserModel.prototype.signin = signin;
 
           done();
+
+          return $.Deferred();
         };
 
         userModel = new UserModel();

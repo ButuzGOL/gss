@@ -62,7 +62,7 @@ define([
             done();
           };
 
-          model.ajax(url, method, data).abort();
+          model.ajax(url, method, data);
         }
       );
     });

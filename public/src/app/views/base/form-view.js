@@ -47,6 +47,9 @@ define([
       this.dispose();
     },
 
+    save: function(event) {
+    },
+
     submit: function(event) {
       event.preventDefault();
       if (event.currentTarget.checkValidity()) {
