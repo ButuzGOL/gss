@@ -1,11 +1,7 @@
-// Configure the AMD module loader
 require.config({
-  // The path where your JavaScripts are located
-  baseUrl: './app/',
-  // For easier development, disable browser caching
-  // Of course, this should be removed in a production environment
+  deps: window.mocha ? ['../test/initialize'] : ['initialize'],
+  baseUrl: window.mocha ? '../app/' : 'app/',
   // urlArgs: 'bust=' +  (new Date()).getTime(),
-  // Specify the paths of vendor libraries
   paths: {
     jquery: '../components/scripts/jquery/jquery',
     underscore: '../components/scripts/lodash/lodash',
@@ -19,10 +15,10 @@ require.config({
 
     semantic: '../components/scripts/semantic-ui/semantic',
 
-    i18n: '../components/scripts/i18next/i18next.amd-1.7.1'
+    i18n: '../components/scripts/i18next/i18next.amd-1.7.1',
+
+    expect: '../components/scripts/expect/expect',
   },
-  // Underscore and Backbone are not AMD-capable per default,
-  // so we need to use the AMD wrapping of RequireJS
   shim: {
     underscore: {
       exports: '_'
@@ -33,20 +29,9 @@ require.config({
     },
     nprogress: {
       deps: ['jquery']
+    },
+    expect: {
+      exports: 'expect'
     }
   }
 });
-
-// Bootstrap the application
-require(['application', 'routes'], function(Application, routes) {
-  new Application({
-    routes: routes,
-    controllerSuffix: '-controller'
-  });
-});
-
-window.log = function() {
-  try {
-    return console.log.apply(console, arguments);
-  } catch (_error) {}
-};
