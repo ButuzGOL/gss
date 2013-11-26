@@ -1,4 +1,4 @@
-require(['application', 'routes'], function(Application, routes) {
+require(['application', 'config/routes'], function(Application, routes) {
   'use strict';
 
   new Application({

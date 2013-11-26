@@ -3,7 +3,7 @@ define([
 
   'chaplin',
   'mediator',
-  'routes'
+  'config/routes'
 ], function(expect, Chaplin, mediator, routes) {
   'use strict';
   

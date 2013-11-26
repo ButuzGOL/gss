@@ -6,13 +6,12 @@ define([
   'application',
   'config/application',
   'config/backend',
-  'routes',
   'nprogress',
   'mediator',
   'lib/error-handler',
   'i18n'
 ], function(expect, _, $, Chaplin, Application, applicationConfig,
-  backendConfig, routes, NProgress, mediator, ErrorHandler, i18n) {
+  backendConfig, NProgress, mediator, ErrorHandler, i18n) {
   'use strict';
   
   describe('Application', function() {

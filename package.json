@@ -1,11 +1,11 @@
 {
   "name": "GSS",
   "version": "0.0.1",
-  "author": "BrenBerry",
+  "author": "ButuzGOL",
   "description": "",
   "homepage": "",
-  "repository": "https://github.com/BrenBerry/gss",
-  "bugs": "https://github.com/BrenBerry/gss/issues",
+  "repository": "https://github.com/ButuzGOL/gss",
+  "bugs": "https://github.com/ButuzGOL/gss/issues",
   "scripts": {
     "start": "node server"
   },

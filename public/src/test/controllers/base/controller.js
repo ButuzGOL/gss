@@ -3,7 +3,7 @@ define([
   'jquery',
   
   'chaplin',
-  'routes',
+  'config/routes',
   'controllers/base/controller'
 ], function(expect, $, Chaplin, routes, Controller) {
   'use strict';

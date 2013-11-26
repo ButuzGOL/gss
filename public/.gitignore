@@ -1,7 +1,6 @@
-/temp
+/.tmp
 
-/bower_components
-/src/components
+/src/bower_components
 
 npm-debug.log
 /node_modules

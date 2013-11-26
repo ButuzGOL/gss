@@ -6,13 +6,12 @@ define([
   'config/application',
   'config/backend',
   'i18n',
-  'routes',
   'nprogress',
   'views/layout',
   'lib/error-handler',
   'lib/utils'
 ], function($, _, Chaplin, mediator, applicationConfig, backendConfig,
-  i18n, routes, NProgress, Layout, ErrorHandler, utils) {
+  i18n, NProgress, Layout, ErrorHandler, utils) {
   'use strict';
   
   var Application = Chaplin.Application.extend({

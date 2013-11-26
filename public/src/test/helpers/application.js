@@ -3,7 +3,7 @@ define([
   'expect',
 
   'chaplin',
-  'routes',
+  'config/routes',
   'helpers/application-helper'
 ], function(require, expect, Chaplin, routes, applicationHelper) {
   'use strict';

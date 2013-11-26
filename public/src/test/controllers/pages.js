@@ -2,7 +2,7 @@ define([
   'expect',
 
   'chaplin',
-  'routes',
+  'config/routes',
   'views/pages/home-page-view'
 ], function(expect, Chaplin, routes, PagesHomePageView) {
   'use strict';

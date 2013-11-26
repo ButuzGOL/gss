@@ -2,7 +2,7 @@ define([
   'expect',
 
   'chaplin',
-  'routes',
+  'config/routes',
 
   'views/errors/404-page-view',
   'views/errors/403-page-view',

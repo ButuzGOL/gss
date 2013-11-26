@@ -3,21 +3,18 @@ require.config({
   baseUrl: window.mocha ? '../app/' : 'app/',
   // urlArgs: 'bust=' +  (new Date()).getTime(),
   paths: {
-    jquery: '../components/scripts/jquery/jquery',
-    underscore: '../components/scripts/lodash/lodash',
-    backbone: '../components/scripts/backbone/backbone',
-    jade: '../components/scripts/jade/jade',
-    text: '../components/scripts/requirejs-text/text',
-    json: '../components/scripts/requirejs-plugins/json',
-    chaplin: '../components/scripts/chaplin/chaplin',
-
-    nprogress: '../components/scripts/nprogress/nprogress',
-
-    semantic: '../components/scripts/semantic-ui/semantic',
-
-    i18n: '../components/scripts/i18next/i18next.amd-1.7.1',
-
-    expect: '../components/scripts/expect/expect',
+    backbone: '../bower_components/backbone/backbone',
+    chaplin: '../bower_components/chaplin/chaplin',
+    expect: '../bower_components/expect/expect',
+    i18n: '../bower_components/i18next/release/i18next.amd-1.7.1.min',
+    jade: '../bower_components/jade/jade',
+    jquery: '../bower_components/jquery/jquery',
+    underscore: '../bower_components/lodash/dist/lodash.compat',
+    mocha: '../bower_components/mocha/mocha',
+    nprogress: '../bower_components/nprogress/nprogress',
+    json: '../bower_components/requirejs-plugins/src/json',
+    text: '../bower_components/requirejs-plugins/lib/text',
+    semantic: '../bower_components/semantic-ui/build/packaged/javascript/semantic'
   },
   shim: {
     underscore: {
