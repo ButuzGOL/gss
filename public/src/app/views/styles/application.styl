@@ -1,6 +1,5 @@
 @import 'variables'
-@import 'base'
-@import 'redefine'
+@import 'elements/loader'
 
 html, body
   height: 100%
@@ -12,28 +11,29 @@ html, body
   min-height: 100%
   height: auto !important
   height: 100%
-  margin: 0 auto -30px
+  margin: 0 auto -40px
   overflow: auto
 
 #main-container
   margin-bottom: 20px
 
 #footer-container, .push
-  height: 30px
+  height: 40px
 
 #footer-container
-  background-color: #333
+  border-top: 1px solid #e5e5e5;
   overflow: hidden
-  .copyright
-    color: white
-    font-size: 11px
-    margin: 10px 0 0 10px
-
+  color: #777
+  padding: 10px 0
+  
 #messages
   position: absolute
   padding: 10px 0
   width: 100%
 
 form
-  .ui.inline.loader
+  .inline.loader
     margin-left: 10px
+
+@import 'pages/home'
+@import 'sessions/new-form'

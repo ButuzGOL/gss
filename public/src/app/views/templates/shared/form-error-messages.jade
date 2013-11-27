@@ -1,7 +1,7 @@
 if errorMessages.length
-  .ui.error.message
+  .alert.alert-danger
     if errorMessages.length === 1
-      p= errorMessages[0]
+      = errorMessages[0]
     else
       ul
         for errorMessage in errorMessages

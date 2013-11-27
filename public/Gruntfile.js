@@ -18,8 +18,8 @@ module.exports = function(grunt) {
         livereload: '<%= connect.options.livereload %>'
       },
       stylus: {
-        files: '<%= yeoman.app %>/styles/**/*.styl',
-        tasks: ['stylus:server']
+        files: '<%= yeoman.app %>/views/styles/**/*.styl',
+        tasks: ['stylus:server', 'concat:styles']
       },
       js: {
         files: '<%= yeoman.app %>/**/*.js'
@@ -189,18 +189,34 @@ module.exports = function(grunt) {
           ]
         }]
       },
-      styles: {
+      fonts: {
+        dest: '<%= yeoman.tmp %>/fonts',
+        cwd: 'src/components/fonts',
+        expand: true,
+        flatten: true,
+        filter: 'isFile',
+        src: ['**/*']
+      },
+      images: {
         expand: true,
         dot: true,
-        cwd: '<%= yeoman.app %>/views/styles',
-        dest: '<%= yeoman.tmp %>/styles/',
-        src: '{,*/}*.css'
+        cwd: '<%= yeoman.app %>/assets/images',
+        dest: '<%= yeoman.tmp %>/images/',
+        src: '{,*/}*.{png,jpg,jpeg,gif}'
+      }
+    },
+    concat: {
+      styles: {
+        files: {
+          '<%= yeoman.tmp %>/styles/main.css': ['<%= yeoman.src %>/components/styles/**/*.css', '<%= yeoman.tmp %>/styles/main.css']
+        }
       }
     },
     concurrent: {
       server: [
         'stylus:server',
-        'copy:styles',
+        'copy:fonts',
+        'copy:images'
       ],
       dist: [
         'stylus:dist',
@@ -209,14 +225,24 @@ module.exports = function(grunt) {
       ]
     },
     bower: {
-      all: {
+      require: {
         rjsConfig: '<%= yeoman.app %>/main.js'
+      },
+      install: {
+        options: {
+          targetDir: './src/components',
+          install: true
+        }
       }
     }
   });
 
   grunt.registerTask('default', [
     'jshint'
+  ]);
+
+  grunt.registerTask('prepare', [
+    'bower:install'
   ]);
 
   grunt.registerTask('server', function (target) {
@@ -227,6 +253,7 @@ module.exports = function(grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
+      'concat:styles',
       'connect:livereload',
       'watch'
     ]);
