@@ -1,6 +1,8 @@
 require.config({
-  deps: window.mocha ? ['../test/initialize'] : ['initialize'],
-  baseUrl: window.mocha ? '../app/' : 'app/',
+  deps: (typeof window !== 'undefined' && window.mocha) ?
+    ['../test/initialize'] : ['initialize'],
+  baseUrl: (typeof window !== 'undefined' && window.mocha) ?
+    '../app/' : 'app/',
   // urlArgs: 'bust=' +  (new Date()).getTime(),
   paths: {
     backbone: '../bower_components/backbone/backbone',
@@ -14,7 +16,6 @@ require.config({
     nprogress: '../bower_components/nprogress/nprogress',
     json: '../bower_components/requirejs-plugins/src/json',
     text: '../bower_components/requirejs-plugins/lib/text',
-    semantic: '../bower_components/semantic-ui/build/packaged/javascript/semantic'
   },
   shim: {
     underscore: {

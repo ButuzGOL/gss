@@ -5,7 +5,7 @@ define([
   'use strict';
 
   var PagesController = Controller.extend({
-    home: function(params) {
+    home: function() {
       this.view = new PagesHomePageView();
     }
   });

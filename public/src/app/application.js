@@ -9,7 +9,11 @@ define([
   'nprogress',
   'views/layout',
   'lib/error-handler',
-  'lib/utils'
+  'lib/utils',
+
+  'controllers/pages-controller',
+  'controllers/errors-controller',
+  'controllers/sessions-controller'
 ], function($, _, Chaplin, mediator, applicationConfig, backendConfig,
   i18n, NProgress, Layout, ErrorHandler, utils) {
   'use strict';

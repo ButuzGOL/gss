@@ -23,7 +23,7 @@ define([
   ErrorHandler.prototype.subscribeForAjaxEvents = function() {
     var _this = this;
     
-    $(document).ajaxError(function(event, jqxhr, settings, exception) {
+    $(document).ajaxError(function(event, jqxhr) {
       var error;
       
       if (jqxhr.responseJSON) {
@@ -40,7 +40,7 @@ define([
       _this.publishEvent('errorHandler:catch', _.last(_this.currentErrors));
     });
 
-    $(document).ajaxComplete(function(event, xhr, settings) {
+    $(document).ajaxComplete(function() {
       _this.publishCurrentErrors();
     });
   };

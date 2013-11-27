@@ -13,8 +13,6 @@
     "chaplin": "~0.11.3",
     "lodash": "~2.3.0",
     "jquery": "~2.0.3",
-    "semantic-ui": "*",
-    "normalize-css": "~2.1.3",
     "jade": "~0.35.0",
     "nprogress": "git@github.com:rstacruz/nprogress.git#596cc5ede695dbf6b7c5e9f35ad56b1b47e40d2c",
     "i18next": "~1.7.1",

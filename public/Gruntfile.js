@@ -23,12 +23,15 @@ module.exports = function(grunt) {
       },
       js: {
         files: '<%= yeoman.app %>/**/*.js'
+      },
+      jade: {
+        files: '<%= yeoman.app %>/**/*.jade'
       }
     },
     connect: {
       options: {
         port: 9001,
-        livereload: true,
+        livereload: 9002,
         hostname: 'localhost'
       },
       livereload: {
@@ -56,13 +59,14 @@ module.exports = function(grunt) {
     stylus: {
       server: {
         files: {
-          '<%= yeoman.tmp %>/styles/main.css': '<%= yeoman.app %>/views/styles/application.styl'
+          '<%= yeoman.tmp %>/styles/main.css':
+            '<%= yeoman.app %>/views/styles/application.styl'
         }
       },
       dist: {
         files: {
           '<%= yeoman.dist %>/styles/main.css':
-            '<%= yeoman.app %>/views/styles/main.styl'
+            '<%= yeoman.app %>/views/styles/application.styl'
         }
       }
     },
@@ -83,8 +87,7 @@ module.exports = function(grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/scripts/{,*/}*.js',
-        '!<%= yeoman.app %>/scripts/vendor/*'
+        '<%= yeoman.app %>/{,*/}*.js'
       ]
     },
     requirejs: {
@@ -93,8 +96,8 @@ module.exports = function(grunt) {
         // https://github.com/jrburke/r.js/blob/master/build/example.build.js
         options: {
           name: 'main',
-          mainConfigFile: '<%= yeoman.app %>/scripts/main.js',
-          baseUrl: '<%= yeoman.app %>/scripts',
+          mainConfigFile: '<%= yeoman.app %>/main.js',
+          baseUrl: '<%= yeoman.app %>',
           optimize: 'uglify2',
           out: '<%= yeoman.dist %>/scripts/build.js',
           generateSourceMaps: true,
@@ -144,14 +147,15 @@ module.exports = function(grunt) {
     processhtml: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/index.html': ['<%= yeoman.app %>/index.html']
+          '<%= yeoman.dist %>/index.html': ['<%= yeoman.src %>/index.html']
         }
       }
     },
     cssmin: {
       dist: {
         files: {
-          '<%= yeoman.dist %>/styles/main.css': '<%= yeoman.dist %>/styles/{,*/}*.css'
+          '<%= yeoman.dist %>/styles/main.css':
+            '<%= yeoman.dist %>/styles/{,*/}*.css'
         }
       }
     },
@@ -179,14 +183,18 @@ module.exports = function(grunt) {
     copy: {
       dist: {
         files: [{
+          dest: '<%= yeoman.dist %>/fonts',
+          cwd: 'src/components/fonts',
+          expand: true,
+          flatten: true,
+          filter: 'isFile',
+          src: ['**/*']
+        }, {
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '*.{ico,png,txt}',
-            'images/{,*/}*.{webp,gif}'
-          ]
+          cwd: '<%= yeoman.app %>/assets/images',
+          dest: '<%= yeoman.dist %>/images/',
+          src: '{,*/}*.{png,jpg,jpeg,gif}'
         }]
       },
       fonts: {
@@ -206,9 +214,20 @@ module.exports = function(grunt) {
       }
     },
     concat: {
-      styles: {
+      server: {
         files: {
-          '<%= yeoman.tmp %>/styles/main.css': ['<%= yeoman.src %>/components/styles/**/*.css', '<%= yeoman.tmp %>/styles/main.css']
+          '<%= yeoman.tmp %>/styles/main.css': [
+            '<%= yeoman.src %>/components/styles/**/*.css',
+            '<%= yeoman.tmp %>/styles/main.css'
+          ]
+        }
+      },
+      dist: {
+        files: {
+          '<%= yeoman.dist %>/styles/main.css': [
+            '<%= yeoman.src %>/components/styles/**/*.css',
+            '<%= yeoman.dist %>/styles/main.css'
+          ]
         }
       }
     },
@@ -253,7 +272,7 @@ module.exports = function(grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',
-      'concat:styles',
+      'concat:server',
       'connect:livereload',
       'watch'
     ]);
@@ -270,17 +289,17 @@ module.exports = function(grunt) {
     
     grunt.task.run([
       'jshint',
+      'prepare',
       'clean:dist',
       'processhtml:dist',
       'useminPrepare',
       'concurrent:dist',
+      'concat:dist',
       'requirejs',
-      'css_selectors',
-      'string-replace',
       'cssmin',
-      'uglify',
+      // 'uglify',
       'copy:dist',
-      'rev',
+      // 'rev',
       'usemin'
     ]);
   });

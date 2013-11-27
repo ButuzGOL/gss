@@ -1,8 +1,7 @@
 define([
   'jquery',
   'chaplin',
-  'nprogress',
-  'semantic'
+  'nprogress'
 ], function($, Chaplin, NProgress) {
   'use strict';
 
