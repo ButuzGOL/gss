@@ -4,13 +4,9 @@ define([
   'use strict';
 
   var User = Model.extend({
+    urlPath: '/users/me',
     signin: function() {
       return this.ajax('/signin', 'POST', this.serialize());
-    },
-    fetchCurrent: function() {
-      return this.ajax('/users/me', 'GET', {
-        'access_token': this.get('accessToken')
-      });
     }
   });
 

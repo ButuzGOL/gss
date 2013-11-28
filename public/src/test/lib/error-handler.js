@@ -86,7 +86,7 @@ define([
       );
       it('should not publish if no errors', function(done) {
         var wasCalled = false,
-          callback = function(errors) {
+          callback = function() {
             wasCalled = true;
           };
 
@@ -105,7 +105,7 @@ define([
       it('should not publish if locked', function(done) {
         
         var wasCalled = false,
-          callback = function(errors) {
+          callback = function() {
             wasCalled = true;
           };
 

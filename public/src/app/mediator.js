@@ -27,7 +27,7 @@ define([
       
       this.createUser();
       this.user.set({ accessToken: accessToken });
-      this.user.fetchCurrent().then(function() {
+      this.user.fetch().then(function() {
         _this.publish('signinStatus', true);
       });
     },

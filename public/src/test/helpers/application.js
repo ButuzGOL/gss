@@ -10,8 +10,7 @@ define([
   
   describe('ApplicationHelper', function() {
     describe('#url()', function() {
-      var router,
-          dispatcher;
+      var router;
 
       before(function() {
         router = new Chaplin.Router();
@@ -27,7 +26,7 @@ define([
           be('/pages/home');
       });
     });
-    describe('#render()', function(done) {
+    describe('#render()', function() {
       it('should render template', function(done) {
         require(['views/base/view'], function() {
           var template = applicationHelper.

@@ -10,6 +10,7 @@ module.exports = function(grunt) {
       src: 'src',
       app: '<%= yeoman.src %>/app',
       dist: 'dist',
+      test: '<%= yeoman.src %>/test',
       tmp: '.tmp'
     },
     watch: {
@@ -87,7 +88,8 @@ module.exports = function(grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/{,*/}*.js'
+        '<%= yeoman.app %>/**/*.js',
+        '<%= yeoman.test %>/**/*.js'
       ]
     },
     requirejs: {

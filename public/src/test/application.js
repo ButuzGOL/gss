@@ -21,8 +21,7 @@ define([
       });
     });
     describe('#start()', function() {
-      var start = Chaplin.Application.prototype.start,
-          initErrorHandler = Application.prototype.initErrorHandler;
+      var initErrorHandler = Application.prototype.initErrorHandler;
 
       before(function() {
         Application.prototype.initErrorHandler = function() {};

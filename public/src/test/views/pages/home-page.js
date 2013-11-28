@@ -48,7 +48,8 @@ define([
         PagesHomePageView.prototype.autoRender = false;
         pagesHomePageView = new PagesHomePageView();
         PagesHomePageView.prototype.autoRender = true;
-        expect(pagesHomePageView.template).to.match(/#sessions-new-form-container/);
+        expect(pagesHomePageView.template).to.
+          match(/#sessions-new-form-container/);
       });
     });
     describe('#listen', function() {

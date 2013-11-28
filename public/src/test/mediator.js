@@ -65,27 +65,27 @@ define([
         mediator.signin(accessToken);
         mediator.removeUser();
       });
-      it('should call #user.fetchCurrent()', function(done) {
-          var fetchCurrent = User.prototype.fetchCurrent;
+      it('should call #user.fetch()', function(done) {
+        var fetch = User.prototype.fetch;
 
-          User.prototype.fetchCurrent = function() {
-            User.prototype.fetchCurrent = fetchCurrent;
-            mediator.removeUser();
+        User.prototype.fetch = function() {
+          User.prototype.fetch = fetch;
+          mediator.removeUser();
 
-            done();
+          done();
 
-            return $.Deferred();
-          };
+          return $.Deferred();
+        };
 
-          mediator.signin(accessToken);
+        mediator.signin(accessToken);
       });
-      it('should publish signinStatus true on then #user.fetchCurrent()',
+      it('should publish signinStatus true on then #user.fetch()',
         function(done) {
           var callback,
-              fetchCurrent = User.prototype.fetchCurrent;
+              fetch = User.prototype.fetch;
 
-          User.prototype.fetchCurrent = function() {
-            User.prototype.fetchCurrent = fetchCurrent;
+          User.prototype.fetch = function() {
+            User.prototype.fetch = fetch;
             return $.get('/');
           };
 

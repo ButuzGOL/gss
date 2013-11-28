@@ -7,6 +7,11 @@ define([
   'use strict';
   
   describe('User', function() {
+    describe('#urlPath', function() {
+      it('should return /users/me', function() {
+        expect(User.prototype.urlPath).to.be('/users/me');
+      });
+    });
     describe('#signin()', function() {
       var user,
           ajax;
@@ -36,39 +41,6 @@ define([
           done();
         });
       });
-    });
-    describe('#fetchCurrent()', function() {
-      var user,
-          ajax,
-          accessToken = 'test';
-          
-      beforeEach(function() {
-        user = new User({
-          accessToken: accessToken
-        });
-        ajax = user.fetchCurrent();
-        ajax.abort();
-      });
-
-      it('should return deferred object', function() {
-        expect(ajax.promise).to.be.an('function');
-      });
-      
-      it('should send GET request to /users/me with access token',
-        function(done) {
-          ajax.always(function() {
-            expect(this.type).to.be('GET');
-            expect(this.url).to.be(
-              user.apiRoot + '/users/me?' + $.param({
-                'access_token': user.get('accessToken')
-              })
-            );
-            expect(this.data).to.be();
-            done();
-          }
-        );
-      });
-
     });
   });
 });

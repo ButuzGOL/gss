@@ -47,7 +47,7 @@ define([
       this.dispose();
     },
 
-    save: function(event) {
+    save: function() {
     },
 
     submit: function(event) {
