@@ -20,7 +20,7 @@ module.exports = function(grunt) {
       },
       stylus: {
         files: '<%= yeoman.app %>/views/styles/**/*.styl',
-        tasks: ['stylus:server', 'concat:styles']
+        tasks: ['stylus:server', 'concat:server']
       },
       js: {
         files: '<%= yeoman.app %>/**/*.js'
@@ -105,9 +105,6 @@ module.exports = function(grunt) {
           generateSourceMaps: true,
           preserveLicenseComments: false,
           useStrict: true,
-          pragmasOnSave: {
-            excludeJade: true
-          },
           // wrap: true,
           include: '../bower_components/requirejs/require'
           //uglify2: {} // https://github.com/mishoo/UglifyJS2

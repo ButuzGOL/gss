@@ -1,6 +1,6 @@
 define([
   'views/base/view',
-  'jade!views/templates/header'
+  'text!views/templates/header.jade'
 ], function(View, template) {
   'use strict';
 

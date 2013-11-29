@@ -2,7 +2,7 @@ define([
   'jquery',
   'underscore',
   'views/base/view',
-  'jade!views/templates/messages'
+  'text!views/templates/messages.jade'
 ], function($, _, View, template) {
   'use strict';
   
@@ -36,7 +36,7 @@ define([
       var object = View.prototype.getTemplateData.apply(this, arguments);
 
       object.messages = this.messages;
-      
+
       return object;
     },
     addErrorMessagesAndRender: function(messages) {
