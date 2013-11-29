@@ -1,9 +1,8 @@
 define([
   'require',
   'jquery',
-  'jade',
   'chaplin',
-], function(require, $, Jade, Chaplin) {
+], function(require, $, Chaplin) {
   'use strict';
   
   return {
@@ -13,8 +12,8 @@ define([
       return Chaplin.helpers.reverse(routeName, params);
     },
     render: function(path, data) {
-      var template = require('text!views/templates/' + path + '.jade');
-      return Jade.compile(template, { compileDebug: true })(data);
+      var template = require('jade!views/templates/' + path);
+      return template(data);
     }
   };
 

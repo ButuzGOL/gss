@@ -2,10 +2,10 @@ define([
   'jquery',
   'underscore',
   'views/base/view',
-  'text!views/templates/messages.jade'
+  'jade!views/templates/messages'
 ], function($, _, View, template) {
   'use strict';
-
+  
   var MessagesView = View.extend({
     constructor: function() {
       View.prototype.constructor.apply(this, arguments);

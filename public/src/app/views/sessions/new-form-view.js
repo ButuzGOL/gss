@@ -1,7 +1,7 @@
 define([
   'mediator',
   'views/base/form-view',
-  'text!views/templates/sessions/new-form.jade'
+  'jade!views/templates/sessions/new-form'
 ], function(mediator, FormView, template) {
   'use strict';
 

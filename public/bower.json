@@ -17,7 +17,8 @@
     "nprogress": "git@github.com:rstacruz/nprogress.git#596cc5ede695dbf6b7c5e9f35ad56b1b47e40d2c",
     "i18next": "~1.7.1",
     "requirejs-plugins": "~1.0.2",
-    "bootstrap": "~3.0.2"
+    "bootstrap": "~3.0.2",
+    "require-jade": "~0.0.3"
   },
   "devDependencies": {
     "mocha": "~1.14.0",
@@ -25,7 +26,10 @@
   },
   "exportsOverride": {
     "bootstrap": {
-      "styles": ["dist/css/bootstrap-theme.css", "dist/css/bootstrap.css"],
+      "styles": [
+        "dist/css/bootstrap-theme.css",
+        "dist/css/bootstrap.css"
+      ],
       "fonts": "dist/fonts/**"
     }
   }

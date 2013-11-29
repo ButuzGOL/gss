@@ -9,7 +9,7 @@ require.config({
     chaplin: '../bower_components/chaplin/chaplin',
     expect: '../bower_components/expect/expect',
     i18n: '../bower_components/i18next/release/i18next.amd-1.7.1.min',
-    jade: '../bower_components/jade/jade',
+    jade: '../bower_components/require-jade/jade',
     jquery: '../bower_components/jquery/jquery',
     underscore: '../bower_components/lodash/dist/lodash.compat',
     mocha: '../bower_components/mocha/mocha',

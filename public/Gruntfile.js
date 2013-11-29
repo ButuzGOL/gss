@@ -105,6 +105,9 @@ module.exports = function(grunt) {
           generateSourceMaps: true,
           preserveLicenseComments: false,
           useStrict: true,
+          pragmasOnSave: {
+            excludeJade: true
+          },
           // wrap: true,
           include: '../bower_components/requirejs/require'
           //uglify2: {} // https://github.com/mishoo/UglifyJS2
@@ -255,11 +258,20 @@ module.exports = function(grunt) {
           install: true
         }
       }
+    },
+    mocha: {
+      all: {
+        options: {
+          run: true,
+          urls: ['http://localhost:<%%= connect.options.port %>/index.html']
+        }
+      }
     }
   });
 
   grunt.registerTask('default', [
-    'jshint'
+    'jshint',
+    'mocha'
   ]);
 
   grunt.registerTask('prepare', [
@@ -281,6 +293,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('test', [
+    // 'mocha'
   ]);
 
   grunt.registerTask('build', function(target, environment) {
