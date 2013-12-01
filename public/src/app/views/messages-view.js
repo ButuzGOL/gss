@@ -26,7 +26,7 @@ define([
       'errorHandler:throw mediator': 'addErrorMessagesAndRender'
     },
     events: {
-      'click .close': 'removeMessage'
+      'click [data-dissmis="alert"]': 'removeMessage'
     },
     render: function() {
       View.prototype.render.apply(this, arguments);

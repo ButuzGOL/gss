@@ -62,7 +62,7 @@ define([
         sessionsNewForm.signin();
       });
       context('when done', function() {
-        context('when response have access token', function() {
+        context('when response has access token', function() {
           beforeEach(function() {
             userModel = new UserModel();
             userModel.set({
@@ -85,6 +85,8 @@ define([
               expect(wasCalled).to.be(true);
               mediator.signin = signin;
               done();
+
+              return $.Deferred();
             };
             
             sessionsNewForm = new SessionsNewFormView({ model: userModel });
@@ -102,6 +104,8 @@ define([
                   expect(accessToken).to.be(responseAccessToken);
                   done();
                 }, 1);
+
+                return $.Deferred();
               };
 
               $(document).ajaxSuccess(function(event, xhr, settings, response) {
@@ -113,8 +117,23 @@ define([
               sessionsNewForm.signin();
             }
           );
+          context('when #mediator.signin() done', function() {
+            it('should redirect to pages#home', function(done) {
+              var handler = function(routeName) {
+          
+                expect(routeName).to.be('pages#home');
+                mediator.removeUser();
+                done();
+              };
+
+              Chaplin.mediator.setHandler('router:route', handler);
+              
+              sessionsNewForm = new SessionsNewFormView({ model: userModel });
+              sessionsNewForm.signin();
+            });
+          });
         });
-        context('when response have message', function() {
+        context('when response has message', function() {
           beforeEach(function() {
             userModel = new UserModel();
             userModel.set({

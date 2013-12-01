@@ -70,7 +70,7 @@ define([
     describe('#events', function() {
       it('should have keys and values', function() {
         expect(MessagesView.prototype.events).to.have.
-          property('click .close', 'removeMessage');
+          property('click [data-dissmis="alert"]', 'removeMessage');
       });
     });
     describe('#render()', function() {
@@ -186,9 +186,9 @@ define([
       it('should remove message from dom', function() {
         messagesView = new MessagesView();
         messagesView.template =
-          '<div class="parent"><div class="close"></div></div>';
+          '<div class="parent"><div data-dissmis="alert"></div></div>';
         messagesView.render();
-        $('.close', messagesView.$el).trigger('click');
+        $('[data-dissmis="alert"]', messagesView.$el).trigger('click');
         expect($('.parent', messagesView.$el)).to.be.empty();
       });
     });

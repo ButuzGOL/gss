@@ -13,9 +13,6 @@ define([
     regions: {
       'sessions-new-form': '#sessions-new-form-container'
     },
-    listen: {
-      'signinStatus mediator': 'render'
-    },
     render: function() {
       PageView.prototype.render.apply(this, arguments);
       this.createSessionsNewForm();

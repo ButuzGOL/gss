@@ -32,7 +32,7 @@ define([
       callbackWithDelay = _.after(2, callback);
       
       NProgress.start();
-
+      
       this.initErrorHandler();
       this.initConfig().done(function() {
         _this.initAuth(callbackWithDelay);

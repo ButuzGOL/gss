@@ -3,8 +3,9 @@ define([
   'jquery',
   'chaplin',
   'mediator',
-  'models/user'
-], function(expect, $, Chaplin, mediator, User) {
+  'models/user',
+  'config/application'
+], function(expect, $, Chaplin, mediator, User, applicationConfig) {
   'use strict';
   
   describe('Mediator', function() {
@@ -27,7 +28,16 @@ define([
     });
     describe('#signin()', function() {
       var accessToken = 'test';
+      
+      it('should return deferred object', function(done) {
+        var signin = mediator.signin(accessToken);
 
+        signin.fail(function() {
+          done();
+        });
+
+        expect(signin.promise).to.be.an('function');
+      });
       it('should return if user exists', function() {
         var wasCalled = false,
             createUser = mediator.createUser;
@@ -43,67 +53,102 @@ define([
         expect(wasCalled).to.be(false);
 
         mediator.createUser = createUser;
+
         mediator.removeUser();
       });
-      it('should set access token to window.localStorage', function() {
-        mediator.signin(accessToken);
+      it('should set access token to window.localStorage', function(done) {
+        mediator.signin(accessToken).fail(function() {
+          done();
+        });
         
         expect(window.localStorage.getItem('accessToken')).to.be(accessToken);
-        
-        mediator.removeUser();
       });
       it('should create user with calling #createUser()', function(done) {
-        var createUser = mediator.createUser;
+        var createUser = mediator.createUser,
+            wasCalled = false,
+            callback = function() {
+              expect(wasCalled).to.be(true);
+              done();
+            };
 
         mediator.createUser = function() {
           this.user = new User();
           mediator.createUser = createUser;
-          
-          done();
+          wasCalled = true;
         };
 
-        mediator.signin(accessToken);
-        mediator.removeUser();
+        mediator.signin(accessToken).fail(callback);
       });
-      it('should call #user.fetch()', function(done) {
-        var fetch = User.prototype.fetch;
-
-        User.prototype.fetch = function() {
-          User.prototype.fetch = fetch;
-          mediator.removeUser();
-
-          done();
-
-          return $.Deferred();
-        };
-
-        mediator.signin(accessToken);
-      });
-      it('should publish signinStatus true on then #user.fetch()',
-        function(done) {
-          var callback,
-              fetch = User.prototype.fetch;
+      describe('#user.fetch()', function() {
+        it('should call #user.fetch()', function(done) {
+          var fetch = User.prototype.fetch;
 
           User.prototype.fetch = function() {
             User.prototype.fetch = fetch;
-            return $.get('/');
-          };
-
-
-          callback = function(status) {
-            expect(status).to.be(true);
-            Chaplin.mediator.unsubscribe('signinStatus', callback);
-
+            
             mediator.removeUser();
-
+            
             done();
-          };
 
-          Chaplin.mediator.subscribe('signinStatus', callback);
+            return $.Deferred();
+          };
 
           mediator.signin(accessToken);
-        }
-      );
+        });
+        context('when done', function() {
+          it('should publish signinStatus true',
+            function(done) {
+              var callback,
+                  fetch = User.prototype.fetch;
+                  
+              User.prototype.fetch = function() {
+                User.prototype.fetch = fetch;
+                return $.get('/');
+              };
+
+              callback = function(status) {
+                expect(status).to.be(true);
+                Chaplin.mediator.unsubscribe('signinStatus', callback);
+
+                mediator.removeUser();
+
+                done();
+              };
+
+              Chaplin.mediator.subscribe('signinStatus', callback);
+
+              mediator.signin(accessToken);
+            }
+          );
+        });
+        context('when fail', function() {
+          it('should publish signinStatus false and remove user',
+            function(done) {
+              var callback,
+                  fetch = User.prototype.fetch;
+
+              User.prototype.fetch = function() {
+                User.prototype.fetch = fetch;
+                return $.get(applicationConfig.api.root + '/notfound');
+              };
+
+
+              callback = function(status) {
+                expect(status).to.be(false);
+                expect(mediator.user).to.be(null);
+
+                Chaplin.mediator.unsubscribe('signinStatus', callback);
+
+                done();
+              };
+
+              Chaplin.mediator.subscribe('signinStatus', callback);
+
+              mediator.signin(accessToken);
+            }
+          );
+        });
+      });
     });
     describe('#signout()', function() {
       it('should return if user not exists', function() {

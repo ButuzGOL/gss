@@ -52,12 +52,6 @@ define([
           match(/#sessions-new-form-container/);
       });
     });
-    describe('#listen', function() {
-      it('should have keys and values', function() {
-        expect(PagesHomePageView.prototype.listen).to.have.
-          property('signinStatus mediator', 'render');
-      });
-    });
     describe('#render()', function() {
       it('should call parent #render() and call #createSessionsNewForm()',
         function() {

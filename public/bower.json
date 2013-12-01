@@ -31,6 +31,9 @@
         "dist/css/bootstrap.css"
       ],
       "fonts": "dist/fonts/**"
+    },
+    "nprogress": {
+      "styles": "nprogress.css"
     }
   }
 }

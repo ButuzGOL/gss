@@ -1,8 +1,9 @@
 define([
   'mediator',
+  'helpers/application-helper',
   'views/base/form-view',
   'text!views/templates/sessions/new-form.jade'
-], function(mediator, FormView, template) {
+], function(mediator, applicationHelper, FormView, template) {
   'use strict';
 
   var SessionsNewFormView = FormView.extend({
@@ -16,7 +17,11 @@ define([
       this.model.signin().done(function(response) {
         if (response.accessToken) {
           _this.dismiss();
-          mediator.signin(response.accessToken);
+          mediator.signin(response.accessToken).
+            done(function() {
+              applicationHelper.redirectTo('pages#home', {},
+                { forceStartup: true });
+            });
         } else if (response.message) {
           _this.errorMessages.push(response.message);
           _this.render();

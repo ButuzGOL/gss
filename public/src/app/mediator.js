@@ -27,8 +27,12 @@ define([
       
       this.createUser();
       this.user.set({ accessToken: accessToken });
-      this.user.fetch().then(function() {
+
+      return this.user.fetch().done(function() {
         _this.publish('signinStatus', true);
+      }).fail(function() {
+        _this.removeUser();
+        _this.publish('signinStatus', false);
       });
     },
     signout: function() {

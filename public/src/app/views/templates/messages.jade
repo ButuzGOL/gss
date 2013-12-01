@@ -2,8 +2,8 @@ if messages.length
   .row
     .col-md-offset-2.col-sm-8
       for item in messages
-        .alert.alert-dismissable(class="alert-danger")
-          button.close(data-dissmis="alert", aria-hidden="true")
+        .alert.alert-dismissable(class="alert-#{(item.type === 'error') ? 'danger' : item.type }")
+          button.close(data-dissmis='alert', aria-hidden='true')
             &times;
           if item.message
             .header

@@ -9,6 +9,19 @@ define([
   'use strict';
   
   describe('ApplicationHelper', function() {
+    describe('#redirectTo()', function() {
+      it('should call chaplin helper method #redirectTo()', function(done) {
+        var redirectTo = Chaplin.helpers.redirectTo;
+
+        Chaplin.helpers.redirectTo = function() {
+          Chaplin.helpers.redirectTo = redirectTo;
+        
+          done();
+        };
+
+        applicationHelper.redirectTo('pages#home');
+      });
+    });
     describe('#url()', function() {
       var router;
 
