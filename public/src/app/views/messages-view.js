@@ -2,7 +2,7 @@ define([
   'jquery',
   'underscore',
   'views/base/view',
-  'text!views/templates/messages.jade'
+  'text!views/templates/messages.ejs'
 ], function($, _, View, template) {
   'use strict';
   

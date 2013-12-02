@@ -21,7 +21,7 @@ define([
     });
 
     describe('#getTemplateFunction()', function() {
-      it('should return jade compile function if template string', function() {
+      it('should return ejs compile function if template string', function() {
         view.template = 'Test';
         expect(view.getTemplateFunction()).to.be.an('function');
       });
@@ -51,7 +51,7 @@ define([
       });
     });
     it('should include partial templates', function() {
-      expect(require('text!views/templates/shared/form-error-messages.jade')).
+      expect(require('text!views/templates/shared/form-error-messages.ejs')).
         to.be.a('string');
     });
   });

@@ -1,9 +1,9 @@
 define([
   'require',
+  'ejs',
   'jquery',
-  'chaplin',
-  'jade'
-], function(require, $, Chaplin, Jade) {
+  'chaplin'
+], function(require, ejs, $, Chaplin) {
   'use strict';
   
   return {
@@ -16,8 +16,8 @@ define([
       Chaplin.helpers.redirectTo(pathDesc, params, options);
     },
     render: function(path, data) {
-      var template = require('text!views/templates/' + path + '.jade');
-      return Jade.compile(template, { compileDebug: true })(data);
+      var template = require('text!views/templates/' + path + '.ejs');
+      return ejs.compile(template)(data);
     }
   };
 

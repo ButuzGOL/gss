@@ -2,13 +2,13 @@ define([
   'require',
   'underscore',
   'i18n',
+  'ejs',
   'chaplin',
-  'jade',
   'mediator',
   'helpers/application-helper',
   'helpers/sessions-helper',
-  'text!views/templates/shared/form-error-messages.jade'
-], function(require, _, i18n, Chaplin, Jade, mediator) {
+  'text!views/templates/shared/form-error-messages.ejs'
+], function(require, _, i18n, ejs, Chaplin, mediator) {
   'use strict';
 
   var View = Chaplin.View.extend({
@@ -18,12 +18,7 @@ define([
           templateFunc = null;
 
       if (_.isString(template)) {
-        templateFunc = Jade.compile(template, { compileDebug: true });
-        
-        if (!window.mocha) {
-          this.constructor.prototype.template = templateFunc;
-        }
-
+        templateFunc = ejs.compile(template);
       } else {
         templateFunc = template;
       }

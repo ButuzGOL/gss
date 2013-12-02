@@ -35,7 +35,7 @@ define([
         MessagesView.prototype.autoRender = true;
 
         expect(messagesView.template).
-          to.be(require('text!views/templates/messages.jade'));
+          to.be(require('text!views/templates/messages.ejs'));
       });
     });
     describe('#region', function() {

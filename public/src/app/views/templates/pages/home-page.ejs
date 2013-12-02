@@ -1,0 +1,13 @@
+<% if (isSignedIn()) { %>
+  <%= i18n.t('hello') %> <%= currentUser.email %>, 
+  <a href="<%= url('sessions#signout') %>">Sign out</a>
+<% } else { %>
+  <div class="row">
+    <div class="col-md-offset-4 col-sm-4">
+      <div class="logo">
+        <img src="../images/logo.png" alt="" title="Gone in Sixty Seconds"/>
+      </div>
+      <section id="sessions-new-form-container"></section>
+    </div>
+  </div>
+<% } %>

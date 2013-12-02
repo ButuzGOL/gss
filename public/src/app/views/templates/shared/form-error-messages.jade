@@ -1,8 +1,0 @@
-if errorMessages.length
-  .alert.alert-danger
-    if errorMessages.length === 1
-      = errorMessages[0]
-    else
-      ul
-        for errorMessage in errorMessages
-          li= errorMessage

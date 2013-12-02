@@ -12,7 +12,7 @@ define([
         Errors404PageView.prototype.autoRender = true;
 
         expect(errors404pageView.template).
-          to.be(require('text!views/templates/errors/404-page.jade'));
+          to.be(require('text!views/templates/errors/404-page.ejs'));
         
         errors404pageView.dispose();
 

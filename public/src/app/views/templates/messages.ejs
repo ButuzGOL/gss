@@ -1,0 +1,21 @@
+<% if (messages.length) { %>
+  <div class="row">
+    <div class="col-md-offset-2 col-sm-8">
+      <% _.each(messages, function(item) { %>
+        <div class="alert alert-dismissable alert-<%= (item.type === 'error') ? 'danger' : item.type %>">
+          <button class="close" data-dissmis="alert" aria-hidden="true">
+            &times;
+          </button>
+          <% if (item.message) { %>
+            <div class="header">
+              <%= item.message %>
+            </div>  
+          <% } %>
+          <% if (item.description) { %>
+            <p><%= item.description %></p>
+          <% } %>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+<% } %>

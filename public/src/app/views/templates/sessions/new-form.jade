@@ -1,8 +1,0 @@
-form(role='form')
-  != render('shared/form-error-messages', { errorMessages: errorMessages })
-  .form-group
-    input.form-control(type='email', name='email', placeholder='Email', value=email, required='required')
-  .form-group
-    input.form-control(type='password', name='password', placeholder='Password', value=password, required='required')
-  button.btn.btn-default(type='submit', data-action='sign-in') Submit
-  .small.inline.loader

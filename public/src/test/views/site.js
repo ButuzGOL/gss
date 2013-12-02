@@ -20,16 +20,16 @@ define([
 
     describe('#regions', function() {
       it('should have ids on render', function() {
-        expect(siteView.template).to.match(/#messages-container/);
-        expect(siteView.template).to.match(/#header-container/);
-        expect(siteView.template).to.match(/#main-container/);
-        expect(siteView.template).to.match(/#footer-container/);
+        expect(siteView.template).to.match(/id="messages-container"/);
+        expect(siteView.template).to.match(/id="header-container"/);
+        expect(siteView.template).to.match(/id="main-container"/);
+        expect(siteView.template).to.match(/id="footer-container"/);
       });
     });
     describe('#template', function() {
       it('should render template', function() {
         expect(siteView.template).
-          to.be(require('text!views/templates/site.jade'));
+          to.be(require('text!views/templates/site.ejs'));
       });
     });
   });

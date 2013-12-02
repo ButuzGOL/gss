@@ -12,7 +12,7 @@ define([
         var footerView = new FooterView();
         
         expect(footerView.template).
-          to.be(require('text!views/templates/footer.jade'));
+          to.be(require('text!views/templates/footer.ejs'));
         
         footerView.dispose();
 

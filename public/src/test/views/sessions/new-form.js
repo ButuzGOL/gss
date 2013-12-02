@@ -26,7 +26,7 @@ define([
         SessionsNewFormView.prototype.autoRender = true;
         
         expect(sessionsNewForm.template).
-          to.be(require('text!views/templates/sessions/new-form.jade'));
+          to.be(require('text!views/templates/sessions/new-form.ejs'));
       });
     });
     describe('#save()', function() {

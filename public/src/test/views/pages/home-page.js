@@ -35,7 +35,7 @@ define([
         PagesHomePageView.prototype.autoRender = true;
         
         expect(pagesHomePageView.template).
-          to.be(require('text!views/templates/pages/home-page.jade'));
+          to.be(require('text!views/templates/pages/home-page.ejs'));
       });
     });
     describe('#autoRender', function() {
@@ -49,7 +49,7 @@ define([
         pagesHomePageView = new PagesHomePageView();
         PagesHomePageView.prototype.autoRender = true;
         expect(pagesHomePageView.template).to.
-          match(/#sessions-new-form-container/);
+          match(/id="sessions-new-form-container"/);
       });
     });
     describe('#render()', function() {

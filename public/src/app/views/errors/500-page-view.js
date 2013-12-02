@@ -1,6 +1,6 @@
 define([
   'views/base/page-view',
-  'text!views/templates/errors/500-page.jade'
+  'text!views/templates/errors/500-page.ejs'
 ], function(PageView, template) {
   'use strict';
 

@@ -1,0 +1,13 @@
+<% if (errorMessages.length) { %>
+  <div class="alert alert-danger">
+    <% if (errorMessages.length === 1) { %>
+      <%= errorMessages[0] %>
+    <% } else { %>
+      <ul>
+        <% _.each(errorMessages, function(errorMessage) { %>
+          <li><%= errorMessage %></li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </div>
+<% } %>

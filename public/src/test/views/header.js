@@ -12,7 +12,7 @@ define([
         var headerView = new HeaderView();
         
         expect(headerView.template).
-          to.be(require('text!views/templates/header.jade'));
+          to.be(require('text!views/templates/header.ejs'));
         
         headerView.dispose();
 

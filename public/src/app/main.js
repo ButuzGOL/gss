@@ -9,12 +9,12 @@ require.config({
     chaplin: '../bower_components/chaplin/chaplin',
     expect: '../bower_components/expect/expect',
     i18n: '../bower_components/i18next/release/i18next.amd-1.7.1.min',
-    jade: '../bower_components/jade/jade',
     jquery: '../bower_components/jquery/jquery',
     underscore: '../bower_components/lodash/dist/lodash.compat',
     nprogress: '../bower_components/nprogress/nprogress',
+    text: '../bower_components/requirejs-text/text',
     json: '../bower_components/requirejs-plugins/src/json',
-    text: '../bower_components/requirejs-plugins/lib/text',
+    ejs: '../bower_components/ejs/ejs'
   },
   shim: {
     underscore: {
@@ -30,8 +30,8 @@ require.config({
     expect: {
       exports: 'expect'
     },
-    jade: {
-      exports: 'jade'
+    ejs: {
+      exports: 'ejs'
     }
   }
 });

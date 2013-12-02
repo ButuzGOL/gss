@@ -12,7 +12,7 @@ define([
         Errors500PageView.prototype.autoRender = true;
         
         expect(errors500pageView.template).
-          to.be(require('text!views/templates/errors/500-page.jade'));
+          to.be(require('text!views/templates/errors/500-page.ejs'));
         
         errors500pageView.dispose();
       });
