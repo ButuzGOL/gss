@@ -8,8 +8,8 @@ module.exports = function(grunt) {
     ports: {
       livereload: true,
       test: 8888,
-      dist: 9000,
-      server: 9001
+      dist: 9001,
+      server: 9000
     },
     paths: {
       src: 'src',
