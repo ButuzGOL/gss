@@ -1,7 +1,7 @@
 define([
   'mediator',
   'helpers/application-helper',
-  'views/base/form-view',
+  'views/base/form',
   'text!views/templates/sessions/new-form.ejs'
 ], function(mediator, applicationHelper, FormView, template) {
   'use strict';

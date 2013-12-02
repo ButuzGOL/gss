@@ -1,9 +1,13 @@
-require(['application', 'config/routes'], function(Application, routes) {
+require([
+  'application',
+  'config/routes',
+  'config/application'
+], function(Application, routes, applicationConfig) {
   'use strict';
 
   new Application({
     routes: routes,
-    controllerSuffix: '-controller'
+    controllerSuffix: applicationConfig.controllerSuffix
   });
 });
 

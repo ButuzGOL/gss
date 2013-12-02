@@ -5,10 +5,10 @@ define([
   'chaplin',
   'mediator',
   'config/application',
-  'views/sessions/new-form-view',
+  'views/sessions/new-form',
   'models/user'
 ], function(expect, $, _, Chaplin, mediator, applicationConfig,
-  SessionsNewFormView, UserModel) {
+  SessionsNewFormView, User) {
   'use strict';
   
   describe('SessionsNewFormView', function() {
@@ -43,29 +43,29 @@ define([
       });
     });
     describe('#signin()', function() {
-      var userModel;
+      var user;
 
       it('should call #model.signin()', function(done) {
-        var signin = UserModel.prototype.signin;
+        var signin = User.prototype.signin;
         
-        UserModel.prototype.signin = function() {
-          UserModel.prototype.signin = signin;
+        User.prototype.signin = function() {
+          User.prototype.signin = signin;
 
           done();
 
           return $.Deferred();
         };
 
-        userModel = new UserModel();
+        user = new User();
 
-        sessionsNewForm = new SessionsNewFormView({ model: userModel });
+        sessionsNewForm = new SessionsNewFormView({ model: user });
         sessionsNewForm.signin();
       });
       context('when done', function() {
         context('when response has access token', function() {
           beforeEach(function() {
-            userModel = new UserModel();
-            userModel.set({
+            user = new User();
+            user.set({
               email: 'email@email.com',
               password: 'password'
             });
@@ -89,7 +89,7 @@ define([
               return $.Deferred();
             };
             
-            sessionsNewForm = new SessionsNewFormView({ model: userModel });
+            sessionsNewForm = new SessionsNewFormView({ model: user });
             sessionsNewForm.signin();
           });
           it('should call mediator #signin() with access token',
@@ -113,7 +113,7 @@ define([
                 $(document).off('ajaxSuccess');
               });
 
-              sessionsNewForm = new SessionsNewFormView({ model: userModel });
+              sessionsNewForm = new SessionsNewFormView({ model: user });
               sessionsNewForm.signin();
             }
           );
@@ -128,15 +128,15 @@ define([
 
               Chaplin.mediator.setHandler('router:route', handler);
               
-              sessionsNewForm = new SessionsNewFormView({ model: userModel });
+              sessionsNewForm = new SessionsNewFormView({ model: user });
               sessionsNewForm.signin();
             });
           });
         });
         context('when response has message', function() {
           beforeEach(function() {
-            userModel = new UserModel();
-            userModel.set({
+            user = new User();
+            user.set({
               email: 'fail@fail.com',
               password: 'password'
             });
@@ -146,7 +146,7 @@ define([
 
             SessionsNewFormView.prototype.render = function() {};
             
-            sessionsNewForm = new SessionsNewFormView({ model: userModel });
+            sessionsNewForm = new SessionsNewFormView({ model: user });
             sessionsNewForm.signin();
 
             $(document).ajaxSuccess(function(event, xhr, settings, response) {
@@ -169,10 +169,10 @@ define([
               done();
             };
             
-            userModel = new UserModel();
+            user = new User();
             
             SessionsNewFormView.prototype.autoRender = false;
-            sessionsNewForm = new SessionsNewFormView({ model: userModel });
+            sessionsNewForm = new SessionsNewFormView({ model: user });
             SessionsNewFormView.prototype.autoRender = true;
             sessionsNewForm.signin();
           });
@@ -180,23 +180,23 @@ define([
       });
       context('when fail', function() {
         it('should render', function(done) {
-          var signin = UserModel.prototype.signin,
+          var signin = User.prototype.signin,
               render = SessionsNewFormView.prototype.render;
 
-          UserModel.prototype.signin = function() {
+          User.prototype.signin = function() {
             return $.get(applicationConfig.api.root + '/notfound');
           };
 
           SessionsNewFormView.prototype.render = function() {
-            UserModel.prototype.signin = signin;
+            User.prototype.signin = signin;
             SessionsNewFormView.prototype.render = render;
             done();
           };
           
-          userModel = new UserModel();
+          user = new User();
           
           SessionsNewFormView.prototype.autoRender = false;
-          sessionsNewForm = new SessionsNewFormView({ model: userModel });
+          sessionsNewForm = new SessionsNewFormView({ model: user });
           SessionsNewFormView.prototype.autoRender = true;
           sessionsNewForm.signin();
         });

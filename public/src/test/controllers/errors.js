@@ -3,12 +3,13 @@ define([
 
   'chaplin',
   'config/routes',
+  'config/application',
 
-  'views/errors/404-page-view',
-  'views/errors/403-page-view',
-  'views/errors/500-page-view'
-], function(expect, Chaplin, routes, Errors404PageView, Errors403PageView,
-  Errors500PageView) {
+  'views/errors/404-page',
+  'views/errors/403-page',
+  'views/errors/500-page'
+], function(expect, Chaplin, routes, applicationConfig, Errors404PageView,
+  Errors403PageView, Errors500PageView) {
   'use strict';
   
   describe('ErrorsController', function() {
@@ -21,7 +22,7 @@ define([
       router = new Chaplin.Router();
       routes(router.match);
       dispatcher = new Chaplin.Dispatcher({
-        controllerSuffix: '-controller'
+        controllerSuffix: applicationConfig.controllerSuffix
       });
       layout = new Chaplin.Layout();
       composer = new Chaplin.Composer();

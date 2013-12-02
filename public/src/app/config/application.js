@@ -3,7 +3,7 @@ define(function() {
 
   return {
     title: 'Gone in Sixty Seconds',
-    controllerSuffix: '-controller',
+    controllerSuffix: '',
     api: {
       root: 'http://localhost:3000'
     },

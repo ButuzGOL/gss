@@ -1,6 +1,6 @@
 define([
   'expect',
-  'views/errors/500-page-view'
+  'views/errors/500-page'
 ], function(expect, Errors500PageView) {
   'use strict';
   

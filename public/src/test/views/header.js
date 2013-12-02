@@ -1,6 +1,6 @@
 define([
   'expect',
-  'views/header-view'
+  'views/header'
 ], function(expect, HeaderView) {
   'use strict';
   

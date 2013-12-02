@@ -11,9 +11,9 @@ define([
   'lib/error-handler',
   'lib/utils',
 
-  'controllers/pages-controller',
-  'controllers/errors-controller',
-  'controllers/sessions-controller'
+  'controllers/pages',
+  'controllers/errors',
+  'controllers/sessions'
 ], function($, _, Chaplin, mediator, applicationConfig, backendConfig,
   i18n, NProgress, Layout, ErrorHandler, utils) {
   'use strict';

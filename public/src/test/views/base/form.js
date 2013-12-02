@@ -4,7 +4,7 @@ define([
   
   'chaplin',
 
-  'views/base/form-view',
+  'views/base/form',
   'models/user'
 ], function(expect, $, Chaplin, FormView, User) {
   'use strict';

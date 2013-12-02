@@ -1,6 +1,6 @@
 define([
   'expect',
-  'views/footer-view'
+  'views/footer'
 ], function(expect, FooterView) {
   'use strict';
   

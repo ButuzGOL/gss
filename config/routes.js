@@ -1,23 +1,23 @@
-var sessions = require('../app/controllers/sessions'),
-    users = require('../app/controllers/users'),
-    config = require('../app/controllers/config'),
-    locales = require('../app/controllers/locales');
+var sessionsController = require('../app/controllers/sessions'),
+    usersController = require('../app/controllers/users'),
+    configController = require('../app/controllers/config'),
+    localesController = require('../app/controllers/locales');
 
 module.exports = function(app, passport) {
-  app.post('/signin', sessions.create);
+  app.post('/signin', sessionsController.create);
   app.delete('/signout',
     passport.authenticate('bearer', { session: false }),
-    sessions.destroy);
+    sessionsController.destroy);
 
   app.post('/users',
     passport.authenticate('bearer', { session: false }),
-    users.create);
+    usersController.create);
 
   app.get('/users/me',
     passport.authenticate('bearer', { session: false }),
-    users.me
+    usersController.me
   );
 
-  app.get('/config', config.index);
-  app.get('/locales/:lang', locales.index);
+  app.get('/config', configController.index);
+  app.get('/locales/:lang', localesController.index);
 };

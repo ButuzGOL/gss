@@ -2,7 +2,7 @@ define([
   'expect',
 
   'views/base/view',
-  'views/base/collection-view'
+  'views/base/collection'
 ], function(expect, View, CollectionView) {
   'use strict';
   

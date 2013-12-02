@@ -1,13 +1,13 @@
 define([
-  'views/base/page-view',
-  'views/sessions/new-form-view',
+  'views/base/page',
+  'views/sessions/new-form',
   'models/user',
   'text!views/templates/pages/home-page.ejs'
 ], function(PageView, SessionsNewFormView, User, template) {
   'use strict';
 
   var PagesHomePageView = PageView.extend({
-    id: 'pages-home-page-view',
+    id: 'pages-home-page',
     autoRender: true,
     template: template,
     regions: {

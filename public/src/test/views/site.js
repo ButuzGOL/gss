@@ -1,7 +1,7 @@
 define([
   'expect',
   'views/layout',
-  'views/site-view'
+  'views/site'
 ], function(expect, Layout, SiteView) {
   'use strict';
   

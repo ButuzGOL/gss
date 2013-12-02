@@ -3,7 +3,6 @@ require.config({
     ['../test/initialize'] : ['initialize'],
   baseUrl: (typeof window !== 'undefined' && window.mocha) ?
     '../app/' : 'app/',
-  // urlArgs: 'bust=' +  (new Date()).getTime(),
   paths: {
     backbone: '../bower_components/backbone/backbone',
     chaplin: '../bower_components/chaplin/chaplin',

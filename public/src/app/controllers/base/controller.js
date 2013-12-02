@@ -2,10 +2,10 @@ define([
   'jquery',
   'chaplin',
   'mediator',
-  'views/site-view',
-  'views/messages-view',
-  'views/header-view',
-  'views/footer-view'
+  'views/site',
+  'views/messages',
+  'views/header',
+  'views/footer'
 ], function($, Chaplin, mediator, SiteView, MessagesView, HeaderView,
   FooterView) {
   'use strict';

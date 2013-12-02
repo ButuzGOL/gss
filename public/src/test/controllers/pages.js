@@ -3,8 +3,10 @@ define([
 
   'chaplin',
   'config/routes',
-  'views/pages/home-page-view'
-], function(expect, Chaplin, routes, PagesHomePageView) {
+  'config/application',
+
+  'views/pages/home-page'
+], function(expect, Chaplin, routes, applicationConfig, PagesHomePageView) {
   'use strict';
   
   describe('PagesController', function() {
@@ -17,7 +19,7 @@ define([
       router = new Chaplin.Router();
       routes(router.match);
       dispatcher = new Chaplin.Dispatcher({
-        controllerSuffix: '-controller'
+        controllerSuffix: applicationConfig.controllerSuffix
       });
       layout = new Chaplin.Layout();
       composer = new Chaplin.Composer();

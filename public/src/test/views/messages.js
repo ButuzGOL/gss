@@ -5,9 +5,9 @@ define([
   'chaplin',
 
   'views/layout',
-  'views/site-view',
+  'views/site',
 
-  'views/messages-view'
+  'views/messages'
 ], function(expect, _, $, Chaplin, Layout, SiteView,  MessagesView) {
   'use strict';
   

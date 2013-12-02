@@ -4,8 +4,9 @@ define([
   
   'chaplin',
   'config/routes',
+  'config/application',
   'controllers/base/controller'
-], function(expect, $, Chaplin, routes, Controller) {
+], function(expect, $, Chaplin, routes, applicationConfig, Controller) {
   'use strict';
   
   describe('Controller', function() {
@@ -18,7 +19,7 @@ define([
       router = new Chaplin.Router();
       routes(router.match);
       dispatcher = new Chaplin.Dispatcher({
-        controllerSuffix: '-controller'
+        controllerSuffix: applicationConfig.controllerSuffix
       });
       layout = new Chaplin.Layout();
       composer = new Chaplin.Composer();

@@ -2,12 +2,12 @@ define([
   'expect',
   'chaplin',
   'views/layout',
-  'views/site-view',
+  'views/site',
   'models/user',
-  'views/base/page-view',
-  'views/pages/home-page-view',
-  'views/sessions/new-form-view'
-], function(expect, Chaplin, Layout, SiteView, UserModel, PageView,
+  'views/base/page',
+  'views/pages/home-page',
+  'views/sessions/new-form'
+], function(expect, Chaplin, Layout, SiteView, User, PageView,
   PagesHomePageView, SessionsNewFormView) {
   'use strict';
   
@@ -78,22 +78,22 @@ define([
     });
     describe('#createSessionsNewForm()', function() {
       it('should dispose old user if exists', function(done) {
-        var dispose = UserModel.prototype.dispose;
+        var dispose = User.prototype.dispose;
 
-        UserModel.prototype.dispose = function() {
-          UserModel.prototype.dispose = dispose;
+        User.prototype.dispose = function() {
+          User.prototype.dispose = dispose;
           done();
         };
 
         pagesHomePageView = new PagesHomePageView();
-        pagesHomePageView.user = new UserModel();
+        pagesHomePageView.user = new User();
         pagesHomePageView.createSessionsNewForm();
       });
       it('should have user', function() {
         pagesHomePageView = new PagesHomePageView();
         pagesHomePageView.createSessionsNewForm();
 
-        expect(pagesHomePageView.user).to.be.a(UserModel);
+        expect(pagesHomePageView.user).to.be.a(User);
       });
       it('should create new sessions form subview with attributes and' +
         ' add it to subviews',
@@ -102,7 +102,7 @@ define([
           pagesHomePageView.createSessionsNewForm();
 
           expect(pagesHomePageView.subview('sessionsNewForm').model).to.be.
-            a(UserModel);
+            a(User);
           expect(pagesHomePageView.subview('sessionsNewForm').region).to.
             be('sessions-new-form');
             
@@ -137,15 +137,15 @@ define([
         expect(wasCalled).to.be(false);
       });
       it('should dispose user if exists', function(done) {
-        var dispose = UserModel.prototype.dispose;
+        var dispose = User.prototype.dispose;
 
-        UserModel.prototype.dispose = function() {
-          UserModel.prototype.dispose = dispose;
+        User.prototype.dispose = function() {
+          User.prototype.dispose = dispose;
           done();
         };
 
         pagesHomePageView = new PagesHomePageView();
-        pagesHomePageView.user = new UserModel();
+        pagesHomePageView.user = new User();
         pagesHomePageView.dispose();
       });
       it('should call parent #dispose()', function(done) {

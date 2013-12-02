@@ -1,9 +1,8 @@
 define([
   'require',
   'ejs',
-  'jquery',
   'chaplin'
-], function(require, ejs, $, Chaplin) {
+], function(require, ejs, Chaplin) {
   'use strict';
   
   return {

@@ -3,8 +3,9 @@ define([
 
   'chaplin',
   'mediator',
-  'config/routes'
-], function(expect, Chaplin, mediator, routes) {
+  'config/routes',
+  'config/application'
+], function(expect, Chaplin, mediator, routes, applicationConfig) {
   'use strict';
   
   describe('SessionsController', function() {
@@ -17,7 +18,7 @@ define([
       router = new Chaplin.Router();
       routes(router.match);
       dispatcher = new Chaplin.Dispatcher({
-        controllerSuffix: '-controller'
+        controllerSuffix: applicationConfig.controllerSuffix
       });
       layout = new Chaplin.Layout();
       composer = new Chaplin.Composer();
