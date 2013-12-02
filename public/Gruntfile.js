@@ -9,7 +9,7 @@ module.exports = function(grunt) {
       livereload: true,
       test: 8888,
       dist: 9000,
-      server: 9000
+      server: 9001
     },
     paths: {
       src: 'src',
