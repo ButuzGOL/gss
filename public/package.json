@@ -32,7 +32,8 @@
     "grunt-contrib-stylus": "~0.10.0",
     "grunt-bower-task": "~0.3.4",
     "grunt-contrib-concat": "~0.3.0",
-    "grunt-mocha": "~0.4.6"
+    "grunt-mocha": "~0.4.6",
+    "grunt-blanket-mocha": "~0.3.3"
   },
   "dependencies": {
     "grunt": "~0.4.2"

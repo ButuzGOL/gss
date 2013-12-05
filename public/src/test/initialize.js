@@ -34,7 +34,7 @@ require([
   '../test/views/sessions/new-form'
 ], function() {
   'use strict';
-  
+
   if (window.mochaPhantomJS) {
     window.mochaPhantomJS.run();
   } else {

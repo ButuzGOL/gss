@@ -7,7 +7,11 @@
   "repository": "https://github.com/ButuzGOL/gss",
   "bugs": "https://github.com/ButuzGOL/gss/issues",
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "blanket": {
+      "pattern": "app",
+      "data-cover-never": "node_modules"
+    }
   },
   "engines": {
     "node": "0.10.x",
@@ -31,6 +35,8 @@
   "devDependencies": {
     "Faker": "~0.5.11",
     "should": "~2.0.1",
-    "supertest": "~0.8.0"
+    "supertest": "~0.8.0",
+    "blanket": "~1.1.5",
+    "mocha": "~1.15.0"
   }
 }

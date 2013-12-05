@@ -280,6 +280,13 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    'blanket_mocha': {
+      all: ['test/index.html'],
+      options: {
+        log: true,
+        threshold: 70
+      }
     }
   });
 
