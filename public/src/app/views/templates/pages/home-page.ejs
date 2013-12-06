@@ -1,6 +1,8 @@
 <% if (isSignedIn()) { %>
-  <%= i18n.t('hello') %> <%= currentUser.email %>, 
-  <a href="<%= url('sessions#signout') %>">Sign out</a>
+  <div id="signout">
+    <%= i18n.t('hello') %> <%= currentUser.email %>, 
+    <a href="<%= url('sessions#signout') %>">Sign out</a>
+  </div>
 <% } else { %>
   <div class="row">
     <div class="col-md-offset-4 col-sm-4">

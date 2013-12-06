@@ -29,6 +29,7 @@
     "beforeEach",
     "afterEach",
     "before",
-    "after"
+    "after",
+    "casper"
   ]
 }
