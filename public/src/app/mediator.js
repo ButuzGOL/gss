@@ -23,7 +23,7 @@ define([
         return;
       }
 
-      localStorage.setItem('accessToken', accessToken);
+      window.localStorage.setItem('accessToken', accessToken);
       
       this.createUser();
       this.user.set({ accessToken: accessToken });

@@ -3,7 +3,7 @@ var request = require('supertest'),
     
     app = require('../server'),
     
-    frontendConfig = require('../../config/frontend');
+    frontendConfig = require('../../../config/frontend');
 
 describe('Config', function() {
   describe('GET /config', function() {

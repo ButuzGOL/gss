@@ -4,7 +4,7 @@ var should = require('should'),
     
     factories = require('../factories'),
 
-    User = require('../../app/models/user');
+    User = require('../../../app/models/user');
 
 describe('User', function() {
   var user;

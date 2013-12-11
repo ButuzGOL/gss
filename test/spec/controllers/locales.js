@@ -3,7 +3,7 @@ var request = require('supertest'),
     
     app = require('../server'),
 
-    locale = require('../../config/locales/en');
+    locale = require('../../../config/locales/en');
 
 describe('Locales', function() {
   describe('GET /locales/:lang', function() {

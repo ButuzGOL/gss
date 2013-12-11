@@ -6,13 +6,13 @@ var request = require('supertest'),
     helper = require('../helper'),
     factories = require('../factories'),
 
-    User = require('../../app/models/user');
+    User = require('../../../app/models/user');
 
 describe('Sessions', function() {
   var fakeUser = {
-        email: 'foobar@example.com',
-        password: 'foobar'
-      };
+      email: 'foobar@example.com',
+      password: 'foobar'
+    };
 
   before(function(done) {
     User.remove(function() {

@@ -5,8 +5,9 @@ define([
   'chaplin',
 
   'views/base/form',
-  'models/user'
-], function(expect, $, Chaplin, FormView, User) {
+  'models/user',
+  'models/base/model'
+], function(expect, $, Chaplin, FormView, User, Model) {
   'use strict';
   
   describe('FormView', function() {
@@ -106,7 +107,7 @@ define([
 
         formView = new FormView();
         formView.template =
-          '<input type="text" required="required" />';
+          '<input type="text" name="test" required="required" />';
         formView.render();
         formView.$el.trigger('submit');
 
@@ -121,9 +122,9 @@ define([
           done();
         };
 
-        formView = new FormView();
+        formView = new FormView({ model: new Model() });
         formView.template =
-          '<input type="text" value="test" required="required" />';
+          '<input type="text" name="test" value="test" required="required" />';
         formView.render();
 
         formView.$el.trigger('submit');
@@ -137,9 +138,9 @@ define([
           done();
         };
 
-        formView = new FormView();
+        formView = new FormView({ model: new Model() });
         formView.template =
-          '<input type="text" value="test" required="required" />';
+          '<input type="text" name="test" value="test" required="required" />';
         formView.render();
 
         formView.$el.trigger('submit');
@@ -153,9 +154,9 @@ define([
           done();
         };
 
-        formView = new FormView();
+        formView = new FormView({ model: new Model() });
         formView.template =
-          '<input type="text" value="test" required="required" />';
+          '<input type="text" name="test" value="test" required="required" />';
         formView.render();
 
         formView.$el.trigger('submit');
@@ -226,7 +227,7 @@ define([
       it('should disable actions', function() {
         formView = new FormView();
         formView.template =
-          '<input type="text" />' +
+          '<input name="test" type="text" />' +
           '<button></button>' +
           '<select></select>' +
           '<textarea></textarea>';

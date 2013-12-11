@@ -35,8 +35,6 @@ define([
 
       it('should make url', function() {
         expect(applicationHelper.url('pages#home')).to.be('/');
-        expect(applicationHelper.url('pages#show', 'home')).to.
-          be('/pages/home');
       });
     });
     describe('#render()', function() {

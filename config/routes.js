@@ -9,10 +9,6 @@ module.exports = function(app, passport) {
     passport.authenticate('bearer', { session: false }),
     sessionsController.destroy);
 
-  app.post('/users',
-    passport.authenticate('bearer', { session: false }),
-    usersController.create);
-
   app.get('/users/me',
     passport.authenticate('bearer', { session: false }),
     usersController.me

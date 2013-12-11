@@ -52,6 +52,9 @@ define([
 
     submit: function(event) {
       event.preventDefault();
+      
+      $('input', this.$el).trigger('keyup');
+
       if (event.currentTarget.checkValidity()) {
         this.showLoader();
         this.disableActions();

@@ -1,16 +1,4 @@
-var User = require('../models/user'),
-    _ = require('lodash');
-
-exports.create = function(req, res) {
-  var user = new User(req.body);
-  user.save(function(err) {
-    if (err) {
-      return res.send(err);
-    }
-      
-    res.send(_.pick(user, '_id'));
-  });
-};
+var _ = require('lodash');
 
 exports.me = function(req, res) {
   res.json(_.pick(req.user, '_id', 'email'));

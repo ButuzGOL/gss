@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       src: 'src',
       app: '<%= paths.src %>/app',
       dist: 'dist',
-      test: '<%= paths.src %>/test',
+      test: '<%= paths.src %>/test/spec',
       tmp: '.tmp'
     },
     watch: {
@@ -276,7 +276,8 @@ module.exports = function(grunt) {
       all: {
         options: {
           urls: [
-            'http://localhost:<%= connect.test.options.port %>/test/index.html'
+            'http://localhost:<%= connect.test.options.port %>/test' +
+            '/spec/index.html'
           ]
         }
       }
