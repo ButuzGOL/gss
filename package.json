@@ -32,6 +32,9 @@
     "Faker": "~0.5.11",
     "should": "~2.0.1",
     "supertest": "~0.8.0",
-    "casper": "~0.1.1"
+    "casper": "~0.1.1",
+    "cucumber": "~0.3.3",
+    "zombie": "~2.0.0-alpha24",
+    "spooky": "~0.2.4"
   }
 }
