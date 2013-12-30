@@ -11,7 +11,8 @@
     "blanket": {
       "pattern": "app",
       "data-cover-never": "node_modules"
-    }
+    },
+    "test": "mocha --recursive -R spec"
   },
   "engines": {
     "node": "0.10.x",
