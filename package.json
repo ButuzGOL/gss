@@ -7,7 +7,12 @@
   "repository": "https://github.com/ButuzGOL/gss",
   "bugs": "https://github.com/ButuzGOL/gss/issues",
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "blanket": {
+      "pattern": "app",
+      "data-cover-never": "node_modules"
+    },
+    "test": "mocha test/spec --recursive -R spec"
   },
   "engines": {
     "node": "0.10.x",
@@ -32,6 +37,8 @@
     "Faker": "~0.5.11",
     "should": "~2.0.1",
     "supertest": "~0.8.0",
-    "casper": "~0.1.1"
+    "casper": "~0.1.1",
+    "blanket": "~1.1.5",
+    "mocha": "~1.15.0"
   }
 }
