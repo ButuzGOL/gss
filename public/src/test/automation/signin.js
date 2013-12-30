@@ -4,18 +4,18 @@ var url = 'http://localhost:9000/';
 
 casper.test.begin('Signin fail', 2, function(test) {
   casper.start(url, function() {
-    var form = '#sessions-new-form-container form';
+    var formSelector = '#sessions-new-form-container form';
     
-    this.waitForSelector(form, function() {
+    this.waitForSelector(formSelector, function() {
       test.pass('Form is done');
 
-      this.fill(form, {
+      this.fill(formSelector, {
         email: 'email@email.com',
         password: 'fail'
       }, true);
     });
 
-    this.waitForSelector(form + ' .alert.alert-danger', function() {
+    this.waitForSelector(formSelector + ' .alert.alert-danger', function() {
       test.pass('Error message is done');
     });
 
@@ -26,12 +26,12 @@ casper.test.begin('Signin fail', 2, function(test) {
 
 casper.test.begin('Signin success', 2, function(test) {
   casper.start(url, function() {
-    var form = '#sessions-new-form-container form';
+    var formSelector = '#sessions-new-form-container form';
     
-    this.waitUntilVisible(form, function() {
+    this.waitUntilVisible(formSelector, function() {
       test.pass('Form is done');
 
-      this.fill(form, {
+      this.fill(formSelector, {
         email: 'email@email.com',
         password: 'password'
       }, true);
