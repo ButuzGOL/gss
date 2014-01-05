@@ -33,7 +33,6 @@
     "grunt-bower-task": "~0.3.4",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-mocha": "~0.4.6",
-    "grunt-blanket-mocha": "~0.3.3",
     "grunt-contrib-yuidoc": "~0.5.0"
   },
   "dependencies": {

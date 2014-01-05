@@ -287,16 +287,9 @@ module.exports = function(grunt) {
         options: {
           urls: [
             'http://localhost:<%= connect.test.options.port %>/test' +
-            '/spec/index.html'
+            '/spec/coverage.html'
           ]
         }
-      }
-    },
-    'blanket_mocha': {
-      all: ['test/spec/index.html'],
-      options: {
-        log: true,
-        threshold: 70
       }
     },
     yuidoc: {
