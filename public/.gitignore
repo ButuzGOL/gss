@@ -1,5 +1,6 @@
 /.tmp
 /dist
+/docs
 
 /src/bower_components
 /src/components

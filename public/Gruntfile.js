@@ -9,14 +9,16 @@ module.exports = function(grunt) {
       livereload: true,
       test: 8888,
       dist: 9001,
-      server: 9000
+      server: 9000,
+      docs: 9002
     },
     paths: {
       src: 'src',
       app: '<%= paths.src %>/app',
       dist: 'dist',
       test: '<%= paths.src %>/test/spec',
-      tmp: '.tmp'
+      tmp: '.tmp',
+      docs: 'docs'
     },
     watch: {
       options: {
@@ -62,6 +64,14 @@ module.exports = function(grunt) {
           livereload: false,
           port: '<%= ports.test %>',
           base: '<%= paths.src %>',
+          open: false
+        }
+      },
+      docs: {
+        options: {
+          livereload: false,
+          port: '<%= ports.docs %>',
+          base: '<%= paths.docs %>',
           open: false
         }
       }
@@ -288,6 +298,9 @@ module.exports = function(grunt) {
         log: true,
         threshold: 70
       }
+    },
+    yuidoc: {
+      compile: grunt.file.readJSON('yuidoc.json')
     }
   });
 
@@ -345,6 +358,11 @@ module.exports = function(grunt) {
 
   grunt.registerTask('lint', [
     'jshint'
+  ]);
+
+  grunt.registerTask('docs', [
+    'yuidoc:compile',
+    'connect:docs:keepalive'
   ]);
 
 };
