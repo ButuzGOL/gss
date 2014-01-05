@@ -45,8 +45,8 @@ define([
         expect(view.getTemplateData()).to.eql(_.defaults(object,
           { _: _ },
           { i18n: i18n },
-          require('helpers/application-helper'),
-          require('helpers/sessions-helper')
+          require('helpers/application'),
+          require('helpers/sessions')
         ));
       });
     });

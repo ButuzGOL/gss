@@ -293,7 +293,7 @@ module.exports = function(grunt) {
       }
     },
     'blanket_mocha': {
-      all: ['test/index.html'],
+      all: ['test/spec/index.html'],
       options: {
         log: true,
         threshold: 70

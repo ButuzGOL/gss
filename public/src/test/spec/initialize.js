@@ -1,7 +1,6 @@
 require([
   '../test/spec/lib/error-handler',
   '../test/spec/lib/utils',
-  '../test/spec/lib/support',
   
   '../test/spec/helpers/application',
   '../test/spec/helpers/sessions',
