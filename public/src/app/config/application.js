@@ -1,3 +1,8 @@
+/**
+ * Application config
+ *
+ * @module config/application
+ */
 define(function() {
   'use strict';
 

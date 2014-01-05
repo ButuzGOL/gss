@@ -1,5 +1,9 @@
 /* jshint camelcase: false */
-
+/**
+ * Model module
+ *
+ * @module models/base/model
+ */
 define([
   'require',
   'underscore',
@@ -10,9 +14,34 @@ define([
 ], function(require, _, $, Chaplin, applicationConfig, utils) {
   'use strict';
 
+  /**
+   * Base model class
+   *
+   * @class Model
+   * @constructor
+   * @extends Chaplin.Model
+   */
   var Model = Chaplin.Model.extend({
+    /**
+     * Api root property
+     *
+     * @property apiRoot
+     * @type {string}
+     */
     apiRoot: applicationConfig.api.root,
+    /**
+     * Url path for crud will throw error if undefined so 
+     * it should be overridden
+     *
+     * @property urlPath
+     * @type {string}
+     */
     urlPath: '',
+    /**
+     * Will gather additional params before request
+     *
+     * @method urlParams
+     */
     urlParams: function() {
       var params = {},
           accessToken,
@@ -29,6 +58,11 @@ define([
 
       return params;
     },
+    /**
+     * Will build url root
+     *
+     * @method urlRoot
+     */
     urlRoot: function() {
       var urlPath = _.isFunction(this.urlPath) ? this.urlPath() : this.urlPath;
 
@@ -38,6 +72,13 @@ define([
         throw new Error('Model must redefine urlPath');
       }
     },
+    /**
+     * Extends from lib/utils ajax method but
+     * before modify url
+     *
+     * @method ajax
+     * @return {Deferred} to manipulate with request
+     */
     ajax: function(url) {
       var args = arguments,
           fullUrl = this.apiRoot + url;
@@ -46,6 +87,13 @@ define([
 
       return utils.ajax.apply(this, args);
     },
+    /**
+     * Modified url based on params and url root
+     *
+     * @method url
+     * @return {string} modified url
+     * @see Backbone.url()
+     */
     url: function() {
       var full = this.urlRoot(),
           payload = utils.queryParams.stringify(this.urlParams()),

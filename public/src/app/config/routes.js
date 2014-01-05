@@ -1,3 +1,8 @@
+/**
+ * Application routes config
+ *
+ * @module config/routes
+ */
 define(function() {
   'use strict';
 

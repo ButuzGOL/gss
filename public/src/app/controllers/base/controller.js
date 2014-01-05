@@ -1,3 +1,8 @@
+/**
+ * Base controller module
+ *
+ * @module controllers/base/controller
+ */
 define([
   'jquery',
   'chaplin',
@@ -10,7 +15,24 @@ define([
   FooterView) {
   'use strict';
 
+  /**
+   * Base Controller
+   *
+   * @class Controller
+   * @constructor
+   * @extends Chaplin.Controller
+   */
   var Controller = Chaplin.Controller.extend({
+    /**
+     * Runs before action
+     * 1. Checking if application error
+     * 2. Composing views
+     *
+     * @method beforeAction
+     * @async
+     * @param {object} params - params in url
+     * @param {object} route - current app route
+     */
     beforeAction: function(params, route) {
       var _this = this;
 
@@ -31,6 +53,11 @@ define([
         }
       });
     },
+    /**
+     * Runs after action
+     *
+     * @method afterAction
+     */
     afterAction: function() {
       this.publishEvent('controller:actionDone');
     }

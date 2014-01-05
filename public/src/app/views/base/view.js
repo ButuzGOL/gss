@@ -1,3 +1,8 @@
+/**
+ * View module
+ *
+ * @module views/base/view
+ */
 define([
   'require',
   'underscore',
@@ -5,14 +10,27 @@ define([
   'ejs',
   'chaplin',
   'mediator',
-  'helpers/application-helper',
-  'helpers/sessions-helper',
+  'helpers/application',
+  'helpers/sessions',
   'text!views/templates/shared/form-error-messages.ejs'
 ], function(require, _, i18n, ejs, Chaplin, mediator) {
   'use strict';
 
+  /**
+   * Base view class
+   *
+   * @class View
+   * @constructor
+   * @extends Chaplin.View
+   */
   var View = Chaplin.View.extend({
 
+    /**
+     * Returning function for render template
+     *
+     * @method getTemplateFunction
+     * @return {function}
+     */
     getTemplateFunction: function() {
       var template = this.template,
           templateFunc = null;
@@ -26,6 +44,14 @@ define([
       return templateFunc;
     },
 
+    /**
+     * Returning object for template with additional data
+     * (currentUser, helpers and libs)
+     *
+     * @method getTemplateFunction
+     * @see Chaplin.View.getTemplateData()
+     * @return {object} with data
+     */
     getTemplateData: function() {
       var object = Chaplin.View.prototype.getTemplateData.
         apply(this, arguments);
@@ -37,8 +63,8 @@ define([
       return _.defaults(object,
         { _: _ },
         { i18n: i18n },
-        require('helpers/application-helper'),
-        require('helpers/sessions-helper')
+        require('helpers/application'),
+        require('helpers/sessions')
       );
     }
   });

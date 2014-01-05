@@ -1,3 +1,8 @@
+/**
+ * Error handler module
+ *
+ * @module lib/error-handler
+ */
 define([
   'jquery',
   'underscore',
@@ -5,6 +10,14 @@ define([
 ], function($, _, Chaplin) {
   'use strict';
 
+  /**
+   * Error handler subscribing to ajax errors and
+   * publishing it
+   *
+   * @class ErrorHandler
+   * @constructor
+   * @extends Chaplin.EventBroker
+   */
   var ErrorHandler = function() {
     this.subscribeForAjaxEvents();
 
@@ -12,14 +25,40 @@ define([
     this.currentErrors = [];
   };
 
+  _.extend(ErrorHandler.prototype, Chaplin.EventBroker);
+
   _.extend(ErrorHandler.prototype, {
+    /**
+     * Basket for published errors
+     *
+     * @property errorsBasket
+     * @type {array}
+     */
     errorsBasket: [],
+    /**
+     * Current errors not published
+     *
+     * @property currentErrors
+     * @type {array}
+     */
     currentErrors: [],
+    /**
+     * Is locked for publishing errors
+     *
+     * @property isLocked
+     * @type {boolean}
+     */
     isLocked: false
   });
 
-  _.extend(ErrorHandler.prototype, Chaplin.EventBroker);
-
+  /**
+   * Subscibing for ajax event and 
+   * listening for errors
+   * After ajax complete moving them
+   *
+   * @method subscribeForAjaxEvents
+   * @async
+   */
   ErrorHandler.prototype.subscribeForAjaxEvents = function() {
     var _this = this;
     
@@ -45,6 +84,12 @@ define([
     });
   };
 
+  /**
+   * Publishing current errors 
+   * if it hasn't ajax reqeusts and isn't locked
+   *
+   * @method publishCurrentErrors
+   */
   ErrorHandler.prototype.publishCurrentErrors = function() {
     if ($.active <= 1 && this.currentErrors.length && !this.isLocked) {
       this.publishEvent('errorHandler:throw', this.currentErrors);

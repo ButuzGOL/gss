@@ -4,7 +4,7 @@ define([
 
   'chaplin',
   'config/routes',
-  'helpers/application-helper'
+  'helpers/application'
 ], function(require, expect, Chaplin, routes, applicationHelper) {
   'use strict';
   

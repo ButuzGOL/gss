@@ -1,3 +1,8 @@
+/**
+ * Provide application bootstrap
+ *
+ * @module application
+ */
 define([
   'jquery',
   'underscore',
@@ -18,13 +23,36 @@ define([
   i18n, NProgress, Layout, ErrorHandler, utils) {
   'use strict';
   
+  /**
+   * Application bootstrap
+   *
+   * @class Application
+   * @constructor
+   * @extends Chaplin.Application
+   */
   var Application = Chaplin.Application.extend({
+    /**
+     * Base title would be included in html head
+     *
+     * @property title
+     * @type {string}
+     */
     title: applicationConfig.title,
+    /**
+     * Runs on initialize
+     * 1. Fetching config if fail App will have 500 error else 2
+     * 2. Init Auth
+     * 3. Init Locale
+     *
+     * @method start
+     * @see Chaplin.Application.start()
+     */
     start: function() {
       var _this = this,
           callback,
           callbackWithDelay;
       
+      // Forward up after all ready
       callback = function() {
         Chaplin.Application.prototype.start.apply(_this);
       };
@@ -42,6 +70,15 @@ define([
         callback();
       });
     },
+    /**
+     * Lock errorHandler then 
+     * subscribing to messageView:ready and
+     * on event unlock errorHandler and
+     * if will have errors show them
+     *
+     * @method initErrorHandler
+     * @async
+     */
     initErrorHandler: function() {
       var _this = this,
           callback;
@@ -58,6 +95,14 @@ define([
 
       this.subscribeEvent('messagesView:ready', callback);
     },
+    /**
+     * If haven't accessToken then callback else
+     * make signin and callback.
+     *
+     * method initAuth
+     * @async
+     * @param {function} callback - will be calling after auth ready
+     */
     initAuth: function(callback) {
       var _this = this,
           modifiedCallback,
@@ -74,6 +119,13 @@ define([
         mediator.signin(accessToken);
       }
     },
+    /**
+     * Fetching config on success extend locale config
+     *
+     * method initConfig
+     * @async
+     * @return {Deferred} to manipulate with request
+     */
     initConfig: function() {
       return utils.ajax(applicationConfig.api.root + '/config').done(
         function(response) {
@@ -81,6 +133,14 @@ define([
         }
       );
     },
+    /**
+     * Getting current locale, fetching locale from backend and 
+     * merge them, if error en by default
+     *
+     * method initLocale
+     * @async
+     * @param {function} callback - will be calling after locale ready
+     */
     initLocale: function(callback) {
       var localeCallback,
           prepareCallback;
@@ -105,6 +165,7 @@ define([
           callback();
         };
 
+        // If error en locale by default
         if (!data) {
           require(['json!config/locales/en.json'], function(data) {
             processCallback(data, 'en');
@@ -131,9 +192,21 @@ define([
         }
       );
     },
+    /**
+     * Initialize layout with options and this.title
+     *
+     * @method initLayout
+     * @param {object} options - options for layout
+     */
     initLayout: function(options) {
       this.layout = new Layout(_.defaults(options, { title: this.title }));
     },
+    /**
+     * Setting some params to mediator before freeze
+     *
+     * @method initMediator
+     * @see Chaplin.Application.initMediator()
+     */
     initMediator: function() {
       mediator.user = null;
       mediator.errorHandler = null;

@@ -1,3 +1,8 @@
+/**
+ * Mediator module
+ *
+ * @module mediator
+ */
 define([
   'underscore',
   'chaplin',
@@ -6,16 +11,43 @@ define([
 ], function(_, Chaplin, utils, User) {
   'use strict';
 
+  /**
+   * Mediator object
+   *
+   * @class mediator
+   * @static
+   * @extends Chaplin.mediator
+   */
   var mediator = Chaplin.mediator;
 
   _.extend(mediator, {
+    /**
+     * Creates current user
+     *
+     * @method createUser
+     */
     createUser: function() {
       this.user = new User();
     },
+    /**
+     * Removes current user
+     *
+     * @method removeUser
+     */
     removeUser: function() {
       this.user.dispose();
       this.user = null;
     },
+    /**
+     * Signin current user. Saves access token to storage, 
+     * create user in mediator and
+     * publish event singin status
+     *
+     * @method signin
+     * @async
+     * @param {string} accessToken - saves this param to locale storage
+     * @return {Deferred} to manipulate with request
+     */
     signin: function(accessToken) {
       var _this = this;
 
@@ -35,6 +67,13 @@ define([
         _this.publish('signinStatus', false);
       });
     },
+    /**
+     * Signout current user. Remove access token from storage,
+     * remove user in mediator and
+     * publish event signin status
+     *
+     * @method signout
+     */
     signout: function() {
       if (!this.user) {
         return;

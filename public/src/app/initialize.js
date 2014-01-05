@@ -1,3 +1,8 @@
+/**
+ * Initialize application
+ *
+ * @module initialize
+ */
 require([
   'application',
   'config/routes',
@@ -16,5 +21,5 @@ window.log = function() {
 
   try {
     return console.log.apply(console, arguments);
-  } catch (_error) {}
+  } catch (error) {}
 };

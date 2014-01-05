@@ -1,11 +1,31 @@
+/**
+ * Form view module
+ *
+ * @module views/base/form
+ */
 define([
   'jquery',
   'views/base/view'
 ], function($, View) {
   'use strict';
 
+  /**
+   * Base form view class
+   *
+   * @class FormView
+   * @constructor
+   * @extends View
+   */
   var FormView = View.extend({
+    /** 
+     * @property autoRender
+     * @type {boolean}
+     */
     autoRender: true,
+    /** 
+     * @property events
+     * @type {object}
+     */
     events: {
       'click [data-action=cancel]': 'dismiss',
       'click [data-action=submit]': 'submit',
@@ -13,10 +33,28 @@ define([
       'keyup input': 'changedAttribute',
       'keydown input': 'changedAttribute'
     },
+    /** 
+     * @property tagName
+     * @type {string}
+     */
     tagName: 'form',
+    /** 
+     * @property errorMessages
+     * @type {array}
+     */
     errorMessages: [],
+    /** 
+     * @property loaderSelector
+     * @type {string}
+     */
     loaderSelector: '.loader',
     
+    /**
+     * Extend base data object 
+     *
+     * @method getTemplateData
+     * @return {object} with additional data
+     */
     getTemplateData: function() {
       var object = View.prototype.getTemplateData.apply(this, arguments);
       
@@ -25,12 +63,25 @@ define([
       return object;
     },
 
+    /**
+     * Adding additional action
+     * clearing error messages 
+     *
+     * @method render
+     * @see View.render()
+     */
     render: function() {
       View.prototype.render.apply(this, arguments);
 
       this.errorMessages = [];
     },
     
+    /**
+     * Publishing save if not exists throw error
+     *
+     * @method publishSave
+     * @param {object} response on save
+     */
     publishSave: function(response) {
       if (this.saveEvent) {
         this.publishEvent(this.saveEvent, response);
@@ -39,6 +90,12 @@ define([
       }
     },
 
+    /**
+     * Reset form fields
+     *
+     * @method dismiss
+     * @param {Event} event
+     */
     dismiss: function(event) {
       if (event) {
         event.preventDefault();
@@ -46,10 +103,19 @@ define([
       this.trigger('dispose');
       this.dispose();
     },
-
+    
+    /**
+     * @method save
+     */
     save: function() {
     },
 
+    /**
+     * Submit form event
+     *
+     * @method submit
+     * @param {Event} event
+     */
     submit: function(event) {
       event.preventDefault();
       
@@ -62,6 +128,12 @@ define([
       }
     },
 
+    /**
+     * Sync attribute with model
+     *
+     * @method changedAttribute
+     * @param {Event} event
+     */
     changedAttribute: function(event) {
       var setObject = {};
       
@@ -77,10 +149,19 @@ define([
         this.model.set(setObject);
       }
     },
-
+    /**
+     * Disable form
+     *
+     * @method disableActions
+     */
     disableActions: function() {
       $('input, button, textarea, select', this.$el).prop('disabled', true);
     },
+    /**
+     * Show loader
+     *
+     * @method showLoader
+     */
     showLoader: function() {
       $(this.loaderSelector, this.$el).addClass('active');
     }

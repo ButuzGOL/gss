@@ -2,7 +2,7 @@ define([
   'expect',
 
   'chaplin',
-  'helpers/sessions-helper',
+  'helpers/sessions',
   'models/user'
 ], function(expect, Chaplin, sessionsHelper, User) {
   'use strict';

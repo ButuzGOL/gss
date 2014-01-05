@@ -1,0 +1,11 @@
+{
+  "name": "The GSS API",
+  "description": "",
+  "version": "0.1.0",
+  "logo": "",
+  "options": {
+    "outdir": "./docs",
+    "linkNatives": true,
+    "paths": "./src/app"
+  }
+}
