@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     ports: {
-      livereload: true,
+      livereload: 8889,
       test: 8888,
       dist: 9001,
       server: 9000,

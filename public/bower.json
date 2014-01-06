@@ -22,7 +22,8 @@
   },
   "devDependencies": {
     "mocha": "~1.12.1",
-    "expect": "~0.2.0"
+    "expect": "~0.2.0",
+    "benchmark": "~1.0.0"
   },
   "exportsOverride": {
     "bootstrap": {

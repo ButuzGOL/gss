@@ -39,6 +39,7 @@
     "supertest": "~0.8.0",
     "casper": "~0.1.1",
     "blanket": "~1.1.5",
-    "mocha": "~1.15.0"
+    "mocha": "~1.15.0",
+    "benchmark": "~1.0.0"
   }
 }

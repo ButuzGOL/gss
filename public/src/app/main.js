@@ -1,8 +1,11 @@
+
 require.config({
   deps: (typeof window !== 'undefined' && window.mocha) ?
-    ['../test/spec/initialize'] : ['initialize'],
-  baseUrl: (typeof window !== 'undefined' && window.mocha) ?
-    '../../app/' : 'app/',
+    ['../test/spec/initialize'] :
+    ((typeof window !== 'undefined' && window.Benchmark) ?
+      ['../test/benchmark/initialize'] : ['initialize']),
+  baseUrl: (typeof window !== 'undefined' &&
+    (window.mocha || window.Benchmark)) ? '../../app/' : 'app/',
   paths: {
     backbone: '../bower_components/backbone/backbone',
     chaplin: '../bower_components/chaplin/chaplin',
