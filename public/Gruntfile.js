@@ -31,9 +31,6 @@ module.exports = function(grunt) {
       },
       js: {
         files: '<%= paths.app %>/**/*.js'
-      },
-      jade: {
-        files: '<%= paths.app %>/**/*.jade'
       }
     },
     connect: {
@@ -287,7 +284,7 @@ module.exports = function(grunt) {
         options: {
           urls: [
             'http://localhost:<%= connect.test.options.port %>/test' +
-            '/spec/coverage.html'
+            '/spec/index.html'
           ]
         }
       }
