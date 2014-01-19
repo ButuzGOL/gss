@@ -7,7 +7,7 @@
   "repository": "https://github.com/ButuzGOL/gss",
   "bugs": "https://github.com/ButuzGOL/gss/issues",
   "scripts": {
-    "postinstall": "cd ./public; npm install",
+    "postinstall": "",
     "start": "node server",
     "blanket": {
       "pattern": "app",

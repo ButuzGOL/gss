@@ -36,7 +36,7 @@ module.exports = function(app, config, passport) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.use(express['static'](__dirname + '/../public'));
+    app.use(express['static'](__dirname + '/../' + config.publicPath));
 
     app.use(require('connect-assets')({
       src: '/../app/assets'
