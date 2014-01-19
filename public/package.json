@@ -35,6 +35,9 @@
     "grunt-mocha": "~0.4.6",
     "grunt-contrib-yuidoc": "~0.5.0"
   },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install; grunt prepare; grunt build"
+  },
   "dependencies": {
     "grunt": "~0.4.2"
   }

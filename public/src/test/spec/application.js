@@ -1,5 +1,6 @@
 define([
   'expect',
+  'sinon',
   'underscore',
   'jquery',
   'chaplin',
@@ -10,7 +11,7 @@ define([
   'mediator',
   'lib/error-handler',
   'i18n'
-], function(expect, _, $, Chaplin, Application, applicationConfig,
+], function(expect, sinon, _, $, Chaplin, Application, applicationConfig,
   backendConfig, NProgress, mediator, ErrorHandler, i18n) {
   'use strict';
   
@@ -72,15 +73,20 @@ define([
             Application.prototype.start();
           });
           it('should call #initLocale() with callback', function(done) {
-            var initLocale = Application.prototype.initLocale;
+            var initLocale = Application.prototype.initLocale,
+                deferred = new $.Deferred();
+            
+            sinon.stub($, 'ajax').returns(deferred);
 
             Application.prototype.initLocale = function(callback) {
               expect(callback).to.be.a('function');
               Application.prototype.initLocale = initLocale;
+              $.ajax.restore();
               done();
             };
 
             Application.prototype.start();
+            deferred.resolve();
           });
         });
         context('when fail', function() {
@@ -194,20 +200,37 @@ define([
         beforeEach(function() {
           window.localStorage.setItem('accessToken', accessToken);
         });
-        it('should subscribe to event', function() {
+        it('should subscribe to event', function(done) {
           Application.prototype.initAuth(function() {});
           expect(Chaplin.mediator._events.signinStatus).to.have.
             length(1);
+          $(document).ajaxComplete(function() {
+            $(document).off('ajaxComplete');
+            done();
+          });
         });
         context('when callback', function() {
-          it('should unsubscribe to event', function() {
+          it('should unsubscribe to event', function(done) {
             Application.prototype.initAuth(function() {});
             Chaplin.mediator.publish('signinStatus');
             expect(Chaplin.mediator._events.signinStatus).to.be(undefined);
+            $(document).ajaxComplete(function() {
+              $(document).off('ajaxComplete');
+              done();
+            });
           });
           it('should call callback', function(done) {
-            Application.prototype.initAuth(done);
+            var wasCalled = false;
+
+            Application.prototype.initAuth(function() {
+              wasCalled = true;
+            });
             Chaplin.mediator.publish('signinStatus');
+            $(document).ajaxComplete(function() {
+              expect(wasCalled).to.be(true);
+              $(document).off('ajaxComplete');
+              done();
+            });
           });
         });
       });
@@ -240,11 +263,20 @@ define([
         context('when done', function() {
           it('should extend backend config with exists', function(done) {
             var originBackendConfig = _.clone(backendConfig, true),
-                ajax = Application.prototype.initConfig();
+                ajax;
+
+            var deferred = new $.Deferred();
+            sinon.stub($, 'ajax').returns(deferred);
+
+            ajax = Application.prototype.initConfig();
+
+            deferred.resolveWith(null, [{ test: 'test' }]);
 
             ajax.done(function(response) {
               expect(_.extend(originBackendConfig, response)).to.
                 eql(backendConfig);
+
+              $.ajax.restore();
 
               done();
             });
@@ -331,21 +363,23 @@ define([
           describe('call backend for localization', function() {
             context('when done', function() {
               it('should not extend data', function(done) {
-                var locale = applicationConfig.locale;
+                var locale = applicationConfig.locale,
+                    langResponse = { test: 'test' },
+                    deferred = new $.Deferred();
+
+                sinon.stub($, 'ajax').returns(deferred);
 
                 applicationConfig.locale = 'test';
 
-                Application.prototype.initLocale(function() {});
-                applicationConfig.locale = locale;
-
-                $(document).ajaxSuccess(function(event, jqxhr) {
+                Application.prototype.initLocale(function() {
                   expect(i18n.options.resStore.en.translation).to.
-                    eql(jqxhr.responseJSON);
-              
-                  $(document).off('ajaxSuccess');
-
+                    eql(langResponse);
+                  $.ajax.restore();
                   done();
                 });
+                deferred.resolveWith(null, [langResponse]);
+
+                applicationConfig.locale = locale;
               });
             });
             context('when fail', function() {

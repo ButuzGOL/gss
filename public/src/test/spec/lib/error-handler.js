@@ -23,12 +23,13 @@ define([
     describe('#subscribeForAjaxEvents()', function() {
       it('should collect error', function(done) {
         $.get(applicationConfig.api.root + '/lang/test');
+
         $(document).ajaxError(function() {
           expect(errorHandler.currentErrors).to.have.length(1);
           expect(errorHandler.currentErrors[0]).to.eql({
             code: 404,
             description: '',
-            message: 'Cannot GET /lang/test'
+            message: undefined
           });
           
           done();
@@ -40,7 +41,7 @@ define([
           expect(error).to.eql({
             code: 404,
             description: '',
-            message: 'Cannot GET /lang/test'
+            message: undefined
           });
 
           Chaplin.mediator.unsubscribe('errorHandler:catch', callback);
@@ -66,11 +67,11 @@ define([
             expect(errors).to.eql([{
               code: 404,
               description: '',
-              message: 'Cannot GET /lang/test'
+              message: undefined
             }, {
               code: 404,
               description: '',
-              message: 'Cannot GET /lang/test'
+              message: undefined
             }]);
 
             Chaplin.mediator.unsubscribe('errorHandler:throw', callback);
@@ -129,7 +130,7 @@ define([
           expect(errorHandler.errorsBasket[0][0]).to.eql({
             code: 404,
             description: '',
-            message: 'Cannot GET /lang/test'
+            message: undefined
           });
           
           done();

@@ -9,6 +9,7 @@ require.config({
   paths: {
     backbone: '../bower_components/backbone/backbone',
     chaplin: '../bower_components/chaplin/chaplin',
+    sinon: '../bower_components/sinonjs/sinon',
     expect: '../bower_components/expect/expect',
     i18n: '../bower_components/i18next/release/i18next.amd-1.7.1.min',
     jquery: '../bower_components/jquery/jquery',
@@ -31,6 +32,9 @@ require.config({
     },
     expect: {
       exports: 'expect'
+    },
+    sinon: {
+      exports: 'sinon'
     },
     ejs: {
       exports: 'ejs'

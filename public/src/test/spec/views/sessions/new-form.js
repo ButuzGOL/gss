@@ -1,5 +1,6 @@
 define([
   'expect',
+  'sinon',
   'jquery',
   'underscore',
   'chaplin',
@@ -7,7 +8,7 @@ define([
   'config/application',
   'views/sessions/new-form',
   'models/user'
-], function(expect, $, _, Chaplin, mediator, applicationConfig,
+], function(expect, sinon, $, _, Chaplin, mediator, applicationConfig,
   SessionsNewFormView, User) {
   'use strict';
   
@@ -73,8 +74,11 @@ define([
           it('should dismiss', function(done) {
             var wasCalled = false,
                 signin = mediator.signin,
-                dismiss = SessionsNewFormView.prototype.dismiss;
+                dismiss = SessionsNewFormView.prototype.dismiss,
+                deferred = new $.Deferred();
         
+            sinon.stub(User.prototype, 'signin').returns(deferred);
+
             SessionsNewFormView.prototype.dismiss = function() {
               SessionsNewFormView.prototype.dismiss = dismiss;
 
@@ -84,6 +88,8 @@ define([
             mediator.signin = function() {
               expect(wasCalled).to.be(true);
               mediator.signin = signin;
+
+              User.prototype.signin.restore();
               done();
 
               return $.Deferred();
@@ -91,38 +97,44 @@ define([
             
             sessionsNewForm = new SessionsNewFormView({ model: user });
             sessionsNewForm.signin();
+            deferred.resolveWith(null, [{ accessToken: 'test' }]);
           });
           it('should call mediator #signin() with access token',
             function(done) {
               var signin = mediator.signin,
-                  responseAccessToken;
+                  responseAccessToken = 'test',
+                  deferred = new $.Deferred();
+
+              sinon.stub(User.prototype, 'signin').returns(deferred);
 
               mediator.signin = function(accessToken) {
                 mediator.signin = signin;
                 
-                _.delay(function() {
-                  expect(accessToken).to.be(responseAccessToken);
-                  done();
-                }, 1);
-
+                expect(accessToken).to.be(responseAccessToken);
+                User.prototype.signin.restore();
+                done();
+                
                 return $.Deferred();
               };
 
-              $(document).ajaxSuccess(function(event, xhr, settings, response) {
-                responseAccessToken = response.accessToken;
-                $(document).off('ajaxSuccess');
-              });
-
               sessionsNewForm = new SessionsNewFormView({ model: user });
               sessionsNewForm.signin();
+              deferred.resolveWith(null,
+                [{ accessToken: responseAccessToken }]);
             }
           );
           context('when #mediator.signin() done', function() {
             it('should redirect to pages#home', function(done) {
+              var deferred = new $.Deferred(),
+                  mediatorDeferred = new $.Deferred();
+        
+              sinon.stub(User.prototype, 'signin').returns(deferred);
+              sinon.stub(mediator, 'signin').returns(mediatorDeferred);
+
               var handler = function(routeName) {
-          
                 expect(routeName).to.be('pages#home');
-                mediator.removeUser();
+                User.prototype.signin.restore();
+                mediator.signin.restore();
                 done();
               };
 
@@ -130,6 +142,8 @@ define([
               
               sessionsNewForm = new SessionsNewFormView({ model: user });
               sessionsNewForm.signin();
+              deferred.resolveWith(null, [{ accessToken: 'test' }]);
+              mediatorDeferred.resolveWith(null, [{}]);
             });
           });
         });
@@ -141,24 +155,23 @@ define([
               password: 'password'
             });
           });
-          it('should add error messages', function(done) {
-            var render = SessionsNewFormView.prototype.render;
+          it('should add error messages', function() {
+            var render = SessionsNewFormView.prototype.render,
+                deferred = $.Deferred(),
+                message = 'test';
+
+            sinon.stub(User.prototype, 'signin').returns(deferred);
 
             SessionsNewFormView.prototype.render = function() {};
             
             sessionsNewForm = new SessionsNewFormView({ model: user });
             sessionsNewForm.signin();
 
-            $(document).ajaxSuccess(function(event, xhr, settings, response) {
-              expect(sessionsNewForm.errorMessages).to.
-                contain(response.message);
+            deferred.resolveWith(null, [{ message: message }]);
+            expect(sessionsNewForm.errorMessages).to.contain(message);
 
-              SessionsNewFormView.prototype.render = render;
-
-              $(document).off('ajaxSuccess');
-
-              done();
-            });
+            SessionsNewFormView.prototype.render = render;
+            User.prototype.signin.restore();
           });
           it('should render', function(done) {
             var render = SessionsNewFormView.prototype.render;
