@@ -36,7 +36,7 @@
     "grunt-contrib-yuidoc": "~0.5.0"
   },
   "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install; grunt prepare; grunt build"
+    "postinstall": "./node_modules/bower/bin/bower install; ./node_modules/grunt/lib/grunt prepare; ./node_modules/grunt/lib/grunt build"
   },
   "dependencies": {
     "grunt": "~0.4.2"
