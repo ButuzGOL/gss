@@ -243,6 +243,7 @@ module.exports = function(grunt) {
         files: {
           '<%= paths.tmp %>/styles/main.css': [
             '<%= paths.src %>/components/styles/**/*.css',
+            '<%= paths.src %>/vendor/styles/**/*.css',
             '<%= paths.tmp %>/styles/main.css'
           ]
         }
@@ -251,6 +252,7 @@ module.exports = function(grunt) {
         files: {
           '<%= paths.dist %>/styles/main.css': [
             '<%= paths.src %>/components/styles/**/*.css',
+            '<%= paths.src %>/vendor/styles/**/*.css',
             '<%= paths.dist %>/styles/main.css'
           ]
         }
