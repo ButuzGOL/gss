@@ -1,1 +1,1 @@
-web: node server.js
+web: npm --prefix ./public install ./public && node server.js
