@@ -32,15 +32,15 @@
     "passport-local": "~0.1.6",
     "passport-http-bearer": "~1.0.1",
     "lodash": "~2.2.0",
-    "uid": "0.0.2"
-  },
-  "devDependencies": {
+    "uid": "0.0.2",
     "Faker": "~0.5.11",
     "should": "~2.0.1",
     "supertest": "~0.8.0",
+    "mocha": "~1.15.0"
+  },
+  "devDependencies": {
     "casper": "~0.1.1",
     "blanket": "~1.1.5",
-    "mocha": "~1.15.0",
     "benchmark": "~1.0.0"
   }
 }
