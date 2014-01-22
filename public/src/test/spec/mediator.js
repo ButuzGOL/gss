@@ -4,8 +4,10 @@ define([
   'chaplin',
   'mediator',
   'models/user',
-  'config/application'
-], function(expect, $, Chaplin, mediator, User, applicationConfig) {
+  'config/application',
+  'config/environment'
+], function(expect, $, Chaplin, mediator, User, applicationConfig,
+  environmentConfig) {
   'use strict';
   
   describe('Mediator', function() {
@@ -129,7 +131,9 @@ define([
 
               User.prototype.fetch = function() {
                 User.prototype.fetch = fetch;
-                return $.get(applicationConfig.api.root + '/notfound');
+                return $.get(
+                  environmentConfig[applicationConfig.environment].api.root +
+                  '/notfound');
               };
 
 

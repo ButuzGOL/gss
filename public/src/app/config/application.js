@@ -3,15 +3,15 @@
  *
  * @module config/application
  */
-define(function() {
+define([
+  'has'
+], function(has) {
   'use strict';
 
   return {
     title: 'Gone in Sixty Seconds',
     controllerSuffix: '',
-    api: {
-      root: 'http://localhost:3000'
-    },
-    locale: 'en'
+    locale: 'en',
+    environment: has('production') ? 'production' : 'development'
   };
 });

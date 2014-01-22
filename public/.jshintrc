@@ -30,6 +30,7 @@
     "afterEach",
     "before",
     "after",
-    "casper"
+    "casper",
+    "has"
   ]
 }

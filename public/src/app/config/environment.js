@@ -8,8 +8,19 @@ define(function() {
 
   return {
     development: {
+      api: {
+        root: 'http://localhost:3000'
+      }
+    },
+    production: {
+      api: {
+        root: window.location.protocol + '//' + window.location.hostname
+      }
     },
     test: {
+      api: {
+        root: 'http://localhost:3001'
+      }
     }
   };
 });

@@ -128,6 +128,9 @@ module.exports = function(grunt) {
           useStrict: true,
           stubModules: ['text', 'json'],
           findNestedDependencies: true,
+          has: {
+            production: true
+          },
           // wrap: true,
           include: '../bower_components/requirejs/require'
           //uglify2: {} // https://github.com/mishoo/UglifyJS2

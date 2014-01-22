@@ -17,7 +17,8 @@ require.config({
     nprogress: '../vendor/scripts/nprogress/nprogress',
     text: '../bower_components/requirejs-text/text',
     json: '../bower_components/requirejs-plugins/src/json',
-    ejs: '../bower_components/ejs/ejs'
+    ejs: '../bower_components/ejs/ejs',
+    has: '../bower_components/has/has'
   },
   shim: {
     underscore: {

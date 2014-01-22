@@ -9,6 +9,7 @@ define([
   'chaplin',
   'mediator',
   'config/application',
+  'config/environment',
   'config/backend',
   'i18n',
   'nprogress',
@@ -19,8 +20,8 @@ define([
   'controllers/pages',
   'controllers/errors',
   'controllers/sessions'
-], function($, _, Chaplin, mediator, applicationConfig, backendConfig,
-  i18n, NProgress, Layout, ErrorHandler, utils) {
+], function($, _, Chaplin, mediator, applicationConfig, environmentConfig,
+  backendConfig, i18n, NProgress, Layout, ErrorHandler, utils) {
   'use strict';
   
   /**
@@ -127,7 +128,9 @@ define([
      * @return {Deferred} to manipulate with request
      */
     initConfig: function() {
-      return utils.ajax(applicationConfig.api.root + '/config').done(
+      return utils.ajax(
+        environmentConfig[applicationConfig.environment].api.root + '/config').
+      done(
         function(response) {
           _.extend(backendConfig, response);
         }
@@ -176,8 +179,8 @@ define([
       };
       
       localeCallback = function(data) {
-        utils.ajax(applicationConfig.api.root + '/locales/' +
-          applicationConfig.locale).done(
+        utils.ajax(environmentConfig[applicationConfig.environment].api.root +
+          '/locales/' + applicationConfig.locale).done(
           function(response) {
             prepareCallback(data ? _.extend({}, data, response) : response);
           }

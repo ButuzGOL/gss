@@ -6,10 +6,11 @@ define([
   'chaplin',
   'mediator',
   'config/application',
+  'config/environment',
   'views/sessions/new-form',
   'models/user'
 ], function(expect, sinon, $, _, Chaplin, mediator, applicationConfig,
-  SessionsNewFormView, User) {
+  environmentConfig, SessionsNewFormView, User) {
   'use strict';
   
   describe('SessionsNewFormView', function() {
@@ -197,7 +198,9 @@ define([
               render = SessionsNewFormView.prototype.render;
 
           User.prototype.signin = function() {
-            return $.get(applicationConfig.api.root + '/notfound');
+            return $.get(
+              environmentConfig[applicationConfig.environment].api.root +
+              '/notfound');
           };
 
           SessionsNewFormView.prototype.render = function() {

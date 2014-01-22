@@ -4,8 +4,10 @@ define([
   'chaplin',
 
   'config/application',
+  'config/environment',
   'lib/error-handler'
-], function(expect, $, Chaplin, applicationConfig, ErrorHandler) {
+], function(expect, $, Chaplin, applicationConfig, environmentConfig,
+  ErrorHandler) {
   'use strict';
   
   describe('ErrorHandler', function() {
@@ -22,7 +24,8 @@ define([
     });
     describe('#subscribeForAjaxEvents()', function() {
       it('should collect error', function(done) {
-        $.get(applicationConfig.api.root + '/lang/test');
+        $.get(environmentConfig[applicationConfig.environment].api.root +
+          '/lang/test');
 
         $(document).ajaxError(function() {
           expect(errorHandler.currentErrors).to.have.length(1);
@@ -51,7 +54,8 @@ define([
         
         Chaplin.mediator.subscribe('errorHandler:catch', callback);
 
-        $.get(applicationConfig.api.root + '/lang/test');
+        $.get(environmentConfig[applicationConfig.environment].api.root +
+          '/lang/test');
       });
     });
     describe('#publishCurrentErrors()', function() {
@@ -81,8 +85,10 @@ define([
 
           Chaplin.mediator.subscribe('errorHandler:throw', callback);
 
-          $.get(applicationConfig.api.root + '/lang/test');
-          $.get(applicationConfig.api.root + '/lang/test');
+          $.get(environmentConfig[applicationConfig.environment].api.root +
+            '/lang/test');
+          $.get(environmentConfig[applicationConfig.environment].api.root +
+            '/lang/test');
         }
       );
       it('should not publish if no errors', function(done) {
@@ -122,7 +128,8 @@ define([
 
         errorHandler.isLocked = true;
 
-        $.get(applicationConfig.api.root + '/lang/test');
+        $.get(environmentConfig[applicationConfig.environment].api.root +
+          '/lang/test');
       });
       it('should collect current errors to errors basket', function(done) {
         $(document).ajaxComplete(function() {
@@ -136,7 +143,8 @@ define([
           done();
         });
         
-        $.get(applicationConfig.api.root + '/lang/test');
+        $.get(environmentConfig[applicationConfig.environment].api.root +
+          '/lang/test');
       });
       it('should clean current errors', function(done) {
         $(document).ajaxComplete(function() {
@@ -145,7 +153,8 @@ define([
           done();
         });
         
-        $.get(applicationConfig.api.root + '/lang/test');
+        $.get(environmentConfig[applicationConfig.environment].api.root +
+          '/lang/test');
       });
     });
   });

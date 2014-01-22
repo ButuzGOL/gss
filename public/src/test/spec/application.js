@@ -6,13 +6,14 @@ define([
   'chaplin',
   'application',
   'config/application',
+  'config/environment',
   'config/backend',
   'nprogress',
   'mediator',
   'lib/error-handler',
   'i18n'
 ], function(expect, sinon, _, $, Chaplin, Application, applicationConfig,
-  backendConfig, NProgress, mediator, ErrorHandler, i18n) {
+  environmentConfig, backendConfig, NProgress, mediator, ErrorHandler, i18n) {
   'use strict';
   
   describe('Application', function() {
@@ -94,7 +95,9 @@ define([
 
           beforeEach(function() {
             Application.prototype.initConfig = function() {
-              return $.get(applicationConfig.api.root + '/notfound');
+              return $.get(
+                environmentConfig[applicationConfig.environment].api.root +
+                '/notfound');
             };
           });
           afterEach(function() {
@@ -256,7 +259,9 @@ define([
           var ajax = Application.prototype.initConfig();
           ajax.abort();
           ajax.always(function() {
-            expect(this.url).to.be(applicationConfig.api.root + '/config');
+            expect(this.url).to.be(
+              environmentConfig[applicationConfig.environment].api.root +
+              '/config');
             done();
           });
         });
@@ -299,7 +304,8 @@ define([
           describe('call backend for localization', function() {
             it('should call backend for localization', function(done) {
               $(document).ajaxComplete(function(event, jqxhr, settings) {
-                expect(settings.url).to.be(applicationConfig.api.root +
+                expect(settings.url).to.be(
+                  environmentConfig[applicationConfig.environment].api.root +
                   '/locales/' + applicationConfig.locale);
 
                 $(document).off('ajaxComplete');
@@ -318,8 +324,9 @@ define([
                 data = require('json!config/locales/' +
                   applicationConfig.locale + '.json');
                 
-                $.get(applicationConfig.api.root + '/locales/' +
-                  applicationConfig.locale).done(
+                $.get(
+                  environmentConfig[applicationConfig.environment].api.root +
+                  '/locales/' + applicationConfig.locale).done(
                   function(response) {
                     expect(i18n.options.resStore.en.translation).to.
                       eql(_.extend({}, data, response));
@@ -337,19 +344,22 @@ define([
             });
             context('when fail', function() {
               it('should send exists data', function(done) {
-                var apiRoot = applicationConfig.api.root,
+                var apiRoot =
+                    environmentConfig[applicationConfig.environment].api.root,
                     data,
                     callback;
 
                 callback = function() {
                   expect(i18n.options.resStore.en.translation).to.eql(data);
               
-                  applicationConfig.api.root = apiRoot;
+                  environmentConfig[applicationConfig.environment].api.root =
+                    apiRoot;
                   
                   done();
                 };
 
-                applicationConfig.api.root = 'http://localhost:30001';
+                environmentConfig[applicationConfig.environment].api.root =
+                  'http://localhost:30001';
 
                 Application.prototype.initLocale(callback);
 

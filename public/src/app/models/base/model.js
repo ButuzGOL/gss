@@ -10,8 +10,10 @@ define([
   'jquery',
   'chaplin',
   'config/application',
+  'config/environment',
   'lib/utils'
-], function(require, _, $, Chaplin, applicationConfig, utils) {
+], function(require, _, $, Chaplin, applicationConfig, environmentConfig,
+ utils) {
   'use strict';
 
   /**
@@ -28,7 +30,7 @@ define([
      * @property apiRoot
      * @type {string}
      */
-    apiRoot: applicationConfig.api.root,
+    apiRoot: environmentConfig[applicationConfig.environment].api.root,
     /**
      * Url path for crud will throw error if undefined so 
      * it should be overridden

@@ -6,8 +6,10 @@ define([
 
   'models/base/model',
   'config/application',
+  'config/environment',
   'lib/utils'
-], function(expect, _, $, mediator, Model, applicationConfig, utils) {
+], function(expect, _, $, mediator, Model, applicationConfig, environmentConfig,
+  utils) {
   'use strict';
   
   describe('Model', function() {
@@ -22,7 +24,8 @@ define([
 
     describe('#apiRoot', function() {
       it('should return api root from config', function() {
-        expect(model.apiRoot).to.be(applicationConfig.api.root);
+        expect(model.apiRoot).to.be(
+          environmentConfig[applicationConfig.environment].api.root);
       });
     });
 
@@ -102,7 +105,8 @@ define([
           };
 
           expect(model.url()).to.
-            be(applicationConfig.api.root + url + '?' + $.param(params));
+            be(environmentConfig[applicationConfig.environment].api.root +
+              url + '?' + $.param(params));
         });
         it('should merge #urlRoot() with payload by &', function() {
           var url = '/test?test1=test1',
@@ -114,7 +118,8 @@ define([
           };
 
           expect(model.url()).to.
-            be(applicationConfig.api.root + url + '&' + $.param(params));
+            be(environmentConfig[applicationConfig.environment].api.root +
+              url + '&' + $.param(params));
         });
       });
 
@@ -128,7 +133,8 @@ define([
             return params;
           };
 
-          expect(model.url()).to.be(applicationConfig.api.root + url);
+          expect(model.url()).to.be(
+            environmentConfig[applicationConfig.environment].api.root + url);
         });
       });
     });
