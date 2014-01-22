@@ -279,8 +279,7 @@ module.exports = function(grunt) {
       },
       install: {
         options: {
-          targetDir: './src/components',
-          install: true
+          targetDir: '<%= paths.src %>/components'
         }
       }
     },
