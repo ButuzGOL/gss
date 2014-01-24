@@ -1,5 +1,8 @@
 language: node_js
 node_js:
-  - '0.10'
+- '0.10'
 services:
-  - mongodb
+- mongodb
+env:
+  global:
+    secure: qIMPPradztF6veoAY7D1GA25BRndKsfIHdkbVvDYXoqr9IseJEKzLj0ovy/nPd/5fcxzG2D/+I6dNIX7tLaowv82BVff0dmBgmcklY5sLphgIaUEuqDpvduJoA+29SyP0oQzEV8SjLnqbXCzCmV1uLeNe1+VgtLkRZKnCMQNRfY=

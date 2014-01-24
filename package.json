@@ -13,7 +13,8 @@
       "pattern": "app",
       "data-cover-never": "node_modules"
     },
-    "test": "mocha test/spec --recursive -R spec"
+    "test": "mocha test/spec --recursive -R spec",
+    "coveralls": "NODE_ENV=test YOURPACKAGE_COVERAGE=1 ./node_modules/.bin/mocha test/spec --recursive -R spec --require blanket   --reporter mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js"
   },
   "engines": {
     "node": "0.10.x",
@@ -31,12 +32,14 @@
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
     "passport-http-bearer": "~1.0.1",
-    "lodash": "~2.2.0",
+    "lodash": "~2.4.1",
     "uid": "0.0.2",
     "Faker": "~0.5.11",
-    "should": "~2.0.1",
-    "supertest": "~0.8.0",
-    "mocha": "~1.15.0"
+    "should": "~3.1.0",
+    "supertest": "~0.9.0",
+    "mocha": "~1.17.1",
+    "coveralls": "~2.6.1",
+    "mocha-lcov-reporter": "0.0.1"
   },
   "devDependencies": {
     "casper": "~0.1.1",
