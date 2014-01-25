@@ -14,6 +14,82 @@ The project structure is divided into two parts, the frontend and backend. This 
 Also in this project you can find a few examples (authorization using passport, test coverage on frontend, etc.)   
 And of course **[Demo](http://butuzgol-gss.herokuapp.com/)** (email@email.com:password)
 
+## Technologies
+#### Backend (MVC)
+- Express
+- Mongoose
+- Winston
+- Passport
+
+**Test**
+- Mocha
+- Should
+- Supertest
+- Blanket
+- Casper
+- Benchmark
+
+#### Frontend (MVC)
+- [Yo generator](https://github.com/ButuzGOL/generator-chaplinjs)
+- Grunt
+- Bower
+- Require
+- Backbone
+- Chaplin
+- Bootstrap
+- Ejs
+- Stylus
+- YUIDoc
+
+**Test**
+- Mocha
+- Expect
+- Sinon
+- Blanket
+- Casper
+- Benchmark
+
+## Usage
+**Run Development**
+```
+npm install
+mongod
+node server
+cd public
+grunt server
+```
+**Run Production**
+```
+npm install
+mongod
+node server
+```
+**Test**
+```
+mongod
+mocha test/spec --recursive -R spec
+// Coverage
+mocha test/spec --recursive -r blanket -R html-cov > coverage.html
+open coverage.html
+// Frontend
+cd public
+grunt test
+// html
+grunt server
+visit http://localhost:9000/test/spec/index.html
+visit http://localhost:9000/test/spec/coverage.html
+```
+**Frontend commands**
+```
+cd public
+grunt (running lint and test)
+grunt server (running dev frontend server)
+grunt prepare (gather static from bower)
+grunt build
+grunt lint
+grunt docs (build docs)
+```
+
 ## File structure
 ```
 -app/
@@ -96,80 +172,4 @@ And of course **[Demo](http://butuzgol-gss.herokuapp.com/)** (email@email.com:pa
  |--bower.json
  |--yuidoc.json
  |--package.json
-```
-
-## Technologies
-#### Backend (MVC)
-- Express
-- Mongoose
-- Winston
-- Passport
-
-**Test**
-- Mocha
-- Should
-- Supertest
-- Blanket
-- Casper
-- Benchmark
-
-#### Frontend (MVC)
-- [Yo generator](https://github.com/ButuzGOL/generator-chaplinjs)
-- Grunt
-- Bower
-- Require
-- Backbone
-- Chaplin
-- Bootstrap
-- Ejs
-- Stylus
-- YUIDoc
-
-**Test**
-- Mocha
-- Expect
-- Sinon
-- Blanket
-- Casper
-- Benchmark
-
-## Usage
-**Run Development**
-```
-npm install
-mongod
-node server
-cd public
-grunt server
-```
-**Run Production**
-```
-npm install
-mongod
-node server
-```
-**Test**
-```
-mongod
-mocha test/spec --recursive -R spec
-// Coverage
-mocha test/spec --recursive -r blanket -R html-cov > coverage.html
-open coverage.html
-// Frontend
-cd public
-grunt test
-// html
-grunt server
-visit http://localhost:9000/test/spec/index.html
-visit http://localhost:9000/test/spec/coverage.html
-```
-**Frontend commands**
-```
-cd public
-grunt (running lint and test)
-grunt server (running dev frontend server)
-grunt prepare (gather static from bower)
-grunt build
-grunt lint
-grunt docs (build docs)
 ```
