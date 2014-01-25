@@ -14,7 +14,8 @@ define(function() {
     },
     production: {
       api: {
-        root: window.location.protocol + '//' + window.location.hostname
+        root: window.location.protocol + '//' + window.location.hostname +
+          ((window.location.port) ? ':' + window.location.port : '')
       }
     },
     test: {
