@@ -9,7 +9,8 @@ var request = require('supertest'),
     User = require('../../../app/models/user');
 
 describe('Sessions', function() {
-  var fakeUser = {
+  var user,
+      fakeUser = {
       email: 'foobar@example.com',
       password: 'foobar'
     };
@@ -28,7 +29,9 @@ describe('Sessions', function() {
         .field('email', 'foobar1@example.com')
         .field('password', fakeUser.password)
         .expect(200, function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           
           res.body.should.have.property('message', 'Unknown user');
 
@@ -41,7 +44,9 @@ describe('Sessions', function() {
         .field('email', fakeUser.email)
         .field('password', 'foobar1')
         .expect(200, function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           
           res.body.should.have.property('message', 'Invalid password');
 
@@ -54,7 +59,9 @@ describe('Sessions', function() {
         .field('email', fakeUser.email)
         .field('password', fakeUser.password)
         .expect(200, function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           
           res.body.should.have.property('accessToken');
           res.body.accessToken.should.be.ok;
@@ -75,7 +82,9 @@ describe('Sessions', function() {
     it('should signout', function(done) {
       helper.signin(request(app), fakeUser)
         .expect(200, function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
             
           request(app)
             .del(helper.addAccessTokenToUrl('/signout', res.body.accessToken))

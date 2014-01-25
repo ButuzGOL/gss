@@ -9,21 +9,26 @@ var request = require('supertest'),
     User = require('../../../app/models/user');
 
 describe('Users', function() {
-  var fakeUser = {
-        email: 'foobar@example.com',
-        password: 'foobar'
-      },
-      accessToken,
-      signin = function(done) {
-        helper.signin(request(app), fakeUser)
-          .expect(200, function(err, res) {
-            if (err) return done(err);
-            
-            accessToken = res.body.accessToken;
+  var accessToken,
+      user,
+      signin,
+      fakeUser = {
+      email: 'foobar@example.com',
+      password: 'foobar'
+    };
+      
+  signin = function(done) {
+    helper.signin(request(app), fakeUser)
+      .expect(200, function(err, res) {
+        if (err) {
+          return done(err);
+        }
+        
+        accessToken = res.body.accessToken;
 
-            done();
-          });
-      };
+        done();
+      });
+  };
 
   before(function(done) {
     User.remove(function() {
@@ -50,10 +55,12 @@ describe('Users', function() {
         request(app)
           .get(helper.addAccessTokenToUrl('/users/me', accessToken))
           .expect(200, function(err, res) {
-            if (err) return done(err);
+            if (err) {
+              return done(err);
+            }
             
             res.body.should.have.property('_id');
-            res.body['_id'].should.be.ok;
+            res.body._id.should.be.ok;
 
             done();
           });

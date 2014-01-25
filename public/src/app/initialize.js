@@ -20,6 +20,6 @@ window.log = function() {
   'use strict';
 
   try {
-    return console.log.apply(console, arguments);
+    return window.console.log.apply(window.console, arguments);
   } catch (error) {}
 };

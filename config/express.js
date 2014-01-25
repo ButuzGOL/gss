@@ -7,7 +7,7 @@ module.exports = function(app, config, passport) {
   
   app.use(express.compress({
     filter: function(req, res) {
-      return /json|text|javascript|css/.test(res.getHeader('Content-Type'));
+      return (/json|text|javascript|css/).test(res.getHeader('Content-Type'));
     },
     level: 9
   }));
@@ -29,7 +29,7 @@ module.exports = function(app, config, passport) {
       store: new mongoStore({
         url: config.db,
         collection: 'sessions',
-        auto_reconnect: true
+        'auto_reconnect': true
       })
     }));
 

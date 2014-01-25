@@ -43,7 +43,8 @@ module.exports = function(passport) {
           }
         });
       });
-  }));
+    })
+  );
 
   passport.use(new BearerStrategy({}, function(accessToken, done) {
     process.nextTick(function() {
@@ -63,7 +64,8 @@ module.exports = function(passport) {
             return done(null, false,
               { message: message });
           }
-      });
+        }
+      );
     });
   }));
   

@@ -11,7 +11,9 @@ describe('Config', function() {
       request(app)
         .get('/config')
         .expect(200, function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           
           res.body.should.eql(frontendConfig);
 

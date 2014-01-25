@@ -11,7 +11,9 @@ describe('Locales', function() {
       request(app)
         .get('/locales/en')
         .expect(200, function(err, res) {
-          if (err) return done(err);
+          if (err) {
+            return done(err);
+          }
           
           res.body.should.eql(locale);
 

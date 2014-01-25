@@ -1,10 +1,10 @@
 var should = require('should'),
 
-    app = require('../server'),
-    
     factories = require('../factories'),
 
     User = require('../../../app/models/user');
+
+require('../server');
 
 describe('User', function() {
   var user;
@@ -46,7 +46,7 @@ describe('User', function() {
       it('should be wrong email', function(done) {
         user.email = 'foobarexample.com';
         
-        user.save(function(err, user) {
+        user.save(function(err) {
           should.exist(err);
           err.errors.email.should.have.property('type', 'regexp');
           done();
@@ -56,8 +56,8 @@ describe('User', function() {
       it('should be unique email', function(done) {
         var anotherUser = factories.createUser();
 
-        user.save(function(err, user) {
-          anotherUser.save(function(err, anotherUser) {
+        user.save(function() {
+          anotherUser.save(function(err) {
             should.exist(err);
             err.err.should.match(/duplicate.*?email/);
             done();
@@ -90,5 +90,5 @@ describe('User', function() {
         });
       });
     });
-  })
+  });
 });
