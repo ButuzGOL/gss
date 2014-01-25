@@ -152,18 +152,18 @@ grunt docs (build docs)
        |--main.js
        |--initialize.js
     |--test/
-    |--automation
-    |--benchmark
-    |--spec
-       |--controllers/
-       |--models/
-       |--helpers/
-       |--lib/
-       |--views/
-       |--index.html
-       |--coverage.html
-       |--helper.js
-       |--initialize.js
+       |--automation
+       |--benchmark
+       |--spec
+          |--controllers/
+          |--models/
+          |--helpers/
+          |--lib/
+          |--views/
+          |--index.html
+          |--coverage.html
+          |--helper.js
+          |--initialize.js
     |--vendor/
        |--scripts/
        |--styles/
