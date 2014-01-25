@@ -10,7 +10,7 @@ require([
 ], function(Application, routes, applicationConfig) {
   'use strict';
 
-  new Application({
+  window.GSSApp = new Application({
     routes: routes,
     controllerSuffix: applicationConfig.controllerSuffix
   });
