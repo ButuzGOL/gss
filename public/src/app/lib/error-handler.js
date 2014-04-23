@@ -52,7 +52,7 @@ define([
   });
 
   /**
-   * Subscibing for ajax event and 
+   * Subscibing for ajax event and
    * listening for errors
    * After ajax complete moving them
    *
@@ -61,10 +61,10 @@ define([
    */
   ErrorHandler.prototype.subscribeForAjaxEvents = function() {
     var _this = this;
-    
+
     $(document).ajaxError(function(event, jqxhr) {
       var error;
-      
+
       if (jqxhr.responseJSON) {
         error = jqxhr.responseJSON;
       } else {
@@ -74,7 +74,7 @@ define([
           description: ''
         };
       }
-      
+
       _this.currentErrors.push(error);
       _this.publishEvent('errorHandler:catch', _.last(_this.currentErrors));
     });
@@ -85,7 +85,7 @@ define([
   };
 
   /**
-   * Publishing current errors 
+   * Publishing current errors
    * if it hasn't ajax reqeusts and isn't locked
    *
    * @method publishCurrentErrors

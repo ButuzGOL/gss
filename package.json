@@ -21,10 +21,10 @@
     "npm": "1.2.x"
   },
   "dependencies": {
-    "express": "latest",
+    "express": "3.5.1",
     "jade": "latest",
     "stylus": "latest",
-    "mongoose": "latest",
+    "mongoose": "3.6.x",
     "connect-mongo": "latest",
     "connect-assets": "latest",
     "winston": "~0.7.2",

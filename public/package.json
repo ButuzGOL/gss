@@ -38,5 +38,8 @@
   },
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install; ./node_modules/grunt-cli/bin/grunt prepare; ./node_modules/grunt-cli/bin/grunt build"
+  },
+  "devDependencies": {
+    "grunt-blanket-mocha": "~0.4.0"
   }
 }

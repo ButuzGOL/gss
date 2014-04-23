@@ -2,17 +2,18 @@ define([
   'expect',
   'jquery',
   'chaplin',
+  'sinon',
 
   'config/application',
   'config/environment',
   'lib/error-handler'
-], function(expect, $, Chaplin, applicationConfig, environmentConfig,
-  ErrorHandler) {
+], function(expect, $, Chaplin, sinon, applicationConfig,
+  environmentConfig, ErrorHandler) {
   'use strict';
-  
+
   describe('ErrorHandler', function() {
     var errorHandler;
-      
+
     beforeEach(function() {
       errorHandler = new ErrorHandler();
     });
@@ -34,7 +35,7 @@ define([
             description: '',
             message: undefined
           });
-          
+
           done();
         });
       });
@@ -51,7 +52,7 @@ define([
 
           done();
         };
-        
+
         Chaplin.mediator.subscribe('errorHandler:catch', callback);
 
         $.get(environmentConfig[applicationConfig.environment].api.root +
@@ -93,9 +94,14 @@ define([
       );
       it('should not publish if no errors', function(done) {
         var wasCalled = false,
-          callback = function() {
-            wasCalled = true;
-          };
+            server = sinon.fakeServer.create(),
+            callback;
+
+        callback = function() {
+          wasCalled = true;
+        };
+
+        server.respondWith('GET', '/', '');
 
         Chaplin.mediator.subscribe('errorHandler:throw', callback);
 
@@ -103,14 +109,17 @@ define([
           expect(wasCalled).to.be(false);
 
           Chaplin.mediator.unsubscribe('errorHandler:throw', callback);
-          
+
+          server.restore();
+
           done();
         });
 
         $.get('/');
+        server.respond();
       });
       it('should not publish if locked', function(done) {
-        
+
         var wasCalled = false,
           callback = function() {
             wasCalled = true;
@@ -122,7 +131,7 @@ define([
           expect(wasCalled).to.be(false);
 
           Chaplin.mediator.unsubscribe('errorHandler:throw', callback);
-          
+
           done();
         });
 
@@ -139,20 +148,20 @@ define([
             description: '',
             message: undefined
           });
-          
+
           done();
         });
-        
+
         $.get(environmentConfig[applicationConfig.environment].api.root +
           '/lang/test');
       });
       it('should clean current errors', function(done) {
         $(document).ajaxComplete(function() {
           expect(errorHandler.currentErrors).to.be.empty();
-          
+
           done();
         });
-        
+
         $.get(environmentConfig[applicationConfig.environment].api.root +
           '/lang/test');
       });

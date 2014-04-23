@@ -11,7 +11,7 @@ require.config({
     chaplin: '../bower_components/chaplin/chaplin',
     sinon: '../bower_components/sinonjs/sinon',
     expect: '../bower_components/expect/expect',
-    i18n: '../bower_components/i18next/release/i18next.amd-1.7.1.min',
+    i18n: '../bower_components/i18next/i18next.amd.min',
     jquery: '../bower_components/jquery/jquery',
     underscore: '../bower_components/lodash/dist/lodash.compat',
     nprogress: '../vendor/scripts/nprogress/nprogress',

@@ -3,13 +3,13 @@ require([
   'config/application'
 ], function(require, applicationConfig) {
   'use strict';
-  
+
   applicationConfig.environment = 'test';
-  
+
   require([
     '../test/spec/lib/error-handler',
     '../test/spec/lib/utils',
-    
+
     '../test/spec/helpers/application',
     '../test/spec/helpers/sessions',
 
@@ -20,7 +20,7 @@ require([
     '../test/spec/controllers/pages',
     '../test/spec/controllers/errors',
     '../test/spec/controllers/sessions',
-    
+
     '../test/spec/models/base/model',
     '../test/spec/models/base/collection',
     '../test/spec/models/user',

@@ -115,7 +115,7 @@ module.exports = function(grunt) {
     },
     requirejs: {
       dist: {
-        // Options: 
+        // Options:
         // https://github.com/jrburke/r.js/blob/master/build/example.build.js
         options: {
           name: 'main',
@@ -295,6 +295,13 @@ module.exports = function(grunt) {
     },
     yuidoc: {
       compile: grunt.file.readJSON('yuidoc.json')
+    },
+    'blanket_mocha': {
+      src: 'src/test/spec/coverage.back.html',
+      options: {
+        threshold: 80,
+        run: false
+      }
     }
   });
 
@@ -323,7 +330,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'connect:test',
-    'mocha'
+    'mocha',
+    'blanket_mocha'
   ]);
 
   grunt.registerTask('build', function(environment) {
@@ -331,7 +339,7 @@ module.exports = function(grunt) {
       grunt.config('requirejs.dist.options.generateSourceMaps', false);
       grunt.config('requirejs.dist.options.preserveLicenseComments', true);
     }
-    
+
     grunt.task.run([
       'jshint',
       'test',

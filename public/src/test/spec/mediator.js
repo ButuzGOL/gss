@@ -2,14 +2,15 @@ define([
   'expect',
   'jquery',
   'chaplin',
+  'sinon',
   'mediator',
   'models/user',
   'config/application',
   'config/environment'
-], function(expect, $, Chaplin, mediator, User, applicationConfig,
+], function(expect, $, Chaplin, sinon, mediator, User, applicationConfig,
   environmentConfig) {
   'use strict';
-  
+
   describe('Mediator', function() {
     it('should be Chaplin mediator', function() {
       expect(mediator).to.equal(Chaplin.mediator);
@@ -30,7 +31,7 @@ define([
     });
     describe('#signin()', function() {
       var accessToken = 'test';
-      
+
       it('should return deferred object', function(done) {
         var signin = mediator.signin(accessToken);
 
@@ -62,7 +63,7 @@ define([
         mediator.signin(accessToken).fail(function() {
           done();
         });
-        
+
         expect(window.localStorage.getItem('accessToken')).to.be(accessToken);
       });
       it('should create user with calling #createUser()', function(done) {
@@ -87,9 +88,9 @@ define([
 
           User.prototype.fetch = function() {
             User.prototype.fetch = fetch;
-            
+
             mediator.removeUser();
-            
+
             done();
 
             return $.Deferred();
@@ -101,8 +102,11 @@ define([
           it('should publish signinStatus true',
             function(done) {
               var callback,
-                  fetch = User.prototype.fetch;
-                  
+                  fetch = User.prototype.fetch,
+                  server = sinon.fakeServer.create();
+
+              server.respondWith('GET', '/', '');
+
               User.prototype.fetch = function() {
                 User.prototype.fetch = fetch;
                 return $.get('/');
@@ -114,12 +118,15 @@ define([
 
                 mediator.removeUser();
 
+                server.restore();
                 done();
               };
 
               Chaplin.mediator.subscribe('signinStatus', callback);
 
               mediator.signin(accessToken);
+
+              server.respond();
             }
           );
         });
@@ -174,7 +181,7 @@ define([
 
         mediator.user = new User();
         mediator.signout();
-        
+
         expect(window.localStorage.getItem('accessToken')).to.be(null);
       });
       it('should remove user with calling #removeUser()', function(done) {
