@@ -300,7 +300,19 @@ module.exports = function(grunt) {
       src: 'src/test/spec/coverage.back.html',
       options: {
         threshold: 80,
+        globalThreshold: 80,
         run: false
+      }
+    },
+    karma: {
+      test: {
+        configFile: 'karma.conf.js',
+        singleRun: true,
+        browsers: ['PhantomJS']
+      },
+      unit: {
+        configFile: 'karma.conf.js',
+        browsers: ['Chrome', 'Firefox', 'Safari']
       }
     }
   });

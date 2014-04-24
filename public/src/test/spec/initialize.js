@@ -40,7 +40,10 @@ require([
     '../test/spec/views/pages/home-page',
     '../test/spec/views/sessions/new-form'
   ], function() {
-    if (window.mochaPhantomJS) {
+
+    if (window.__karma__) {
+      window.__karma__.start();
+    } else if (window.mochaPhantomJS) {
       window.mochaPhantomJS.run();
     } else {
       window.mocha.run();

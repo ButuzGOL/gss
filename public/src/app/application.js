@@ -23,7 +23,7 @@ define([
 ], function($, _, Chaplin, mediator, applicationConfig, environmentConfig,
   backendConfig, i18n, NProgress, Layout, ErrorHandler, utils) {
   'use strict';
-  
+
   /**
    * Application bootstrap
    *
@@ -52,16 +52,16 @@ define([
       var _this = this,
           callback,
           callbackWithDelay;
-      
+
       // Forward up after all ready
       callback = function() {
         Chaplin.Application.prototype.start.apply(_this);
       };
-      
+
       callbackWithDelay = _.after(2, callback);
-      
+
       NProgress.start();
-      
+
       this.initErrorHandler();
       this.initConfig().done(function() {
         _this.initAuth(callbackWithDelay);
@@ -72,7 +72,7 @@ define([
       });
     },
     /**
-     * Lock errorHandler then 
+     * Lock errorHandler then
      * subscribing to messageView:ready and
      * on event unlock errorHandler and
      * if will have errors show them
@@ -83,7 +83,7 @@ define([
     initErrorHandler: function() {
       var _this = this,
           callback;
-      
+
       mediator.errorHandler = new ErrorHandler();
       mediator.errorHandler.isLocked = true;
 
@@ -108,7 +108,7 @@ define([
       var _this = this,
           modifiedCallback,
           accessToken = window.localStorage.getItem('accessToken');
-      
+
       if (!accessToken) {
         callback();
       } else {
@@ -137,7 +137,7 @@ define([
       );
     },
     /**
-     * Getting current locale, fetching locale from backend and 
+     * Getting current locale, fetching locale from backend and
      * merge them, if error en by default
      *
      * method initLocale
@@ -147,7 +147,7 @@ define([
     initLocale: function(callback) {
       var localeCallback,
           prepareCallback;
-      
+
       prepareCallback = function(data) {
         var processCallback = function(data, locale) {
           var resStore = {},
@@ -159,7 +159,7 @@ define([
 
           resStore[locale] = {};
           resStore[locale][ns] = data;
-          
+
           i18n.init({
             lng: locale,
             resStore: resStore
@@ -177,7 +177,7 @@ define([
           processCallback(data);
         }
       };
-      
+
       localeCallback = function(data) {
         utils.ajax(environmentConfig[applicationConfig.environment].api.root +
           '/locales/' + applicationConfig.locale).done(
@@ -214,7 +214,7 @@ define([
       mediator.user = null;
       mediator.errorHandler = null;
       mediator.applicationError = false;
-      
+
       Chaplin.Application.prototype.initMediator.call(this, arguments);
     }
   });

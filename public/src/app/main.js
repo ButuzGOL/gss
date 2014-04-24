@@ -1,11 +1,28 @@
+var deps,
+    baseUrl;
+
+if (typeof window !== 'undefined') {
+  if (window.__karma__) {
+    deps  = ['/base/src/test/spec/initialize.js'];
+    baseUrl = '/base/src/app/';
+  } else if (window.mocha) {
+    deps = ['../test/spec/initialize'];
+    baseUrl = '../../app/';
+  } else if (window.Benchmark) {
+    deps = ['../test/benchmark/initialize'];
+    baseUrl = '../../app/';
+  } else {
+    deps = ['initialize'];
+    baseUrl = 'app/';
+  }
+} else {
+  deps = ['initialize'];
+  baseUrl = 'app/';
+}
 
 require.config({
-  deps: (typeof window !== 'undefined' && window.mocha) ?
-    ['../test/spec/initialize'] :
-    ((typeof window !== 'undefined' && window.Benchmark) ?
-      ['../test/benchmark/initialize'] : ['initialize']),
-  baseUrl: (typeof window !== 'undefined' &&
-    (window.mocha || window.Benchmark)) ? '../../app/' : 'app/',
+  deps: deps,
+  baseUrl: baseUrl,
   paths: {
     backbone: '../bower_components/backbone/backbone',
     chaplin: '../bower_components/chaplin/chaplin',
