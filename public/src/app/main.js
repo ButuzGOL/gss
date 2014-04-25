@@ -1,5 +1,5 @@
-var deps,
-    baseUrl;
+var deps = ['initialize'],
+    baseUrl = 'app/';
 
 if (typeof window !== 'undefined') {
   if (window.__karma__) {
@@ -11,18 +11,12 @@ if (typeof window !== 'undefined') {
   } else if (window.Benchmark) {
     deps = ['../test/benchmark/initialize'];
     baseUrl = '../../app/';
-  } else {
-    deps = ['initialize'];
-    baseUrl = 'app/';
   }
-} else {
-  deps = ['initialize'];
-  baseUrl = 'app/';
 }
 
 require.config({
-  deps: deps,
-  baseUrl: baseUrl,
+  deps: (typeof deps !== 'undefined') ? deps : ['initialize'],
+  baseUrl: (typeof baseUrl !== 'undefined') ? baseUrl : 'app/',
   paths: {
     backbone: '../bower_components/backbone/backbone',
     chaplin: '../bower_components/chaplin/chaplin',
