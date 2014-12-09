@@ -1,5 +1,4 @@
 # JavaScript skeleton(starter, example) using Express and Chaplin
-[ ![Codeship Status for ButuzGOL/gss](https://www.codeship.io/projects/f207da30-66f1-0131-7b0a-7ac0e27144fd/status?branch=master)](https://www.codeship.io/projects/12642)
 [![Build Status](https://travis-ci.org/ButuzGOL/gss.png?branch=master)](https://travis-ci.org/ButuzGOL/gss)
 [![Coverage Status](https://coveralls.io/repos/ButuzGOL/gss/badge.png?branch=master)](https://coveralls.io/r/ButuzGOL/gss?branch=master)
 [![Dependency Status](https://gemnasium.com/ButuzGOL/gss.png)](https://gemnasium.com/ButuzGOL/gss)
